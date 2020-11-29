@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="../../static/css/dynamic.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="../../static/layui/css/layui.css"  media="all">
+</head>
+<body>
+    <div class="content">
+
+        <div class="content_left">
+            <ul class="menu">
+                <li>全部</li>
+                <li>动态</li>
+                <li>影评</li>
+            </ul>
+            <div class="all">
+                <div class="item">
+                    <div class="headPortrait">
+                        <div style="background-image: url(../../static/img/img1.jpg)"></div>
+                    </div>
+                    <div class="main_content">
+                        <span>
+                            匿名用户
+                        </span>
+                        <span>
+                            2020.10.28 05:20
+                        </span>
+                        <div class="text">
+                            多加一星敬英灵。希望有一天我们的艺术作品能够不被意识形态所束缚，升旗升得堂堂正正。
+                        </div>
+                        <div class="score"></div>
+                        <div class="film">
+                            <div class="filmCover" style="background-image: url(../../static/img/hml2.jpg)">
+                                <div class="tag-vertical discount">5.6</div>
+                            </div>
+                            <div class="filmInfo">
+                                <span>花木兰</span>
+                                <span>导演：妮琪·卡罗</span>
+                                <span>剧情,冒险</span>
+                                <span>2020-09-11上映</span>
+                            </div>
+                        </div>
+                    </div>
+                    <span><i class="layui-icon">&#xe671;</i></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="content_right">
+
+        </div>
+
+    </div>
+
+    <script src="../../static/layui/layui.js" charset="utf-8"></script>
+
+    <th:block th:fragment="userInfo_js">
+        <script>
+            layui.use('rate', function(){
+                var rate = layui.rate;
+                //渲染
+                var ins1 = rate.render({
+                    elem: '.score', //绑定元素
+                    value: 4.5,
+                    half: true,
+                    readonly: true,
+                    text: true,
+                    setText: function(value){ //自定义文本的回调
+                        var arrs = {
+                            '1': '惨不忍睹',
+                            '1.5': '惨不忍睹',
+                            '2': '差强人意',
+                            '2.5': '差强人意',
+                            '3': '可以一试',
+                            '3.5': '可以一试',
+                            '4': '佳片推荐',
+                            '4.5': '佳片推荐',
+                            '5': '必看影片',
+                            '5.5': '必看影片'
+                        };
+                        this.span.text(value+'星 '+' " '+arrs[value]+' " ');
+                    }
+                });
+            });
+        </script>
+
+        <script>
+
+            layui.use('layer', function(){ //独立版的layer无需执行这一句
+                var $ = layui.jquery, layer = layui.layer; //独立版的layer无需执行这一句
+
+                //触发事件
+                var active = {
+                    notice: function(){
+                        //示范一个公告层
+                        layer.open({
+                            type: 1
+                            ,title: false //不显示标题栏
+                            ,closeBtn: false
+                            ,area: '300px;'
+                            ,shade: [0.6,'#7a7a7b']
+                            ,anim: 2
+                            ,id: 'LAY_layuipro' //设定一个id，防止重复弹出
+                            ,btn: ['删除', '点错了']
+                            ,btnAlign: 'c'
+                            ,moveType: 1 //拖拽模式，0或者1
+                            ,content: '<div style="padding: 50px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;">确定要删除此条动态吗？</div>'
+                            ,success: function(layero){
+                                var btn = layero.find('.layui-layer-btn');
+                                btn.find('.layui-layer-btn0').attr({
+                                    href: 'http://www.layui.com/'
+                                    ,target: '_blank'
+                                });
+                            }
+                        });
+                    }
+                };
+
+                $('.sc').on('click', function(){
+                    var othis = $(this), method = othis.data('method');
+                    active[method] ? active[method].call(this, othis) : '';
+                });
+
+            });
+
+        </script>
+    </th:block>
+
+</body>
+</html>

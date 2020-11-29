@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../../static/css/iconfont.css" type="text/css">
+    <link rel="stylesheet" href="../../static/css/userInfo_favorite.css" type="text/css">
+    <link rel="stylesheet" href="../../static/layui/css/layui.css"  media="all">
+</head>
+<body>
+    <div class="body">
+        <div class="menu">
+            影单
+        </div>
+        <div class="content">
+            <div class="content_left">
+                <span>
+                    我的创建
+                    <i class="iconfont up"></i>
+                    <button data-method="notice" class="add" style="margin:0 5px 0 auto;">
+                        <i class="iconfont">&#xe600;</i>
+                    </button>
+                </span>
+                <ul>
+                    <li class="iconfont select">医生，在平凡中通完不凡</li>
+                    <li class="iconfont">关于盗墓的电视剧</li>
+                    <li class="iconfont">勾心斗角古装剧</li>
+                </ul>
+                <span>我的收藏<i class="iconfont down"></i></span>
+                <ul>
+                    <li class="iconfont">看完可以装X的有趣纪录片</li>
+                    <li class="iconfont">打工人不可错过的纪录片</li>
+                    <li class="iconfont">这些电影让你读懂心理学</li>
+                </ul>
+            </div>
+            <div class="content_right">
+                <div class="favInfo">
+                    <div class="favInfo_cover" style="background-image: url(../../static/img/f.png)">
+                    </div>
+                    <div class="favInfo_details">
+                        <span>医生，在平凡中通往不凡</span>
+                        <div>
+                            <img src="../../static/img/zhl.png">
+                            <span>不捏泥人</span>
+                            <span>2019-10-28更新</span>
+                            <span>13部影片</span>
+                        </div>
+                        <span>可能会有人忘记，他们不是天生神力的天使，而只是凡人。一个做出了耀眼选择的凡人。</span>
+                        <span><i class="iconfont">&#xe8f8;</i>2546收藏</span>
+                    </div>
+                </div>
+                <ul>
+                    <li>
+                        <div style="background-image: url(../../static/img/index.jpg)"></div>
+                        <div class="filmInfo">
+                            <span>人间世 第一季</span>
+                            <span>导演：曾国祥</span>
+                            <span>电视剧 纪录片</span>
+                            <span>2019-10-25上映</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../static/layui/layui.js" charset="utf-8"></script>
+    <script>
+        layui.use('layer', function(){ //独立版的layer无需执行这一句
+            var $ = layui.jquery, layer = layui.layer; //独立版的layer无需执行这一句
+            //触发事件
+            var active = {
+                notice: function(){
+                    //示范一个公告层
+                    layer.open({
+                        type: 1
+                        ,title: false //不显示标题栏
+                        ,closeBtn: false
+                        ,area: '300px;'
+                        ,shade: 0.8
+                        ,id: 'LAY_layuipro' //设定一个id，防止重复弹出
+                        ,btn: ['火速围观', '残忍拒绝']
+                        ,btnAlign: 'c'
+                        ,moveType: 1 //拖拽模式，0或者1
+                        ,content: '<div style="padding: 50px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;">你知道吗？亲！<br>layer ≠ layui<br><br>layer只是作为Layui的一个弹层模块，由于其用户基数较大，所以常常会有人以为layui是layerui<br><br>layer虽然已被 Layui 收编为内置的弹层模块，但仍然会作为一个独立组件全力维护、升级。<br><br>我们此后的征途是星辰大海 ^_^</div>'
+                        ,success: function(layero){
+                            var btn = layero.find('.layui-layer-btn');
+                            btn.find('.layui-layer-btn0').attr({
+                                href: 'http://www.layui.com/'
+                                ,target: '_blank'
+                            });
+                        }
+                    });
+                }
+            };
+
+            $('.add').on('click', function(){
+                var othis = $(this), method = othis.data('method');
+                active[method] ? active[method].call(this, othis) : '';
+            });
+
+        });
+    </script>
+
+
+</body>
+</html>

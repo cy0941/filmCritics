@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <link rel="stylesheet" href="../../static/layui/css/layui.css" media="all">
+        <th:block th:fragment="index_head">
+            <link rel="stylesheet" href="../../static/css/index.css" type="text/css">
+        </th:block>
+        <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
+        <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js">
+        </script>
+    </head>
+
+<body>
+    <header th:fragment="index_topBar">
+        <ul class="layui-nav">
+            <li style="float:left; height:30px; width:auto; margin:auto;">
+              <img src="../../static/img/logo.png" style="height:60px; width:auto;">
+            </li>
+            <li class="layui-nav-item">
+                <a href="" style="color:#8590a6;">影评</a>
+            </li>
+            <li class="layui-nav-item">
+                <a href="" style="color:#8590a6;">影视</a>
+            </li>
+            <li class="layui-nav-item">
+                <a href="" style="color:#8590a6;">动态<span class="layui-badge">9</span></a>
+            </li>
+            <li class="layui-nav-item" style="float:right;">
+                <a href="" style="color:#8590a6;">注册</a>
+            </li>
+
+            <li class="layui-nav-item" lay-unselect="" style="float:right;">
+                <a href="javascript:;" style="color:#8590a6;"><img src="../../static/img/img1.jpg" class="layui-nav-img">我</a>
+                <dl class="layui-nav-child">
+                    <dd><a href="javascript:;" >修改信息</a></dd>
+                    <dd><a href="javascript:;">安全管理</a></dd>
+                    <dd><a href="javascript:;">退了</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item" style="float:right; margin-right:10px;">
+                <a href="" style="color:#8590a6;">消息<span class="layui-badge">9</span></a>
+            </li>
+
+            <li class="layui-nav-item search">
+                <form>
+                    <input type="text" placeholder="搜索">
+                </form>
+            </li>
+
+        </ul>
+    </header>
+
+    <script src="../../static/layui/layui.js" charset="utf-8"></script>
+
+    <th:block th:fragment="index_js">
+        <!-- Common scripts -->
+        <script src="../../static/js/index.js" charset="utf-8"></script>
+    </th:block>
+    <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+
+</body>
+</html>

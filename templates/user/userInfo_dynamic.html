@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <th:block th:fragment="userInfo_head">
+        <link rel="stylesheet" href="../../static/layui/css/layui.css"  media="all">
+        <link href="../../static/css/mask.css" type="text/css" rel="stylesheet">
+        <link href="../../static/css/userInfo_dynamic.css" type="text/css" rel="stylesheet">
+        <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js">
+        </script>
+        <script>
+
+            function showDel(_this){
+
+                $(_this).next().css('display','block')
+
+                /*if($(_this).next().hasClass("show")){
+                    $(_this).next().addClass('hide');
+                    $(_this).next().removeClass('show');
+                }else {
+                    $(_this).next().addClass('show')
+                    $(_this).next().removeClass('hide');
+                }*/
+
+            }
+
+            function hideDel(_this) {
+                $(_this).css('display','none');
+            }
+
+        </script>
+    </th:block>
+</head>
+<body>
+
+<div class="body">
+    <div class="content" th:fragment="userInfo_content">
+
+        <div class="content_left">
+
+            <div class="menu">
+                动态
+            </div>
+
+            <ul>
+
+                <li class="seenFilm">
+
+                    <div class="userInfo">
+                        <div class="userImg" style="background-image: url(../../static/img/img1.jpg);"></div>
+                        <div class="userName">
+                            <span>
+                                匿名用户
+                            </span>
+                            <span>
+                                09-24
+                            </span>
+                        </div>
+                        <div class="delete" onclick="showDel(this)">
+                            <i class="layui-icon">&#xe671;</i>
+                        </div>
+                        <div class="card hide" onmouseleave="hideDel(this)">
+                            <p><a class="sc" data-method="notice">删除</a></p>
+                        </div>
+                    </div>
+                    <div class="userContent">
+                        重温了几遍，它值得，五星好评以资鼓励！！！
+                    </div>
+                    <div class="userScore"></div>
+                    <div class="userFilm">
+                        <div class="filmCover" style="background-image: url(../../static/img/hml2.jpg)">
+                            <div class="tag-vertical discount">5.6</div>
+                        </div>
+                        <div class="filmInfo">
+                            <span>花木兰</span>
+                            <span>导演：妮琪·卡罗</span>
+                            <span>剧情,冒险</span>
+                            <span>2020-09-11上映</span>
+                        </div>
+                        <div class="label">
+                            <img src="../../static/img/other_已看过.png">
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="content_right">
+
+            <div class="menu">
+                已看影片
+            </div>
+
+            <div class="seeList">
+                <div class="box list">
+                    <div style="background-image:url(../../static/img/hml2.jpg)"></div>
+                    <div class="box-content">
+                        <ul>
+                            <li>花木兰</li>
+                            <li>刘亦菲</li>
+                            <li>2020-09-11</li>
+                            <li>评分:5.0</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="box list">
+                    <div style="background-image:url(../../static/img/xt.jpg)"></div>
+                    <div class="box-content">
+                        <ul>
+                            <li>信条</li>
+                            <li>刘亦菲</li>
+                            <li>2020-09-11</li>
+                            <li>评分:5.0</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="box list">
+                    <div style="background-image:url(../../static/img/hml2.jpg)"></div>
+                    <div class="box-content">
+                        <ul>
+                            <li>信条</li>
+                            <li>约翰·大卫·华盛顿</li>
+                            <li>2020-09-04</li>
+                            <li>评分:7.8</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="more">
+                <span>查看更多>></span>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+    <script src="../../static/layui/layui.js" charset="utf-8"></script>
+
+    <th:block th:fragment="userInfo_js">
+        <script>
+            layui.use('rate', function(){
+                var rate = layui.rate;
+                //渲染
+                var ins1 = rate.render({
+                    elem: '.userScore', //绑定元素
+                    value: 4.5,
+                    half: true,
+                    readonly: true,
+                    text: true,
+                    setText: function(value){ //自定义文本的回调
+                        var arrs = {
+                            '1': '惨不忍睹',
+                            '1.5': '惨不忍睹',
+                            '2': '差强人意',
+                            '2.5': '差强人意',
+                            '3': '可以一试',
+                            '3.5': '可以一试',
+                            '4': '佳片推荐',
+                            '4.5': '佳片推荐',
+                            '5': '必看影片',
+                            '5.5': '必看影片'
+                        };
+                        this.span.text(value+'星 '+' " '+arrs[value]+' " ');
+                    }
+                });
+            });
+        </script>
+
+        <script>
+
+            layui.use('layer', function(){ //独立版的layer无需执行这一句
+                var $ = layui.jquery, layer = layui.layer; //独立版的layer无需执行这一句
+
+                //触发事件
+                var active = {
+                    notice: function(){
+                        //示范一个公告层
+                        layer.open({
+                            type: 1
+                            ,title: false //不显示标题栏
+                            ,closeBtn: false
+                            ,area: '300px;'
+                            ,shade: [0.6,'#7a7a7b']
+                            ,anim: 2
+                            ,id: 'LAY_layuipro' //设定一个id，防止重复弹出
+                            ,btn: ['删除', '点错了']
+                            ,btnAlign: 'c'
+                            ,moveType: 1 //拖拽模式，0或者1
+                            ,content: '<div style="padding: 50px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;">确定要删除此条动态吗？</div>'
+                            ,success: function(layero){
+                                var btn = layero.find('.layui-layer-btn');
+                                btn.find('.layui-layer-btn0').attr({
+                                    href: 'http://www.layui.com/'
+                                    ,target: '_blank'
+                                });
+                            }
+                        });
+                    }
+                };
+
+                $('.sc').on('click', function(){
+                    var othis = $(this), method = othis.data('method');
+                    active[method] ? active[method].call(this, othis) : '';
+                });
+
+            });
+
+        </script>
+    </th:block>
+
+</body>
+</html>

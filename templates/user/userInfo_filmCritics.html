@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="../../static/css/userInfo_filmCritics.css" type="text/css" rel="stylesheet">
+    <link rel="stylesheet" href="../../static/layui/css/layui.css"  media="all">
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js">
+    </script>
+    <script>
+
+        function showDel(_this){
+
+            $(_this).next().css('display','block')
+
+            /*if($(_this).next().hasClass("show")){
+                $(_this).next().addClass('hide');
+                $(_this).next().removeClass('show');
+            }else {
+                $(_this).next().addClass('show')
+                $(_this).next().removeClass('hide');
+            }*/
+
+        }
+
+        function hideDel(_this) {
+            $(_this).css('display','none');
+        }
+
+    </script>
+
+</head>
+<body>
+    <div class="content">
+
+        <ul class="menu">
+            <li>影评</li>
+            <li><i class="layui-icon">&#xe756;</i>最多热度</li>
+            <li><i class="layui-icon">&#xe60e;</i>最新发布</li>
+        </ul>
+
+        <ul class="list">
+            <li class="item">
+                <div class="cover" style="background-image: url(../../static/img/index.jpg)"></div>
+                <div class="text">
+                    <div class="title">
+                        <h2>《花木兰》前途未卜？央视制作专题节目，从3个角度深入分析</h2>
+                        <h4>9月的电影市场，无疑是属于《花木兰》和《信条》的。</h4>
+                    </div>
+                    <div class="info">
+                        <span>
+                            <i class="layui-icon">&#xe6ed;</i>
+                            一个母亲的复仇
+                        </span>
+                        <span>
+                            <i class="layui-icon">&#xe63a;</i>
+                            4.6K
+                        </span>
+                        <span>
+                            <i class="layui-icon">&#xe68d;</i>
+                            2020-09-17 15:30
+                        </span>
+                    </div>
+                </div>
+                <div class="delete" onclick="showDel(this)">
+                    <i class="layui-icon">&#xe671;</i>
+                </div>
+                <div class="card hide" onmouseleave="hideDel(this)">
+                    <p><a class="sc" data-method="notice">删除</a></p>
+                </div>
+            </li>
+            <li class="item">
+                <div class="cover" style="background-image: url(../../static/img/index.jpg)"></div>
+                <div class="text">
+                    <div class="title">
+                        <h2>《花木兰》前途未卜？央析</h2>
+                        <h4>9月的电影市场，</h4>
+                    </div>
+                    <div class="info">
+                        <span>
+                            <i class="layui-icon">&#xe6ed;</i>
+                            一个母亲的复仇
+                        </span>
+                        <span>
+                            <i class="layui-icon">&#xe63a;</i>
+                            4.6K
+                        </span>
+                        <span>
+                            <i class="layui-icon">&#xe68d;</i>
+                            2020-09-17 15:30
+                        </span>
+                    </div>
+                </div>
+                <div class="delete" onclick="showDel(this)">
+                    <i class="layui-icon">&#xe671;</i>
+                </div>
+                <div class="card hide" onmouseleave="hideDel(this)">
+                    <p><a class="sc" data-method="notice">删除</a></p>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <script src="../../static/layui/layui.js" charset="utf-8"></script>
+
+    <script>
+
+        layui.use('layer', function(){ //独立版的layer无需执行这一句
+            var $ = layui.jquery, layer = layui.layer; //独立版的layer无需执行这一句
+
+            //触发事件
+            var active = {
+                notice: function(){
+                    //示范一个公告层
+                    layer.open({
+                        type: 1
+                        ,title: false //不显示标题栏
+                        ,closeBtn: false
+                        ,area: '300px;'
+                        ,shade: [0.6,'#7a7a7b']
+                        ,anim: 2
+                        ,id: 'LAY_layuipro' //设定一个id，防止重复弹出
+                        ,btn: ['删除', '点错了']
+                        ,btnAlign: 'c'
+                        ,moveType: 1 //拖拽模式，0或者1
+                        ,content: '<div style="padding: 50px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;">确定要删除此条动态吗？</div>'
+                        ,success: function(layero){
+                            var btn = layero.find('.layui-layer-btn');
+                            btn.find('.layui-layer-btn0').attr({
+                                href: 'http://www.layui.com/'
+                                ,target: '_blank'
+                            });
+                        }
+                    });
+                }
+            };
+
+            $('.sc').on('click', function(){
+                var othis = $(this), method = othis.data('method');
+                active[method] ? active[method].call(this, othis) : '';
+            });
+
+        });
+
+    </script>
+
+</body>
+</html>
