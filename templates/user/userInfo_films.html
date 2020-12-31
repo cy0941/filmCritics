@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人影片</title>
+    <link rel="stylesheet" href="../../static/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../static/css/iconfont.css" type="text/css">
+    <link href="../../static/css/user/userInfo_films.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../static/css/user/userInfo.css" type="text/css" />
+    <link rel="stylesheet" href="../../static/css/user/header.css" type="text/css" />
+</head>
+
+<body>
+    <header></header>
+
+    <div id="bodyBar"></div>
+
+    <div class="body">
+        <div class="menu">收藏的影片</div>
+        <ul class="content">
+            <!-- <li>
+                <div style="background-image: url(../../static/img/xt.jpg);">
+                    <span class="score">8.5</span>
+                </div>
+                <div class="filmInfo">
+                    <span>同桌的你</span>
+                    <span>郭帆 | 周冬雨 林更新 隋凯</span>
+                    <span>剧情,爱情</span>
+                    <span>2014-04-25中国大陆上映</span>
+                    <span>135分钟</span>
+                    <span>IMAX 3D/中国巨幕3D</span>
+                </div>
+            </li> -->
+        </ul>
+    </div>
+
+    <script src="../../static/layui/layui.js"></script>
+    <script type="text/javascript" src="../../static/js/jquery-1.11.0.min.js"></script>
+    <script src="../../static/js/header.js"></script>
+
+    <script>
+
+        var userInfo = JSON.parse(localStorage.getItem('userInfo'));
+        if (userInfo == null) {
+            userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
+        }
+
+        const Ip = localStorage.getItem('Ip');
+
+        var filmList = [];
+
+        $('#bodyBar').load('userInfo_header.html', function () {
+            $('#bodyBar ul li').eq(3).css('border-bottom', '#00a1d6 solid 3px');
+        })
+
+        $('.content').on('click', 'li', function () {
+            console.log(filmList[$(this).index()]);
+            var jsonStr = JSON.stringify(filmList[$(this).index()]);
+            sessionStorage.setItem("movie_details", jsonStr);
+            window.location.href = "movie_details.html";
+        })
+
+    </script>
+
+    <script>
+        $(document).ready(function () {
+
+            layui.use('flow', function () {
+                var $ = layui.jquery; //不用额外加载jQuery，flow模块本身是有依赖jQuery的，直接用即可。
+                var flow = layui.flow;
+                flow.load({
+                    elem: '.content' //指定列表容器
+                    , done: function (page, next) { //到达临界点（默认滚动触发），触发下一页
+
+                        var lis = [];
+                        //以jQuery的Ajax请求为例，请求下一页数据（注意：page是从2开始返回）
+                        $.get(Ip + '/movie/queryMovieByPraise/' + userInfo.id + '/' + page, function (res) {
+                            //假设你的列表返回在data集合中
+                            layui.each(res.data, function (index, value) {
+                                filmList.push(value);
+                                var reg = new RegExp("/w.h/", 'g')
+                                var img = (value.img).replace(reg, "/");
+                                lis.push('<li>' +
+                                    '<div style="background-image: url(' + img + ');">' +
+                                    '<span class="score">' + value.sc + '</span>' +
+                                    '</div>' +
+                                    '<div class="filmInfo">' +
+                                    '<span>' + value.nm + '</span>' +
+                                    '<span>' + value.act + '</span>' +
+                                    '<span>' + value.cat + '</span>' +
+                                    '<span>' + value.pubDesc + '</span>' +
+                                    '<span>' + value.dur + '分钟</span>' +
+                                    '<span>' + value.ver + '</span>' +
+                                    '</div>' +
+                                    '</li>')
+                            });
+                            next(lis.join(''), res.data != [] && res.data.length > 0);
+                        });
+                    }
+                });
+            });
+
+        });
+
+    </script>
+
+</body>
+
+</html>

@@ -1,17 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    <link href="../../static/css/userInfo_setUp.css" rel="stylesheet" type="text/css">
-    <script src="../../static/js/vue.js"></script>
-    <link rel="stylesheet" type="text/css" href="../../static/headPortrait/css/htmleaf-demo.css">
-    <link rel="stylesheet" href="../../static/headPortrait/css/style.css" type="text/css" />
-    <link rel="stylesheet" href="../../static/layui/css/layui.css"  media="all">
-    <script src="../../static/headPortrait/js/jquery-1.11.0.min.js" type="text/javascript"></script>
+    <title>个人设置</title>
+
+    <link rel="stylesheet" href="../../static/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../static/css/user/userInfo_setUp.css" type="text/css">
     <link rel="stylesheet" href="../../static/css/iconfont.css" type="text/css">
+
+    <link rel="stylesheet" href="../../static/headPortrait/css/style.css" type="text/css" />
+    <!-- <link rel="stylesheet" href="../../static/headPortrait/css/htmleaf-demo.css" type="text/css"> -->
+
+    <link rel="stylesheet" href="../../static/css/user/userInfo.css" type="text/css" />
+    <link rel="stylesheet" href="../../static/css/user/header.css" type="text/css" />
+
 </head>
+
 <body>
+    <header></header>
+
+    <div id="bodyBar"></div>
+
     <div class="body">
         <div class="menu">
             设置
@@ -19,24 +29,135 @@
         <div class="content" id="content">
             <div class="content_left">
                 <ul id="c_l">
-                    <li @click.prevent="flag='item1'" class="select">
+                    <li class="select" data-index='#information'>
                         <i class="iconfont">&#xe647;</i>修改信息
                     </li>
-                    <li @click.prevent="flag='item2'">
+                    <li data-index="#password">
                         <i class="iconfont">&#xe67f;</i>修改密码
                     </li>
-                    <li @click.prevent="flag='item3'">
+                    <li data-index="#email">
                         <i class="iconfont">&#xe644;</i>修改邮箱
                     </li>
                 </ul>
             </div>
 
             <div class="content_right">
-                <information v-if="flag=='item1'"></information>
-                <password v-if="flag=='item2'"></password>
-                <email v-if="flag=='item3'"></email>
+                <ul id="information" class="information">
+                    <li>
+                        <div class="headPortrait" style="background-image: url(../../static/img/logo.png)">
+                            <div class="modify_headPortrait upload-img">
+                                <label for="upload-file">修改图像</label>
+                            </div>
+                            <input type="file" name="upload-file" id="upload-file" accept='image/*'
+                                style="display: none" />
+                        </div>
+                    </li>
+                    <li>
+                        <span>账号：</span>
+                        <input class="input" id="accountNumber" type="text" onkeyup="this.value=this.value.replace(/[^\w_]/g,'');">
+                    </li>
+                    <li>
+                        <span>昵称：</span>
+                        <input class="input" id="nikeName" type="text">
+                    </li>
+                    <li>
+                        <span>简介：</span>
+                        <textarea class="input" id="introduce"></textarea>
+                    </li>
+                    <li>
+                        <button id="btnSName" type="button">保存</button>
+                    </li>
+                </ul>
+                <ul id="password" class="flex tem hide">
+                    <li class="flex">
+                        <div class="item item_1 itemOn">（1）验证身份</div>
+                        <span></span>
+                        <div class="item item_2">（2）设置密码</div>
+                        <span></span>
+                        <div class="item item_3">（3）改密成功</div>
+                    </li>
+                    <li class="list">
+                        <div>
+                            <span class="flex">绑定的邮箱</span>
+                            <input class="email" readonly type="text">
+                        </div>
+                        <div>
+                            <input id="pwdCode" required="required" type="text" placeholder="请输入验证码">
+                            <input id="getCode" class="getCode" type="button" value="获取验证码">
+                        </div>
+                        <div>
+                            <button onclick="nextStepPw(1,'.item_2')">下一步</button>
+                        </div>
+                    </li>
+                    <li class="list hide">
+                        <div>
+                            <span class="flex">新的密码</span>
+                            <input id="pwdNew" type="password" placeholder="请输入6位数以上的密码">
+                        </div>
+                        <div>
+                            <span class="flex">确认密码</span>
+                            <input id="pwdConfirm" type="password" placeholder="请输入以上重复密码">
+                        </div>
+                        <div>
+                            <button onclick="nextStepPw(2,'.item_3')">下一步</button>
+                        </div>
+                    </li>
+                    <li class="flex hide">
+                        <h2>
+                            修改登录密码成功
+                        </h2>
+                        <span>
+                            为了您的账号安全，修改密码成功后，将会退出账号，请重新登录！
+                        </span>
+                        <i class="iconfont">&#xe71e;</i>
+                        <button class="countdown">重新登录</button>
+                    </li>
+                </ul>
+                <ul id="email" class="flex tem email hide">
+                    <li class="flex">
+                        <div class="item item_1 itemOn">（1）验证身份</div>
+                        <span></span>
+                        <div class="item item_2">（2）绑定邮箱</div>
+                        <span></span>
+                        <div class="item item_3">（3）绑定成功</div>
+                    </li>
+                    <li class="list">
+                        <div>
+                            <span class="flex">绑定的邮箱</span>
+                            <input id="emailUsed" class="email" readonly type="text">
+                        </div>
+                        <div>
+                            <input id="emailCode" type="text" placeholder="请输入验证码">
+                            <input id="getCode" class="getCode" type="button" value="获取验证码">
+                        </div>
+                        <div>
+                            <button onclick="nextStepEm(1,'.item_2')">下一步</button>
+                        </div>
+                    </li>
+                    <li class="list hide">
+                        <div>
+                            <input id="emailNew" type="text" placeholder="请输入新的邮箱地址">
+                        </div>
+                        <div>
+                            <input id="emailNewCode" type="text" placeholder="请输入验证码">
+                            <input id="getEmailCode" type="button" value="获取验证码">
+                        </div>
+                        <div>
+                            <button onclick="nextStepEm(2,'.item_3')">下一步</button>
+                        </div>
+                    </li>
+                    <li class="flex hide">
+                        <h2>
+                            修改登录密码成功
+                        </h2>
+                        <span>
+                            为了您的账号安全，修改密码成功后，将会退出账号，请重新登录！
+                        </span>
+                        <i class="iconfont">&#xe71e;</i>
+                        <button class="countdown">回到首页</button>
+                    </li>
+                </ul>
             </div>
-
         </div>
     </div>
 
@@ -53,9 +174,9 @@
                 </div>
                 <div class="action">
                     <input type="button" id="btnSave" class="Btnsty_peyton layui-btn-disabled" value="保存">
-                    <input type="button" id="btnZoomIn" class="Btnsty_peyton" value="+"  >
-                    <input type="button" id="btnZoomOut" class="Btnsty_peyton" value="-" >
-                    <input type="button" id="btnCrop"  class="Btnsty_peyton" value="裁切">
+                    <input type="button" id="btnZoomIn" class="Btnsty_peyton" value="+">
+                    <input type="button" id="btnZoomOut" class="Btnsty_peyton" value="-">
+                    <input type="button" id="btnCrop" class="Btnsty_peyton" value="裁切">
                 </div>
             </div>
             <div class="cropped">
@@ -63,33 +184,36 @@
         </div>
     </div>
 
-    <template id="information">
+    <!-- <template id="information">
         <ul class="information">
             <li>
                 <div class="headPortrait" style="background-image: url(../../static/img/img1.jpg)">
                     <div class="modify_headPortrait upload-img">
                         <label for="upload-file">修改图像</label>
                     </div>
-                    <input type="file" name="upload-file" id="upload-file" accept='image/*' style="display: none"/>
+                    <input type="file" name="upload-file" id="upload-file" accept='image/*' style="display: none" />
                 </div>
-            </li>
-            <li>
-                <span>昵称：</span>
-                <input type="text" placeholder="输入你的新昵称">
-                <span></span>
             </li>
             <li>
                 <span>账号：</span>
                 <span>bili_27819055996</span>
             </li>
             <li>
-                <button type="button">保存</button>
+                <span>昵称：</span>
+                <input class="input" id="nikeName" type="text">
+            </li>
+            <li>
+                <span>简介：</span>
+                <textarea class="input" id="introduce"></textarea>
+            </li>
+            <li>
+                <button id="btnSName" type="button">保存</button>
             </li>
         </ul>
     </template>
 
     <template id="password">
-        <ul class="flex password">
+        <ul id="temPw" class="flex tem">
             <li class="flex">
                 <div class="item item_1">（1）验证身份</div>
                 <span></span>
@@ -97,20 +221,20 @@
                 <span></span>
                 <div class="item item_3">（3）改密成功</div>
             </li>
-            <li class="list" style="display: none">
+            <li class="list">
                 <div>
                     <span class="flex">绑定邮箱</span>
                     <input type="text">
                 </div>
                 <div>
                     <input type="text" placeholder="请输入验证码">
-                    <input type="button" value="获取验证码">
+                    <input type="button" class="getCode" value="获取验证码">
                 </div>
                 <div>
-                    <button>下一步</button>
+                    <button id="nextStep" onclick="nextStep(2)">下一步</button>
                 </div>
             </li>
-            <li class="list" style="display: none">
+            <li class="list hide">
                 <div>
                     <span class="flex">新的密码</span>
                     <input type="text">
@@ -120,10 +244,10 @@
                     <input type="text">
                 </div>
                 <div>
-                    <button>下一步</button>
+                    <button data-index='3'>下一步</button>
                 </div>
             </li>
-            <li class="flex">
+            <li class="flex hide">
                 <h2>
                     修改登录密码成功
                 </h2>
@@ -139,7 +263,7 @@
     </template>
 
     <template id="email">
-        <ul class="flex password email">
+        <ul class="flex tem email">
             <li class="flex">
                 <div class="item item_1">（1）验证身份</div>
                 <span></span>
@@ -177,116 +301,389 @@
                     修改登录密码成功
                 </h2>
                 <span>
-                            为了您的账号安全，修改密码成功后，将会退出账号，请重新登录！
-                        </span>
+                    为了您的账号安全，修改密码成功后，将会退出账号，请重新登录！
+                </span>
                 <i class="iconfont">&#xe71e;</i>
                 <button>
                     回到首页
                 </button>
             </li>
         </ul>
-    </template>
+    </template> -->
 
-    <script>
+    <script src="../../static/layui/layui.js" type="text/javascript"></script>
+    <script src="../../static/js/jquery-1.11.0.min.js" type="text/javascript"></script>
+    <script src="../../static/headPortrait/js/cropbox.js" type="text/javascript"></script>
+    <script src="../../static/js/header.js"></script>
 
-        Vue.component('information',{
-            template:'#information '
-        })
-
-        Vue.component('password',{
-            template:'#password '
-        })
-
-        Vue.component('email',{
-            template:'#email '
-        })
-
-        var vm=new Vue({
-            el:'#content',
-            data:{
-                flag:'item1'
-            },
-            methods:{}
-        });
-    </script>
-
-    <script>
-
-        $(document).ready(function(){
-
-            $("#poplayer").hide();
-
-            $("#close").click(function(){
-                $("#btnSave").addClass("layui-btn-disabled");
-                $('.cropped').html('');
-                $("#poplayer").hide();
-            });
-
-            $('#c_l li').click(function(){
-                $('#c_l li').removeClass("select");
-                $(this).addClass("select");
-            });
-        })
-
-    </script>
-
-    <script type="text/javascript" src="../../static/headPortrait/js/cropbox.js"></script>
     <script type="text/javascript">
+
+        /* $(document).ready(function () { */
+
+        /* Vue.component('information', {
+            template: '#information '
+        })
+
+        Vue.component('password', {
+            template: '#password '
+        })
+
+        Vue.component('email', {
+            template: '#email '
+        })
+
+        var vm = new Vue({
+            el: '#content',
+            data: {
+                flag: 'item1'
+            },
+            methods: {
+            }
+        }); */
+
+        var userInfo = JSON.parse(localStorage.getItem('userInfo'));
+        if (userInfo == null) {
+            userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
+        }
+
+        const Ip = localStorage.getItem('Ip');
+
+        var email_str = (userInfo.email).split("@");
+        var email_front = (userInfo.email).substring(3, 0);
+        var email_back = email_str[1];
+        //console.log(email_front+'***'+email_back);
+
+        $('#bodyBar').load('userInfo_header.html', function () {
+            $('#bodyBar ul li').eq(4).css('border-bottom', '#00a1d6 solid 3px');
+        })
+
+        $('.headPortrait').css("background-image", "url(" + Ip + "/file/images/" + userInfo.id + "/" + userInfo.headImg + ")");
+        $('#nikeName').val(userInfo.nickName);
+        $('#introduce').val(userInfo.introduce);
+        $('#accountNumber').val(userInfo.userName);
+        $('.email').val(email_front + '***' + email_back)
+
+        $("#poplayer").hide();
+
+        $("#close").click(function () {
+            $("#btnSave").addClass("layui-btn-disabled");
+            $('.cropped').html('');
+            $("#poplayer").hide();
+        });
+
+        $('#c_l li').click(function () {
+            var index = this.getAttribute('data-index');
+            $('#c_l li').removeClass("select");
+
+            $(this).addClass("select");
+            $('.content_right ul').addClass('hide');
+            $(index).removeClass('hide');
+
+        });
+
+        var index_qj,item_qj;
+
+        var fileOriginal;
+        var fileName;
+        var fileImg;
         var blob;
         var file;
-        $(window).load(function() {
-            var options =
-                {
-                    thumbBox: '.thumbBox',
-                    spinner: '.spinner',
-                    imgSrc: '../../static/img/img1.jpg'
-                }
-            var cropper = $('.imageBox').cropbox(options);
-            $('#upload-file').on('change', function(){
-                $("#poplayer").show();
-                var reader = new FileReader();
-                reader.onload = function(e) {
-                    options.imgSrc = e.target.result;
-                    cropper = $('.imageBox').cropbox(options);
-                }
-                reader.readAsDataURL(this.files[0]);
-                this.files = [];
-            })
-            $('#btnCrop').on('click', function(){
-                var img = cropper.getDataURL();
-                $('.cropped').html('');
-                $('.cropped').append('<img src="'+img+'" align="absmiddle" id="size64" class="size"><p>64px</p>');
-                $("#btnSave").removeClass("layui-btn-disabled");
+        var options =
+        {
+            thumbBox: '.thumbBox',
+            spinner: '.spinner',
+            imgSrc: '../../static/img/logo.png'
+        }
+        var cropper = $('.imageBox').cropbox(options);
+        $('#upload-file').on('change', function () {
+            fileOriginal = this.files[0]
+            $("#poplayer").show();
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                options.imgSrc = e.target.result;
+                cropper = $('.imageBox').cropbox(options);
+            }
+            //reader.readAsDataURL(this.files[0]);
 
-                var obj=dataURLtoFile(img,"testImg");
-                console.log(obj);
+            reader.readAsDataURL(this.files[0]);
+            //$('#upload-file')[0].files = [];
+        })
+        $('#btnCrop').on('click', function () {
+            fileImg = cropper.getDataURL();
+            $('.cropped').html('');
+            $('.cropped').append('<img src="' + fileImg + '" align="absmiddle" id="size64" class="size"><p>64px</p>');
+            $('.cropped').append('<img src="' + fileImg + '" align="absmiddle" id="size128" class="size"><p>128px</p>');
+            $("#btnSave").removeClass("layui-btn-disabled");
+        })
+        $('#btnZoomIn').on('click', function () {
+            cropper.zoomIn();
+        })
+        $('#btnZoomOut').on('click', function () {
+            cropper.zoomOut();
+        })
 
-                $('.cropped').append('<img src="'+obj+'" align="absmiddle" id="size128" class="size"><p>128px</p>');
-            })
-            $('#btnZoomIn').on('click', function(){
-                cropper.zoomIn();
-            })
-            $('#btnZoomOut').on('click', function(){
-                cropper.zoomOut();
-            })
-        });
-        function dataURLtoFile(dataurl, filename) {
-            var arr = dataurl.split(',');
+        $('#btnSave').click(function () {
+            dataURLtoFile(fileImg);
+        })
+
+        $('#btnSName').click(function () {
+            if($('#accountNumber').val()!=userInfo.userName){
+                modifyInfo('userName', $('#accountNumber').val(),null, false);
+            }
+            modifyInfo('nickName', $('#nikeName').val(),null, false);
+            modifyInfo('introduce', $('#introduce').val(),null, true);
+        })
+
+        $('.getCode').click(function () {
+            getCode(userInfo.email);
+            setTime(this);
+        })
+
+        $('#getEmailCode').click(function () {
+            if ($('#emailNew').val() != null && $('#emailNew').val() != '') {
+                var reg = /^\w+((.\w+)|(-\w+))@[A-Za-z0-9]+((.|-)[A-Za-z0-9]+).[A-Za-z0-9]+$/; //正则表达式
+                if(reg.test($('#emailNew').val())){
+                    getCode($('#emailNew'));
+                    setTime(this);
+                }else{
+                    alert('邮箱格式不正确！');
+                }
+            }else{
+                alert('不能为空！');
+            }
+        })
+
+        function setTime(_this) {
+            $(_this).attr('disabled', true);
+            var time = 60;
+            let timer = setInterval(() => {
+                time--;
+                $(_this).val(time + "秒后重试")
+                if (time <= 0) {
+                    $(_this).attr('disabled', false);
+                    $(_this).val("获取验证码")
+                    clearInterval(timer);
+                }
+            }, 1000);
+        }
+
+        function nextStepPw(index, item) {
+            console.log("999999999")
+            index_qj=index;
+            item_qj=item;
+            if (index == 1) {
+                console.log($('#pwdCode').val())
+                if ($('#pwdCode').val() == null || $('#pwdCode').val() == '') {
+                    alert("不能为空！")
+                    return false;
+                }else{
+                    modifyInfo('passWord',null,$('#pwdCode').val(),false);
+                }
+            } else {
+                if ($('#pwdNew').val() == '' || $('#pwdConfirm').val() != $('#pwdNew').val() || $('#pwdNew').val().length < 6) {
+                    alert("输入有误")
+                    return false;
+                }else{
+                    modifyInfo('passWord',$('#pwdConfirm').val(),$('#pwdCode').val(),false);
+                }
+            }
+            if(index==2){
+                jumpUrl()
+            }
+        }
+
+        function paw(){
+            $("#password li:eq(" + index_qj + ")").addClass('hide')
+            $("#password li:eq(" + (++index_qj) + ")").removeClass('hide')
+            $('#password ' + item_qj + '').addClass('itemOn');
+        }
+
+        function em(){
+            $("#email li:eq(" + index_qj + ")").addClass('hide')
+            $("#email li:eq(" + (++index_qj) + ")").removeClass('hide')
+            $('#email ' + item_qj + '').addClass('itemOn');
+        }
+
+        function nextStepEm(index, item) {
+            console.log("-3-4-5-6")
+            index_qj=index;
+            item_qj=item;
+            if (index == 1) {
+                if ($('#emailCode').val() == null || $('#emailCode').val() == '') {
+                    alert("不能为空！")
+                    return false;
+                }else{
+                    console.log('-2-2-2--2')
+                    console.log($('#emailCode').val())
+                    console.log(userInfo.email)
+                    modifyInfo('email',userInfo.email,$('#emailCode').val(),false);
+                }
+            } else {
+                if ($('#emailNewCode').val() == '' || $('#emailNew').val() == '') {
+                    alert("不能为空！")
+                    return false;
+                }else{
+                    modifyInfo('email',$('#emailNew').val(),$('#emailNewCode').val(),false);
+                }
+            }
+            if(index==2){
+                jumpUrl()
+            }
+        }
+
+        function jumpUrl() {
+            var time = 5;
+            let timer = setInterval(() => {
+                $('.countdown').text(time+'秒后跳转')
+                time--;
+                if (time <= 0) {
+                    localStorage.removeItem('userInfo')
+                    sessionStorage.removeItem('userInfo');
+                    window.location.href = "login.html";
+                    clearInterval(timer);
+                }
+            }, 1000);
+        }
+
+        /* $('#temPw li').on('click', '.getCode', function () {
+            var index = this.getAttribute('data-index');
+            console.log('============' + index);
+            $("#temPw li").eq(index).addClass('hide');
+            $("#temPw li").eq(++index).removeClass('hide');
+        }) */
+
+        /* $('#temPw li').on('click', '#nextStep', function () {
+            var index = this.getAttribute('data-index');
+            console.log('============' + index);
+            $("#temPw li").eq(index).addClass('hide');
+            $("#temPw li").eq(++index).removeClass('hide');
+        }) */
+
+        //将图片转换为base64,再将base64转换成file对象
+        function dataURLtoFile(dataUrl) {
+            var arr = dataUrl.split(',');
             var mime = arr[0].match(/:(.*?);/)[1];
             var bstr = atob(arr[1]);
             var n = bstr.length;
             var u8arr = new Uint8Array(n);
-            while(n--){
+            while (n--) {
                 u8arr[n] = bstr.charCodeAt(n);
             }
+
             //转换成file对象
-            return new File([u8arr], filename, {type:mime});
+            console.log(fileOriginal);
+            console.log(fileOriginal.type);
+            fileName = new Date().getTime() + fileOriginal.name;
+
+            var fileImg = new File([u8arr], fileName, { type: fileOriginal.type });
+
+            uploadImg(fileImg);
+
             //转换成成blob对象
             //return new Blob([u8arr],{type:mime});
         }
-        //将图片转换为base64,再将base64转换成file对象
+
+        function uploadImg(file) {
+            var form = new FormData();
+            form.append("file", file);
+            form.append("userId", userInfo.id);
+            $.ajax({
+                url: Ip + "/uploadImg/",
+                type: 'post',
+                data: form,
+                processData: false,
+                mimeType: 'multipart/form-data',
+                cache: false,  //必加
+                contentType: false,  //必加
+                success: function (res) {
+                    console.log(res);
+                    modifyInfo('headImg', fileName,null, true)
+                },
+                error: function (err) {
+                    console.log(err)
+                }
+            });
+        }
+
+        function modifyInfo(key,value,code,flag) {
+            $.ajax({
+                url: Ip + "/user/modifyInfo",
+                type: 'post',
+                dataType: 'json',
+                timeout: 0,
+                data: {
+                    key: key,
+                    value: value,
+                    userId: userInfo.id,
+                    code:code
+                },
+                success: function (res) {
+                    console.log(res)
+                    if(res.code==200){
+                        if (flag)
+                            queryUserInfo();
+                        if(key=='passWord'){
+                            paw()
+                        }else if(key=='email'){
+                            em();
+                        }
+                    }else{
+                        alert(res.message);
+                    }
+                },
+                error: function (err) {
+                    console.log(err)
+                }
+            });
+        }
+
+        function queryUserInfo() {
+            $.ajax({
+                url: Ip + "/user/queryUserInfo",
+                type: 'post',
+                dataType: 'json',
+                timeout: 0,
+                data:{
+                    userId:userInfo.id
+                },
+                success: function (res) {
+                    console.log(res);
+
+                    var info = res.data;
+                    var jsonStr = JSON.stringify(info);
+                    
+                    if(localStorage.getItem('userInfo')==null){
+                        sessionStorage.setItem("userInfo", jsonStr);
+                    }else{
+                        localStorage.setItem('userInfo',jsonStr);
+                    }
+
+                    window.location.reload();
+                },
+                error: function (err) {
+                }
+            });
+        }
+
+        function getCode(email) {
+            $.ajax({
+                url: Ip + "/user/getVerInfo?email=" + email,
+                type: 'post',
+                dataType: 'json',
+                timeout: 0,
+                success: function (res) {
+                    console.log(res)
+                },
+                error: function (err) {
+                    console.log(err)
+                }
+            });
+        }
+
+        /* }); */
 
     </script>
 
 </body>
+
 </html>

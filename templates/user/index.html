@@ -2,11 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org">
     <head>
         <meta charset="UTF-8">
-        <title>Title</title>
+        <title>主页</title>
         <link rel="stylesheet" href="../../static/layui/css/layui.css" media="all">
-        <th:block th:fragment="index_head">
-            <link rel="stylesheet" href="../../static/css/index.css" type="text/css">
-        </th:block>
+        <link rel="stylesheet" href="../../static/css/iconfont.css">
+        <link rel="stylesheet" href="../../static/css/user/index.css" type="text/css">
         <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
         <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js">
         </script>
@@ -39,26 +38,149 @@
                     <dd><a href="javascript:;">退了</a></dd>
                 </dl>
             </li>
+            
             <li class="layui-nav-item" style="float:right; margin-right:10px;">
                 <a href="" style="color:#8590a6;">消息<span class="layui-badge">9</span></a>
             </li>
 
-            <li class="layui-nav-item search">
-                <form>
-                    <input type="text" placeholder="搜索">
-                </form>
+            <li class="search">
+                <input id="searchText" type="text" placeholder="搜索">
+                <button id="searchBtn"><i class="iconfont">&#xe68e;</i></button>
             </li>
 
         </ul>
+        <div class="searchContent">
+            <ul class="searchList">
+            </ul>
+        </div>
     </header>
 
-    <script src="../../static/layui/layui.js" charset="utf-8"></script>
+    <scrip src="../../static/layui/layui.js" charset="utf-8"></scrip>
 
-    <th:block th:fragment="index_js">
-        <!-- Common scripts -->
-        <script src="../../static/js/index.js" charset="utf-8"></script>
-    </th:block>
+    <scrip src="../../static/js/index.js" charset="utf-8"></scrip>
     <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+
+    <script>
+
+        $(document).ready(function(){
+            jQuery.support.cors = true;
+
+            $("#searchBtn").click(function(){
+                console.log("00000"+$("#searchText").val())
+                search($("#searchText").val())
+                //ky();
+            })
+
+            function getToken(){
+                var token;
+                $.ajax({
+                    type:"get",
+                    url:"http://api.vopipi.cn/api/auth",
+                    dataType:"json",
+                    async: false,
+                    success:function(data,statusText){
+                        token=data.data.token;
+                        console.log(token);
+                    },
+                    error:function(msg){
+                        console.log(msg);
+                    }
+                })
+                console.log(token)
+            }
+
+            function ky(){
+                var xhr =  new XMLHttpRequest();
+                xhr.onreadystatechange = function () {
+                    if(xhr.readyState == 4){
+                        if(xhr.status >= 200 && xhr.status < 304 || xhr.status == 304){
+                            console.log(xhr.responseText);
+                        }
+                    }
+                }
+                xhr.open('get', 'https://maoyan.com/ajax/suggest?kw=少年的你');
+                xhr.send(null);
+            }
+
+            function search(keyWord){
+                //var token=getToken();
+                //console.log("00000"+token);
+                /* var token="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpcCI6IjEwNi4xNy4yMjAuMTQ0IiwidWEiOiJNb3ppbGxhLzUuMCAoV2luZG93cyBOVCAxMC4wOyBXaW42NDsgeDY0KSBBcHBsZVdlYktpdC81MzcuMzYgKEtIVE1MLCBsaWtlIEdlY2tvKSBDaHJvbWUvODYuMC40MjQwLjE5OCBTYWZhcmkvNTM3LjM2IiwidGltZSI6NjM3NDI1ODY2NjY0NDExNjEzLCJ0aW1lb3V0IjoiMjAyMS0wMS0wMlQxMDowNDoyNi40NDExNjEzKzA4OjAwIn0.qW0qDetWCcN9EmfWpCRl7uPwRjFsNApET-3SFSJRpQs"
+                console.log("搜索的关键字："+keyWord)
+                var settings = {
+                    "url": "http://api.vopipi.cn/api/search",
+                    "method": "GET",
+                    "timeout": 0,
+                    "dataType":"json",
+                    "data":{
+                        "wd":keyWord
+                    },
+                    "headers": {
+                        "token": token
+                    },
+                };
+                $.ajax(settings).done(function (response) {
+                    console.log(response);
+                    console.log(response.data.length)
+                    $(".searchList").empty();
+                    for(var i=0;i<response.data.length;i++){
+                        $(".searchList").append('<li class="searchItem">'+response.data[i].title+'</li>');
+                    }
+                }); */
+                
+                $.ajax({
+                    type: "get",
+                    //async: false,
+                    //url: "https://maoyan.com/ajax/suggest",
+                    url:'https://maoyan.com/ajax/suggest',
+                    //contentType: "application/x-www-form-urlencoded",
+                    //xhrFields: {withCredentials: true}, 
+                    //crossDomain: true, 
+                    dataType:'json',
+                    xhrFields:{
+                　　　　withCredentials:true
+                　　},
+                     data:{
+                        "kw":"少年的你",
+                    }, 
+                    /*headers:{
+                        "Access-Control-Allow-Origin":"*",
+                        "Access-Control-Allow-Credentials": true,
+                        "Access-Control-Allow-Headers": 'header',
+                        "Access-Control-Expose-Headers": 'serve-header',
+                        "Access-Control-Allow-Methods": 'methods',
+                        "Access-Control-Max-Age": '1800', // 30min = 1800s
+
+                    },*/
+                    success: function (data) {
+                        console.log(data);
+                        console.log("________________")
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                });
+                /* $.ajax({
+                    async: false,
+                    type: "GET",
+                    dataType: 'jsonp',
+                    jsonp: 'callback',
+                    jsonpCallback: 'callbackfunction',
+                    url: "https://maoyan.com/ajax/suggest",
+                    data: {
+                        "kw":"少年的你"
+                    },
+                    timeout: 3000,
+                    contentType: "application/json;utf-8",
+                    success: function(msg) {
+                        console.log(msg);
+                        console.log("dddddddddddddddddddddddddddddd")
+                    }
+                }); */
+            }
+        })
+
+    </script>
 
 </body>
 </html>

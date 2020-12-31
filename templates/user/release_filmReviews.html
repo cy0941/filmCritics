@@ -1,13 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" href="../../static/css/release_filmReviews.css">
-    <link rel="stylesheet" href="../../static/layui/css/layui.css"  media="all">
+    <title>发布影评</title>
+    <link rel="stylesheet" href="../../static/css/user/release_filmReviews.css">
+    <link rel="stylesheet" href="../../static/layui/css/layui.css" media="all">
     <link rel="stylesheet" href="../../static/css/iconfont.css">
+    <link rel="stylesheet" href="../../static/css/user/header.css">
 </head>
+
 <body>
+    <header></header>
     <div class="body">
         <input type="file" accept='image/*' id="fileCover">
         <label for="fileCover">
@@ -16,19 +20,19 @@
             </div>
         </label>
         <div class="film">
-            <img src="http://p0.meituan.net/movie/e00977359c9718949a7d1fff69f5baeb3782915.jpg">
+            <!-- <img src="http://p0.meituan.net/movie/e00977359c9718949a7d1fff69f5baeb3782915.jpg">
             <span>姜子牙</span>
-            <span>2019-10-25上映</span>
             <span>导演：程腾 李炜</span>
+            <span>2019-10-25上映</span>
+            <span>导演：程腾 李炜</span> -->
         </div>
         <input type="text" class="title" placeholder="请输入标题">
         <div id="content">
-            <p>欢迎使用 <b>wangEditor</b> 富文本编辑器</p>
         </div>
     </div>
 
     <img class="top" src="../../static/img/rocket_up.png">
-    <div class="btn"><i class="iconfont">&#xe601;</i></div>
+    <div class="btn" id="release"><i class="iconfont">&#xe601;</i></div>
 
     <script type="text/javascript" src="../../static/js/jquery-1.11.0.min.js"></script>
 
@@ -37,14 +41,23 @@
         <script>window.wangEditor || document.write('<script src="../../static/js/wangEditor.min.js"><\/script>')</script>
     -->
     <script type="text/javascript" src="../../static/js/wangEditor.min.js"></script>
+    <script src="../../static/layui/layui.all.js"></script>
+    <script type="text/javascript" src="../../static/js/header.js"></script>
 
     <script type="text/javascript">
+
+        var userInfo = JSON.parse(localStorage.getItem('userInfo'));
+        if (userInfo == null) {
+            userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
+        }
+        const Ip = localStorage.getItem('Ip');
+
         const E = window.wangEditor;
         const editor = new E('#content');
         editor.config.placeholder = '请输入你文章的内容......'
         editor.config.showFullScreen = false
         // 或者 const editor = new E( document.getElementById('div1') )
-        editor.config.uploadImgShowBase64 = true;
+        //editor.config.uploadImgShowBase64 = true;
         editor.config.menus = [
             'head',
             'bold',
@@ -65,50 +78,205 @@
             'undo',
             'redo',
         ]
+
+        // 配置 server 接口地址
+        editor.config.uploadImgServer = Ip + '/uploadImg/?file=文件&userId=2'
+        editor.config.customUploadImg = function (resultFiles, insertImgFn) {
+            // resultFiles 是 input 中选中的文件列表
+            // insertImgFn 是获取图片 url 后，插入到编辑器的方法
+
+            // 上传图片，返回结果，将图片插入到编辑器中
+
+
+            console.log(resultFiles[0]);
+            var fileName = new Date().getTime() + resultFiles[0].name;
+            var newFile = new File([resultFiles[0]], fileName, { type: resultFiles[0].type });
+
+            /* console.log(fileName + '-------')
+            console.log(newFile) */
+
+            var form = new FormData();
+            form.append("file", newFile);
+            form.append("userId", userInfo.id);
+            $.ajax({
+                url: Ip + "/uploadImg/",
+                type: 'post',
+                data: form,
+                processData: false,
+                mimeType: 'multipart/form-data',
+                cache: false,  //必加
+                contentType: false,  //必加
+                success: function (res) {
+                    console.log(res);
+                    insertImgFn(Ip + '/file/images/' + userInfo.id + '/' + fileName)
+                },
+                error: function (err) {
+                    console.log(err)
+                }
+            });
+
+        }
+
         editor.create()
     </script>
     <script>
-        $(document).ready(function(){
+        $(document).ready(function () {
+
+            var userInfo = JSON.parse(localStorage.getItem('userInfo'));
+            if (userInfo == null) {
+                userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
+            }
+
+            var filmInfo = JSON.parse(sessionStorage.getItem('filmInfo'));
+            sessionStorage.removeItem('filmInfo');
+
+            const Ip = localStorage.getItem('Ip');
+
+            appendFilm();
 
             $(".top").click(function () {
-                $(this).attr("src","../../static/img/rocket.gif")
-                $(this).animate({top:-200},1000);
-                $('html,body').animate({scrollTop:0},1000);
-                setTimeout(function () {
-                    $("top").animate({top:-200},3000);
-                    $(".top").attr("src","../../static/img/rocket_up.png");
-                    $(".top").css("top","66.5%!important");
-                }, 3000);
+                $(this).attr("src", "../../static/img/rocket.gif")
+                $(this).animate({ top: -200 }, 1000);
+                $('html,body').animate({ scrollTop: 0 }, 1000);
+                setTimeout(function () {
+                    $("top").animate({ top: -200 }, 3000);
+                    $(".top").attr("src", "../../static/img/rocket_up.png");
+                    $(".top").css("top", "66.5%!important");
+                }, 3000);
             })
 
-            $("#fileCover").change(function(){
-                $(".cover").css("height","450px")
-                $(".coverImg").attr("src",URL.createObjectURL($(this)[0].files[0]));
+            $("#fileCover").change(function () {
+                $(".cover").css("height", "450px")
+                $(".coverImg").attr("src", URL.createObjectURL($(this)[0].files[0]));
             });
 
-            $(document).scroll(function() {
-                var scroH = $(document).scrollTop();  //滚动高度
+            $('#release').click(function () {
+                var title;
+                var fileImg;
+                var content;
 
-                var cover=$(".cover").outerHeight(true);
+                var myDate = new Date();
+                var year = myDate.getFullYear();        //获取当前年
+                var month = myDate.getMonth() + 1;   //获取当前月
+                var date = myDate.getDate();            //获取当前日
+                var time = year + '-' + month + '-' + date
 
-                if (scroH>=cover+90+96){
-                    $('.w-e-toolbar').addClass("topFixed");
-                } else{
-                    $('.w-e-toolbar').removeClass("topFixed");
+                title = $('.title').val();
+                content = editor.txt.html();
+                fileImg = $('#fileCover')[0].files[0];
+
+                if (title == '' || content == '' || fileImg == undefined) {
+                    alert('不能为空！')
+                    console.log("不能为空！")
+                    return false;
                 }
 
-                /*
-                $(this).animate({top:0},1000);
-                475
-                $(".top").css("display","block");
-                    $(".top").css("top","70%");
-                    $(".top").attr("src","../../static/img/rocket_up.png");
-                */
+                var fileName = new Date().getTime() + fileImg.name;
+                var newFile = new File([fileImg], fileName, { type: fileImg.type });
 
+                /* console.log(title);
+                console.log(content);
+                console.log(fileName);
+                console.log(newFile); */
+
+                var reg = new RegExp(Ip+'/', 'g')
+                content = content.replace(reg, '');
+
+                console.log(newFile);
+                console.log(fileName);
+
+                uploadImg(newFile, title, time, fileName, content)
             })
+
+            $(document).scroll(function () {
+                var scroH = $(document).scrollTop();  //滚动高度
+
+                var cover = $(".cover").outerHeight(true);
+
+                if (scroH >= cover + 90 + 96) {
+                    $('.w-e-toolbar').addClass("topFixed");
+                } else {
+                    $('.w-e-toolbar').removeClass("topFixed");
+                }
+            })
+
+            function appendFilm() {
+                var reg = new RegExp("/w.h/", 'g')
+                var moviesImg = filmInfo.img;
+                moviesImg = moviesImg.replace(reg, '/');
+                $('.film').append(
+                    '<img src="' + moviesImg + '">' +
+                    '<span>' + filmInfo.nm + '</span>' +
+                    '<span>' + filmInfo.act + '</span>' +
+                    '<span>' + filmInfo.cat + '</span>' +
+                    '<span>' + filmInfo.pubDesc + '</span>');
+            }
+
+            function uploadImg(file, title, time, fileName, content) {
+                var form = new FormData();
+                form.append("file", file);
+                form.append("userId", userInfo.id);
+                $.ajax({
+                    url: Ip + "/uploadImg/",
+                    type: 'post',
+                    data: form,
+                    processData: false,
+                    mimeType: 'multipart/form-data',
+                    cache: false,  //必加
+                    contentType: false,  //必加
+                    success: function (res) {
+                        console.log(res);
+                        addReview(title, time, fileName, content);
+                    },
+                    error: function (err) {
+                        console.log(err)
+                    }
+                });
+            }
+
+            function addReview(title, time, coverImg, content) {
+                $.ajax({
+                    type: "post",
+                    url: Ip + '/review/insertReview',
+                    dataType: 'json',
+                    timeout: 0,
+                    data: {
+                        userId: userInfo.id,
+                        title: title,
+                        filmName: filmInfo.nm,
+                        time: time,
+                        coverImg: coverImg,
+                        content: content
+                    },
+                    success: function (res) {
+                        console.log(res);
+                        /* var jsonStr = JSON.stringify(filmCritics_list[$(this).index()]);
+                        sessionStorage.setItem("filmReviewsInfo", jsonStr);
+                        window.location.href = "view_filmReviews.html"; */
+                        window.location.href = "filmCritics.html";
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                });
+            }
 
         })
     </script>
 
+    <script>
+        window.onscroll = function () {
+            var scroH = $(document).scrollTop();
+
+            var coverImg = $('.coverImg').height()
+            if (scroH >= coverImg + 126) {
+                $('.w-e-toolbar').addClass('topFixed');
+            } else {
+                $('.w-e-toolbar').removeClass('topFixed');
+            }
+        }
+    </script>
+
 </body>
+
 </html>

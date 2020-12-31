@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人关注/粉丝</title>
+
+    <link href="../../static/css/user/userInfo.css" type="text/css" rel="stylesheet">
+
+    <link rel="stylesheet" href="../../static/css/iconfont.css" type="text/css">
+    <link rel="stylesheet" href="../../static/css/user/userInfo_follow.css" type="text/css">
+    <link rel="stylesheet" href="../../static/layui/css/layui.css" media="all">
+
+    <link href="../../static/css/user/header.css" type="text/css" rel="stylesheet">
+
+</head>
+
+<body>
+    <header></header>
+
+    <div id="bodyBar"></div>
+
+    <div class="content">
+        <div class="content_left">
+            <div>
+                <span>我的关注</span>
+                <span id="followItem" class="item like"><i class="iconfont">&#xe648;</i>所有关注</span>
+            </div>
+            <div>
+                <span>我的粉丝</span>
+                <span id='fansItem' class="item"><i class="iconfont">&#xe8fd;</i>所有粉丝</span>
+            </div>
+        </div>
+        <div class="content_right">
+            <span id="title">全部关注</span>
+            <ul class="content_info">
+                <!-- <li>
+                    <img src="../../static/img/logo.png">
+                    <div>
+                        <span class="name">哔哩哔哩会员购</span>
+                        <span class="introduce">哔哩哔哩会员购 官方账号</span>
+                    </div>
+                    <button class="followBtn">+ 关注</button>
+                </li> -->
+            </ul>
+        </div>
+    </div>
+
+    <script src="../../static/layui/layui.js"></script>
+    <script type="text/javascript" src="../../static/js/jquery-1.11.0.min.js"></script>
+    <script src="../../static/js/header.js"></script>
+
+    <script>
+
+        var userInfo = JSON.parse(localStorage.getItem('userInfo'));
+        if (userInfo == null) {
+            userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
+        }
+
+        const Ip = localStorage.getItem('Ip');
+
+        var type = window.location.href;
+        var data = type.split("="); //截取 url中的“=”,获得“=”后面的参数  
+        var type = decodeURI(data[1]); //decodeURI解码  
+
+        $(document).ready(function () {
+
+            $('#bodyBar').load('userInfo_header.html', function () {
+                $('#bodyBar .userIntroduce').text(userInfo.introduce);
+            })
+
+            if (type == 'true') {
+                getFans();
+                $('#fansItem').addClass('like')
+                $('#followItem').removeClass('like')
+                $('#title').text('全部粉丝');
+            } else {
+                getFocus();
+                $('#followItem').addClass('like')
+                $('#fansItem').removeClass('like')
+                $('#title').text('全部关注');
+            }
+
+            $('#fansItem').click(function () {
+                $('.content_info').empty();
+                $('#fansItem').addClass('like')
+                $('#followItem').removeClass('like')
+                $('#title').text('全部粉丝');
+                getFans();
+            })
+
+            $('#followItem').click(function () {
+                $('.content_info').empty();
+                $('#followItem').addClass('like')
+                $('#fansItem').removeClass('like')
+                $('#title').text('全部关注');
+                getFocus();
+            })
+
+            $(document).on('click', '.followBtn', function () {
+                let id = $(this).data('id');
+                console.log(id)
+                if ($(this).hasClass('followOn')) {
+                    $(this).removeClass('followOn')
+                    $(this).text('已关注')
+                } else {
+                    $(this).addClass('followOn')
+                    $(this).text('+ 关注')
+                }
+                fans(id);
+            })
+
+        })
+
+        function getFocus() {
+            $.ajax({
+                type: "get",
+                url: Ip + '/user/queryFocus?userId=' + userInfo.id,
+                dataType: 'json',
+                timeout: 0,
+                success: function (res) {
+                    (res.data).forEach(value => {
+                        $(".content_info").append(
+                            '<li>' +
+                            '<img src="' + Ip + "/file/images/" + value.id + "/" + value.headImg + '">' +
+                            '<div>' +
+                            '<span class="name">' + value.nickName + '</span>' +
+                            '<span class="introduce">' + value.introduce + '</span>' +
+                            '</div>' +
+                            '<button class="followBtn" data-id=' + value.id + '>已关注</button>' +
+                            '</li>'
+                        )
+                    });
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+        }
+
+        function getFans() {
+            $.ajax({
+                type: "get",
+                url: Ip + '/user/queryFans?userId=' + userInfo.id,
+                dataType: 'json',
+                timeout: 0,
+                success: function (res) {
+                    (res.data).forEach(value => {
+                        isFans(value);
+                    });
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+        }
+
+        function isFans(value) {
+            $.ajax({
+                type: "post",
+                url: Ip + '/review/isFans',
+                dataType: 'json',
+                timeout: 0,
+                data: {
+                    fansId: userInfo.id,
+                    userId: value.id
+                },
+                success: function (res) {
+                    var flag = res.data;
+                    var tLike = '<button class="followBtn" data-id=' + value.id + '>已关注</button>'
+                    var fLike = '<button class="followBtn followOn" data-id=' + value.id + '>+ 关注</button>'
+                    $(".content_info").append(
+                        '<li>' +
+                        '<img src="' + Ip + "/file/images/" + value.id + "/" + value.headImg + '">' +
+                        '<div>' +
+                        '<span class="name">' + value.nickName + '</span>' +
+                        '<span class="introduce">' + value.introduce + '</span>' +
+                        '</div>' +
+                        (flag ? tLike : fLike) +
+                        '</li>'
+                    )
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+        }
+
+        function fans(userId) {
+            $.ajax({
+                type: "post",
+                url: Ip+'/review/fans',
+                dataType: 'json',
+                timeout: 0,
+                data: {
+                    fansId: userInfo.id,
+                    userId: userId,
+                },
+                success: function (res) {
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+        }
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>个人动态</title>
+    <link href="../../static/css/user/userInfo.css" type="text/css" rel="stylesheet">
+
+    <link rel="stylesheet" href="../../static/layui/css/layui.css" media="all">
+    <link href="../../static/css/user/mask.css" type="text/css" rel="stylesheet">
+    <link href="../../static/css/user/userInfo_dynamic.css" type="text/css" rel="stylesheet">
+    <link href="https://asset.cpming.top/js-myutils/dialog/my_dialog.css" type="text/css" rel="stylesheet" />
+    <link rel="stylesheet" href="../../static/css/iconfont.css" type="text/css">
+
+    <link href="../../static/css/user/header.css" type="text/css" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <header></header>
+
+    <div id="bodyBar"></div>
+
+    <div class="body">
+        <div class="content" th:fragment="userInfo_content">
+
+            <div class="content_left">
+
+                <div class="menu">
+                    TA的点赞
+                </div>
+
+                <ul class="dynamic">
+
+                    <!-- <li class="seenFilm">
+                        <div class="userInfo">
+                            <div class="userImg" style="background-image: url(../../static/img/img1.jpg);"></div>
+                            <div class="userName">
+                                <span>
+                                    匿名用户1
+                                </span>
+                                <span>
+                                    09-24
+                                </span>
+                            </div>
+                            <div class="delete" onclick="showDel(this)">
+                                <i class="layui-icon">&#xe671;</i>
+                            </div>
+                            <div class="card hide" onmouseleave="hideDel(this)">
+                                <p><a class="del">删除</a></p>
+                            </div>
+                        </div>
+                        <div class="userContent">
+                            重温了几遍，它值得，五星好评以资鼓励！！！
+                        </div>
+                        <div class="userScore" lay-data="{value:2 ,half: true, readonly:true}"></div>
+                        <div class="userFilm">
+                            <div class="filmCover" style="background-image: url(../../static/img/hml2.jpg)">
+                                <div class="tag-vertical discount">5.6</div>
+                            </div>
+                            <div class="filmInfo">
+                                <span>花木兰</span>
+                                <span>导演：妮琪·卡罗</span>
+                                <span>剧情,冒险</span>
+                                <span>2020-09-11上映</span>
+                            </div>
+                            <div class="label">
+                                <img src="../../static/img/other_已看过.png">
+                            </div>
+                        </div>
+                    </li> -->
+
+                    <!-- <li>
+                        <div class="userInfo">
+                            <div class="userImg" style="background-image: url(../../static/img/img1.jpg);"></div>
+                            <div class="userName">
+                                <span>
+                                    匿名用户1
+                                </span>
+                                <span>
+                                    09-24
+                                </span>
+                            </div>
+                        </div>
+                        <div class="infoContent">
+                            <img src="../../static/img/rsyc.jpg">
+                            <div class="textContent">
+                                <h3>没有人愿意相信：这些不畏生死的英雄后续的命运竟会如此凄惨……</h3>
+                                <div>
+                                    <i class="iconfont">&#xe608;</i>
+                                    <span>八佰</span>
+                                    <i class="iconfont">&#xe781;</i>
+                                    <span>4.6K</span>
+                                </div>
+                            </div>
+                        </div>
+                    </li> -->
+                </ul>
+            </div>
+
+            <!-- <div class="content_right">
+
+                <div class="menu">
+                    已看影片
+                </div>
+
+                <div class="seeList">
+                    <div class="box list">
+                        <div style="background-image:url(../../static/img/hml2.jpg)"></div>
+                        <div class="box-content">
+                            <ul>
+                                <li>花木兰</li>
+                                <li>刘亦菲</li>
+                                <li>2020-09-11</li>
+                                <li>评分:5.0</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="box list">
+                        <div style="background-image:url(../../static/img/xt.jpg)"></div>
+                        <div class="box-content">
+                            <ul>
+                                <li>信条</li>
+                                <li>刘亦菲</li>
+                                <li>2020-09-11</li>
+                                <li>评分:5.0</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="box list">
+                        <div style="background-image:url(../../static/img/hml2.jpg)"></div>
+                        <div class="box-content">
+                            <ul>
+                                <li>信条</li>
+                                <li>约翰·大卫·华盛顿</li>
+                                <li>2020-09-04</li>
+                                <li>评分:7.8</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="more">
+                    <span>查看更多>></span>
+                </div>
+
+            </div> -->
+
+        </div>
+    </div>
+
+    <script src="../../static/layui/layui.js" charset="utf-8"></script>
+    <script src="../../static/js/jquery-1.11.0.min.js"></script>
+    <script src="../../static/js/header.js"></script>
+    <script src="../../static/js/other_userInfo_header.js"></script>
+
+    <!-- <script>
+
+       function showDel(_this) {
+
+            $(_this).next().css('display', 'block')
+
+            if($(_this).next().hasClass("show")){
+                $(_this).next().addClass('hide');
+                $(_this).next().removeClass('show');
+            }else {
+                $(_this).next().addClass('show')
+                $(_this).next().removeClass('hide');
+            }
+
+        } 
+
+        function hideDel(_this) {
+            $(_this).css('display', 'none');
+        }
+
+        $(function () {
+            $('.dynamic').on('click', '.del', function () {
+                //console.log($.myconfirm(options))
+                if (confirm("确定要删除吗？") == true) {
+                    $(this).closest('li').remove();
+                }
+            });
+        });
+
+
+    </script> -->
+
+    <script>
+
+        var userInfo = JSON.parse(localStorage.getItem('userInfo'));
+        if(userInfo==null){
+            userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
+        }
+        var otherUser=[];
+
+        var type = window.location.href;
+        var data = type.split("="); //截取 url中的“=”,获得“=”后面的参数  
+        var type = decodeURI(data[1]); //decodeURI解码  
+
+        const Ip = localStorage.getItem('Ip');
+
+        var filmReview = []
+
+        /* getUserInfo(type); */
+
+        $('.dynamic').on('click', 'li', function () {
+            var jsonStr = JSON.stringify(filmReview[$(this).index()]);
+            sessionStorage.setItem("filmReviewsInfo", jsonStr);
+            window.location.href = "view_filmReviews.html";
+        })
+
+        $('.dynamic').on('click', '.likeBtn', function (event) {
+            event.stopPropagation();
+            var num = parseInt($(this).next().text());
+            if ($(this).hasClass('likeOn')) {
+                $(this).removeClass('likeOn');
+                $(this).next().text(--num);
+            } else {
+                $(this).addClass('likeOn');
+                $(this).next().text(++num);
+            }
+            like($(this).data("id"));
+        })
+
+        function getUserInfo(id) {
+            $.ajax({
+                type: "post",
+                url: Ip+'/user/queryUserInfo?userId='+id,
+                dataType: 'json',
+                timeout: 0,
+                success: function (res) {
+                    console.log(res)
+                    otherUser=res.data;
+
+                    $('#bodyBar').load('other_userInfo_header.html', function () {
+                        $('#bodyBar .headImg').css("background-image", "url("+Ip+"/file/images/" + otherUser.id + "/" + otherUser.headImg + ")");
+                        $('#bodyBar .userName').text(otherUser.nickName);
+                        $('#bodyBar .userIntroduce').text(otherUser.introduce);
+                        $('#bodyBar ul li').eq(0).css('border-bottom', '#00a1d6 solid 3px');
+                    })
+
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+        }
+
+        function like(filmId) {
+            $.ajax({
+                type: "post",
+                url: Ip+'/review/praise',
+                dataType: 'json',
+                timeout: 0,
+                data: {
+                    filmId: filmId,
+                    userId: userInfo.id,
+                    sort: 0
+                },
+                success: function (res) {
+                    console.log(res)
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+        }
+
+    </script>
+
+    <script>
+        $(document).ready(function () {
+
+            layui.use('flow', function () {
+                var $ = layui.jquery; //不用额外加载jQuery，flow模块本身是有依赖jQuery的，直接用即可。
+                var flow = layui.flow;
+                flow.load({
+                    elem: '.dynamic' //指定列表容器
+                    , done: function (page, next) { //到达临界点（默认滚动触发），触发下一页
+
+                        var lis = [];
+                        //以jQuery的Ajax请求为例，请求下一页数据（注意：page是从2开始返回）
+                        $.get(Ip + '/review/queryReviewByPraise/' + type + '/' + page, function (res) {
+                            //假设你的列表返回在data集合中
+                            layui.each(res.data, function (index, value) {
+                                filmReview.push(value);
+                                lis.push('<li>' +
+                                    '<div div class= "userInfo" >' +
+                                    '<div class="userImg" style="background-image: url(' + Ip + '/file/images/' + value.userId + '/' + value.headImg + ');"></div>' +
+                                    '<div class="userName">' +
+                                    '<span>' + value.nickName + '</span>' +
+                                    '<span>' + value.time + '</span>' +
+                                    '</div></div>' +
+                                    '<div class="infoContent">' +
+                                    '<img src="' + Ip + '/file/images/' + value.userId + '/' + value.coverImg + '">' +
+                                    '<div class="textContent">' +
+                                    '<h3>' + value.title + '</h3>' +
+                                    '<div>' +
+                                    '<i class="iconfont likeBtn likeOn" data-id='+value.id+'>&#xe608;</i>' +
+                                    '<span>' + value.praise + '</span>' +
+                                    '<i class="iconfont">&#xe8f9;</i>' +
+                                    '<span>' + value.filmName + '</span>' +
+                                    '</div></div></div>' +
+                                    '</li>');
+                            });
+                            next(lis.join(''), res.data != [] && res.data.length > 0);
+                        });
+                    }
+                });
+            });
+
+        });
+
+    </script>
+
+    <!-- <script>
+        $(document).ready(function () {
+
+            layui.use('flow', function () {
+                var $ = layui.jquery; //不用额外加载jQuery，flow模块本身是有依赖jQuery的，直接用即可。
+                var flow = layui.flow;
+                flow.load({
+                    elem: '.list_list' //指定列表容器
+                    , done: function (page, next) { //到达临界点（默认滚动触发），触发下一页
+
+                        var lis = [];
+                        //以jQuery的Ajax请求为例，请求下一页数据（注意：page是从2开始返回）
+                        $.get('http://106.53.127.8:8080/review/queryReview/' + page, function (res) {
+                            //假设你的列表返回在data集合中
+                            layui.each(res.data, function (index, value) {
+                                lis.push('<li class="seenFilm">' +
+                                    '<div class="userInfo">' +
+                                    '<div class="userImg" style="background-image: url(../../static/img/img1.jpg);"></div>' +
+                                    '<div class="userName">' +
+                                    '<span>匿名用户2</span>' +
+                                    '<span>09-24</span>' +
+                                    '</div>' +
+                                    '<div class="delete" onclick="showDel(this)">' +
+                                    '<i class="layui-icon">&#xe671;</i>' +
+                                    '</div>' +
+                                    '<div class="card hide" onmouseleave="hideDel(this)">' +
+                                    '<p><a class="del">删除</a></p>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '<div class="userContent">重温了几遍，它值得，五星好评以资鼓励！！！</div>' +
+                                    '<div class="userScore" lay-data="{value:2 ,half: true, readonly:true}"></div>' +
+                                    '<div class="userFilm">' +
+                                    '<div class="filmCover" style="background-image: url(../../static/img/hml2.jpg)">' +
+                                    '<div class="tag-vertical discount">5.6</div>' +
+                                    '</div>' +
+                                    '<div class="filmInfo">' +
+                                    '<span>花木兰</span>' +
+                                    '<span>导演：妮琪·卡罗</span>' +
+                                    '<span>剧情,冒险</span>' +
+                                    '<span>2020-09-11上映</span>' +
+                                    '</div>' +
+                                    '<div class="label">' +
+                                    '<img src="../../static/img/other_已看过.png">' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '</li>');
+                                console.log(lis)
+                                filmCritics_list.push(value);
+                            });
+
+                            //执行下一页渲染，第二参数为：满足“加载更多”的条件，即后面仍有分页
+                            //pages为Ajax返回的总页数，只有当前页小于总页数的情况下，才会继续出现加载更多
+                            next(lis.join(''), res.data != [] && res.data.length > 0);
+                        });
+                    }
+                });
+            });
+
+            layui.use(['rate', 'jquery'], function () {
+                var rate = layui.rate;
+                var $ = layui.jquery;
+
+                //多个评分     
+                layui.each($('.userScore'), function (index, elem) {
+                    var configTemp = $(elem).attr('lay-data');
+                    try {
+                        configTemp = eval('(' + configTemp + ')');
+                    } catch (e) {
+                        configTemp = {};
+                    }
+                    rate.render($.extend(true, {
+                        elem: elem
+                    }, configTemp));
+                });
+            });
+
+            layui.use('rate', function () {
+                var rate = layui.rate;
+                //渲染
+                var ins1 = rate.render({
+                    elem: '.userScore', //绑定元素
+                    value: 4.5,
+                    half: true,
+                    readonly: true,
+                    text: true,
+                    setText: function (value) { //自定义文本的回调
+                        var arrs = {
+                            '1': '惨不忍睹',
+                            '1.5': '惨不忍睹',
+                            '2': '差强人意',
+                            '2.5': '差强人意',
+                            '3': '可以一试',
+                            '3.5': '可以一试',
+                            '4': '佳片推荐',
+                            '4.5': '佳片推荐',
+                            '5': '必看影片',
+                            '5.5': '必看影片'
+                        };
+                        this.span.text(value + '星 ' + ' " ' + arrs[value] + ' " ');
+                    }
+                });
+            });
+        });
+
+    </script> -->
+
+</body>
+
+</html>

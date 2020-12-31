@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>查看影单</title>
+    <link href="../../static/layui/css/layui.css" rel="stylesheet">
+    <link href="../../static/css/user/favorite.css" rel="stylesheet">
+    <link href="../../static/css/iconfont.css" rel="stylesheet">
+    <link href="../../static/css/user/header.css" type="text/css" rel="stylesheet">
+</head>
+
+<body>
+    <header></header>
+    <div class="body">
+        <div class="topBody">
+            <div class="favoriteInfo">
+                <!-- <img src="../../static/img/yyqx.jpg">
+                <div class="favInfo_content">
+                    <h3>治疗抑郁的绝美纪录片</h3>
+                    <div>
+                        <img src="../../static/img/zhl.png">
+                        <span>我的名字叫cy</span>
+                        <i class="iconfont">&#xe664;</i>
+                        <span>2020-10-28更新</span>
+                    </div>
+                    <h4>纪录片是对真实客观世界的艺术展示，是除了身边生活外，感知世界最好的途径之一！</h4>
+                    <button><i class="iconfont">&#xe8f8;</i>收藏</button>
+                </div> -->
+            </div>
+        </div>
+        <div class="favoriteFilm">
+            <ul class="favFilm_content">
+                <!-- <li>
+                    <img src="../../static/img/xt.jpg">
+                    <div>
+                        <span>送你一朵小红花</span>
+                        <span>评分：<i>9.8</i></span>
+                        <span>韩延 | 易烊千玺 刘浩存 朱媛媛</span>
+                        <span>剧情,家庭</span>
+                        <span>2020-12-31中国大陆上映</span>
+                        <span>125分钟</span>
+                    </div>
+                </li> -->
+            </ul>
+        </div>
+    </div>
+
+    <script src="../../static/js/jquery-1.11.0.min.js"></script>
+    <script src="../../static/layui/layui.js" charset="utf-8"></script>
+    <script src="../../static/js/header.js"></script>
+
+    <script>
+
+        $(document).ready(function () {
+
+            var userInfo = JSON.parse(localStorage.getItem('userInfo'));
+            if (userInfo == null) {
+                userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
+                if(userInfo == null){
+                    userInfo={
+                        id:0
+                    }
+                }
+            }
+
+            var filmFavorite = JSON.parse(sessionStorage.getItem('filmFavorite'));
+            sessionStorage.removeItem('filmFavorite');
+
+            const Ip = localStorage.getItem('Ip');
+
+            var filmList = [];
+
+            $('.favoriteInfo').append(
+                '<img src="' + Ip + '/file/images/' + filmFavorite.userId + '/' + filmFavorite.coverImg + '">' +
+                '<div class="favInfo_content">' +
+                '<h3>' + filmFavorite.tittle + '</h3>' +
+                '<div>' +
+                '<img src="' + Ip + '/file/images/' + filmFavorite.userId + '/' + filmFavorite.headImg + '">' +
+                '<span>' + filmFavorite.nickName + '</span>' +
+                '<i class="iconfont">&#xe664;</i>' +
+                '<span>' + filmFavorite.time + '更新</span>' +
+                '</div>' +
+                '<h4>' + filmFavorite.introduce + '</h4>' +
+                '<button id="filmFavBtn"><i class="iconfont">&#xe8f8;</i><span>' + filmFavorite.praise + '</span>收藏</button>' +
+                '</div>'
+            )
+
+            queryMovie();
+
+            if (userInfo.id != filmFavorite.userId) {
+                ifLike();
+            }
+
+            $(document).on('click', '#filmFavBtn', function () {
+
+                if (userInfo.id == 0) {
+                    alert("请先登录！");
+                    window.location.href = "login.html";
+                    return false;
+                }else{
+                    var flag = parseInt($('#filmFavBtn span').text());
+                    if (userInfo.id != filmFavorite.userId) {
+                        if ($(this).hasClass('likeOn')) {
+                            $(this).removeClass('likeOn');
+                            $('#filmFavBtn').html('<i class="iconfont">&#xe8f8;</i><span>' + (--flag) + '</span> 收藏')
+                        } else {
+                            $(this).addClass('likeOn');
+                            $('#filmFavBtn').html('<i class="iconfont">&#xe8f8;</i><span>' + (++flag) + '</span> 已收藏')
+                        }
+                        like();
+                    }
+                }
+            })
+
+            $('.favFilm_content').on('click', 'li', function () {
+                var jsonStr = JSON.stringify(filmList[$(this).index()]);
+                sessionStorage.setItem("movie_details", jsonStr);
+                window.location.href = "movie_details.html";
+            })
+
+            function queryMovie() {
+                $.ajax({
+                    type: "get",
+                    url: Ip + '/movie/queryMovie/?moviesId=' + filmFavorite.id,
+                    dataType: 'json',
+                    timeout: 0,
+                    success: function (res) {
+                        console.log(res);
+
+                        $.each(res.data, function (i, value) {
+                            filmList.push(value);
+                            var reg = new RegExp("/w.h/", 'g')
+                            var img = (value.img).replace(reg, "/");
+                            $('.favFilm_content').append('<li>' +
+                                '<img src="' + img + '">' +
+                                '<div>' +
+                                '<span>' + value.nm + '</span>' +
+                                '<span>评分：<i>' + value.sc + '</i></span>' +
+                                '<span>' + value.act + '</span>' +
+                                '<span>' + value.cat + '</span>' +
+                                '<span>' + value.pubDesc + '</span>' +
+                                '<span>' + value.dur + '分钟</span>' +
+                                '</div>' +
+                                '</li>');
+                        })
+
+                        $('#commentText').val('');
+                        $(".masker").fadeToggle();
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                });
+            }
+
+            function ifLike() {
+                $.ajax({
+                    type: "post",
+                    url: Ip + '/review/isPraise',
+                    dataType: 'json',
+                    timeout: 0,
+                    data: {
+                        filmId: filmFavorite.id,
+                        userId: userInfo.id,
+                        sort: 2
+                    },
+                    success: function (res) {
+                        console.log(res);
+                        if (res.data) {
+                            $('#filmFavBtn').addClass('likeOn');
+                        } else {
+                            $('#filmFavBtn').removeClass('likeOn');
+                        }
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                });
+            }
+
+            function like() {
+                $.ajax({
+                    type: "post",
+                    url: Ip + '/review/praise',
+                    dataType: 'json',
+                    timeout: 0,
+                    data: {
+                        filmId: filmFavorite.id,
+                        userId: userInfo.id,
+                        sort: 2
+                    },
+                    success: function (res) {
+                        console.log(res);
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                });
+            }
+
+        })
+
+    </script>
+</body>
+
+</html>

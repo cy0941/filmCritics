@@ -1,0 +1,129 @@
+<!-- <!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../../static/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../static/css/iconfont.css">
+    <link rel="stylesheet" href="../../static/css/user/header.css" type="text/css">
+</head>
+<body>
+ -->
+
+    <div class="header">
+        <ul class="layui-nav">
+            <li style="float:left; height:30px; width:auto; margin:auto;">
+                <img src="../../static/img/logo.png" style="height:60px; width:auto;">
+            </li>
+            <li class="layui-nav-item">
+                <a href="filmCritics.html" .html" style="color:#8590a6;">影评</a>
+            </li>
+            <li class="layui-nav-item">
+                <a href="movies.html" style="color:#8590a6;">影视</a>
+            </li>
+            <li class="layui-nav-item">
+                <a href="dynamic.html" style="color:#8590a6;">动态</a>
+            </li>
+
+            <li class="layui-nav-item" style="float:right;">
+                <a id="exit" style="color:#8590a6;cursor:pointer">退出</a>
+            </li>
+
+            <li class="layui-nav-item" lay-unselect="" style="float:right;">
+                <a href="userInfo_dynamic.html" style="color:#8590a6;">
+                    <img id="headerHeadImg" src="../../static/img/logo.png" class="layui-nav-img">
+                    <span id="userName">请登录</span>
+                </a>
+            </li>
+
+            <li class="search">
+                <input id="searchText" type="text" placeholder="搜索" >
+                <button id="searchBtn"><i class="iconfont">&#xe68e;</i></button>
+                <ul class="searchList">
+                    <li class="searchItem">士兵突击</li>
+                </ul>
+            </li>
+        </ul>
+        
+    </div>
+
+    <!-- <div style="width: 100%;">
+        <embed type="text/html" src="filmCritics.html" style="width: 100%;height: 100%;" />
+    </div>
+    data-options="required:true,value:0,precision:0,events:{keyup:showDosage}"
+    -->
+
+    <!-- <iframe src="filmCritics.html" width="100%" frameborder="0" scrolling="no" id="test" onload="this.height=100"></iframe> -->
+    <!-- <iframe src="filmCritics.html" width="100%" frameborder="0" height="857" scrolling="auto" id="test"></iframe> -->
+    <!-- 
+    <script src="../../static/js/jquery-1.11.0.min.js"></script>
+    <script src="../../static/layui/layui.js" charset="utf-8"></script>
+
+    <script>
+
+        $(document).ready(function () {
+
+            var userInfo = JSON.parse(localStorage.getItem('userInfo'));
+            $("#headerHeadImg").attr("src", "http://106.53.127.8:8080/file/images/" + userInfo.id + "/" + userInfo.headImg);
+
+            $.get("header.html", function (data) {
+                $("#navigationBar").html(data);
+            });
+
+            $(document).on("click", "#searchBtn", function () {
+                console.log($("#searchText").val())
+                search($("#searchText").val())
+                console.log('010101010010101')
+            })
+
+            /* $("#searchBtn").click(function () {
+                
+                //ky();
+            }) */
+
+            function search(keyWord) {
+                $.ajax({
+                    type: "post",
+                    url: 'http://106.53.127.8:8080/movie/getMovies?kw=' + keyWord,
+                    dataType: 'json',
+                    headers: {
+                    },
+                    success: function (data) {
+                        console.log(data);
+                        console.log("________________")
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                });
+            }
+        })
+
+        layui.use('element', function () {
+            var element = layui.element; //导航的hover效果、二级菜单等功能，需要依赖element模块
+
+            //监听导航点击
+            element.on('nav(demo)', function (elem) {
+                //console.log(elem)
+                layer.msg(elem.text());
+            });
+        });
+
+    </script> -->
+    <!-- <script type="text/javascript">
+        function reinitIframe() {
+            var iframe = document.getElementById("test");
+            try {
+                var bHeight = iframe.contentWindow.document.body.scrollHeight;
+                var dHeight = iframe.contentWindow.document.documentElement.scrollHeight;
+                var height = Math.max(bHeight, dHeight);
+                iframe.height = height;
+                console.log(height);
+            } catch (ex) { }
+        }
+        window.setInterval("reinitIframe()", 200);
+    </script> -->
+<!-- </body>
+
+</html> -->

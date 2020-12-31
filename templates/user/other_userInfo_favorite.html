@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>个人影单</title>
+
+    <link href="../../static/css/user/userInfo.css" type="text/css" rel="stylesheet">
+
+    <link rel="stylesheet" href="../../static/css/iconfont.css" type="text/css">
+    <link rel="stylesheet" href="../../static/css/user/userInfo_favorite.css" type="text/css">
+    <link rel="stylesheet" href="../../static/layui/css/layui.css" media="all">
+
+    <link href="../../static/css/user/header.css" type="text/css" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <header></header>
+
+    <div id="bodyBar"></div>
+
+    <div class="body">
+        <div class="menu">
+            影单
+        </div>
+        <div class="content">
+            <div class="content_left">
+                <span class="favoritesList">
+                    TA的创建<i class="tag iconfont down">&#xe611;</i>
+                </span>
+                <ul class="creFavList favList">
+                    <!-- <li class="iconfont select">医生，在平凡中通完不凡</li> -->
+                </ul>
+                <span class="favoritesList">
+                    TA的收藏<i class="tag iconfont down">&#xe611;</i>
+                </span>
+                <ul class="colFavList favList">
+                    <!-- <li class="iconfont">看完可以装X的有趣纪录片</li> -->
+                </ul>
+            </div>
+            <div class="content_right">
+                <div class="favInfo">
+                    <!-- <div class="favInfo_cover" style="background-image: url(../../static/img/f.png)">
+                        <div class="modifyCover hide">修改封面</div>
+                    </div>
+                    <div class="favInfo_details">
+                        <span>医生，在平凡中通往不凡</span>
+                        <div>
+                            <img src="../../static/img/zhl.png">
+                            <span>不捏泥人</span>
+                            <span>2019-10-28更新</span>
+                            <span>13部影片</span>
+                        </div>
+                        <span>可能会有人忘记，他们不是天生神力的天使，而只是凡人。一个做出了耀眼选择的凡人。可能会有人忘记，他们不是天生神力的天使，而只是凡人。一个做出了耀眼选择的凡人。</span>
+                        <div>
+                            <span><i class="iconfont colBtn">&#xe8f8;</i>2546收藏</span>
+                            <span><i class="iconfont">&#xe761;</i>编辑</span>
+                            <span><i class="iconfont delBtn">&#xe614;</i>删除</span>
+                        </div>
+                    </div> -->
+                </div>
+                <ul class="movie">
+                    <!-- <li data-id="">
+                        <div style="background-image: url(../../static/img/index.jpg)">
+                            <div class="score">7.8</div>
+                        </div>
+                        <div class="filmInfo">
+                            <span>信条</span>
+                            <span>导演：克里斯托弗·诺兰</span>
+                            <span>科幻,动作,剧情</span>
+                            <span>2020-09-04上映</span>
+                            <div><i class="iconfont collection">&#xe60c;</i>已收藏</div>
+                        </div>
+                    </li> -->
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="../../static/layui/layui.js"></script>
+    <script type="text/javascript" src="../../static/js/jquery-1.11.0.min.js"></script>
+    <script src="../../static/js/header.js"></script>
+    <script src="../../static/js/other_userInfo_header.js"></script>
+
+    <script>
+        $(document).ready(function () {
+
+            var userInfo = JSON.parse(localStorage.getItem('userInfo'));
+            if(userInfo==null){
+                userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
+            }
+            var creMovieList = [];
+            var colMovieList = [];
+            var filmList = [];
+            var otherUser = [];
+
+            var type = window.location.href;
+            var data = type.split("="); //截取 url中的“=”,获得“=”后面的参数  
+            var type = decodeURI(data[1]); //decodeURI解码  
+
+            const Ip = localStorage.getItem('Ip');
+
+            /* getUserInfo(type) */
+            getCreMovieList(type, 1);
+            getColMovieList(type);
+
+            $(".favoritesList").click(function () {
+                var tag = $(this).children('.tag');
+                var ul = $(this).next();
+                /* if(tag.hasClass('down')){
+
+                    $(this).toggleClass("down");
+
+                    tag.removeClass('down')
+                    tag.addClass('up')
+                }else{
+                    tag.removeClass('up')
+                    tag.addClass('down')
+                } */
+                tag.toggleClass("down");
+                tag.toggleClass("up");
+                ul.slideToggle();
+            })
+
+            $('.creFavList').on('click', 'li', function () {
+                //console.log($.myconfirm(options))
+                $('.favList li').removeClass('select');
+                $(this).addClass('select');
+                var index = $(this).index();
+                $(".favInfo").empty();
+                $(".movie").empty()
+                movieListInfo(index, creMovieList, true)
+                getMovieListInfo(creMovieList[index].id);
+            });
+
+            $('.colFavList').on('click', 'li', function () {
+                //console.log($.myconfirm(options))
+                $('.favList li').removeClass('select');
+                $(this).addClass('select');
+                var index = $(this).index();
+                $(".favInfo").empty();
+                $(".movie").empty()
+                movieListInfo(index, colMovieList, false)
+                getMovieListInfo(colMovieList[index].id);
+            });
+
+            $('.colBtn').click(function () {
+                $(this).addClass('colOn');
+            })
+
+
+            $(document).on('click', '.colBtn', function () {
+                var moviesId = this.getAttribute('id-favId');
+                if (moviesId != userInfo.id) {
+                    if (confirm("确定要取消收藏吗？") == true) {
+                        like(moviesId)
+                    }
+                }
+            })
+
+            $('.movie').on('click', 'li', function () {
+                var jsonStr = JSON.stringify(filmList[$(this).index()]);
+                sessionStorage.setItem("movie_details", jsonStr);
+                window.location.href = "movie_details.html";
+            })
+
+            function getUserInfo(id) {
+                $.ajax({
+                    type: "post",
+                    url: Ip + '/user/queryUserInfo?userId=' + id,
+                    dataType: 'json',
+                    timeout: 0,
+                    success: function (res) {
+                        console.log(res)
+                        otherUser = res.data;
+
+                        $('#bodyBar').load('other_userInfo_header.html', function () {
+                            $('#bodyBar .headImg').css("background-image", "url(" + Ip + "/file/images/" + res.data.id + "/" + res.data.headImg + ")");
+                            $('#bodyBar .userName').text(res.data.nickName);
+                            $('#bodyBar .userIntroduce').text(res.data.introduce);
+                            $('#bodyBar ul li').eq(0).css('border-bottom', '#00a1d6 solid 3px');
+                        })
+
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                });
+            }
+
+            function getCreMovieList(userId, index) {
+                $.ajax({
+                    type: "get",
+                    url: Ip+'/movie/queryMovieListByUser/' + index,
+                    dataType: 'json',
+                    timeout: 0,
+                    data: {
+                        userId: userId
+                    },
+                    success: function (res) {
+
+                        (res.data).forEach(value => {
+                            creMovieList.push(value);
+                            $(".creFavList").append(
+                                '<li class="iconfont">' + value.tittle + '</li>'
+                            )
+                        });
+
+                        if (res.data.length != 0 && res.data != []) {
+                            getCreMovieList(userId, ++index);
+                        } else {
+                            $('.creFavList li').first().addClass('select');
+                            movieListInfo(0, creMovieList, true)
+                            getMovieListInfo(creMovieList[0].id);
+                        }
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                });
+            }
+
+            function getColMovieList(userId) {
+                $.ajax({
+                    type: "get",
+                    url: Ip+'/movie/queryMovieListByPraise/' + userId + '/1',
+                    dataType: 'json',
+                    timeout: 0,
+                    success: function (res) {
+                        colMovieList = res.data;
+                        (res.data).forEach(value => {
+                            $(".colFavList").append(
+                                '<li class="iconfont">' + value.tittle + '</li>'
+                            )
+                        });
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                });
+            }
+
+            function getMovieListInfo(moviesId) {
+                $.ajax({
+                    type: "get",
+                    url: Ip+'/movie/queryMovie/?moviesId=' + moviesId,
+                    dataType: 'json',
+                    timeout: 0,
+                    success: function (res) {
+                        if ((res.data).length == 0) {
+                            $(".movie").append('<li class="center">还没有收藏影片呢</li>');
+                            return;
+                        }
+                        filmList = [];
+                        (res.data).forEach(value => {
+                            filmList.push(value);
+                            var reg = new RegExp("/w.h/", 'g')
+                            var img = (value.img).replace(reg, "/");
+                            $(".movie").append(
+                                '<li>' +
+                                '<div style="background-image: url(' + img + ')">' +
+                                '<div class="score">' + value.sc + '</div>' +
+                                '</div>' +
+                                '<div class="filmInfo">' +
+                                '<span>' + value.nm + '</span>' +
+                                '<span>' + value.act + '</span>' +
+                                '<span>' + value.cat + '</span>' +
+                                '<span>' + value.pubDesc + '</span>' +
+                                '<div><i class="iconfont collection">&#xe60c;</i>已收藏</div>' +
+                                '</div>' +
+                                '</li>'
+                            )
+                        });
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                });
+            }
+
+            function movieListInfo(index, list, flag) {
+                $('.favInfo').append(
+                    '<div class="favInfo">' +
+                    '<div class="favInfo_cover" style="background-image: url('+Ip+'/file/images/' + list[index].userId + '/' + list[index].coverImg + ')">' +
+                    '</div>' +
+                    '<div class="favInfo_details">' +
+                    '<span>' + list[index].tittle + '</span>' +
+                    '<div>' +
+                    '<img src="'+Ip+'/file/images/' + list[index].userId + '/' + list[index].headImg + '">' +
+                    '<span>' + list[index].nickName + '</span>' +
+                    '<span>创建于：' + list[index].time + '</span>' +
+                    '</div>' +
+                    '<span>' + list[index].introduce + '</span>' +
+                    '<div>' +
+                    '<span><i class="iconfont ' + (flag ? '' : 'colBtn') + '" id-favId="' + list[index].id + '">&#xe8f8;</i>' + list[index].praise + '收藏</span>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>'
+                )
+            }
+
+
+            function like(moviesId) {
+                $.ajax({
+                    type: "post",
+                    url: Ip+'/review/praise',
+                    dataType: 'json',
+                    timeout: 0,
+                    async: false,
+                    data: {
+                        filmId: moviesId,
+                        userId: userInfo.id,
+                        sort: 2
+                    },
+                    success: function (res) {
+                        console.log(res);
+                        window.location.reload();
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                });
+            }
+
+        })
+    </script>
+</body>
+
+</html>

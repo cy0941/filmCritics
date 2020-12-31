@@ -1,14 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>查看影片信息</title>
     <meta name="referrer" content="no-referrer">
-    <link href="../../static/css/movie_details.css" type="text/css" rel="stylesheet">
+    <link href="../../static/layui/css/layui.css" rel="stylesheet" media="all">
+    <link href="../../static/css/user/movie_details.css" rel="stylesheet" type="text/css">
+    <link href="../../static/css/iconfont.css" rel="stylesheet">
+    <link href="../../static/css/user/header.css" rel="stylesheet" type="text/css">
+
 </head>
+
 <body>
+    <!-- <header id="navigationBar"></header> -->
+    <header></header>
     <div class="movie">
-        <div class="bgImg" style="background-image: url(http://p0.meituan.net/movie/e00977359c9718949a7d1fff69f5baeb3782915.jpg)"></div>
+        <!-- <div class="bgImg"
+            style="background-image: url(http://p0.meituan.net/movie/e00977359c9718949a7d1fff69f5baeb3782915.jpg)">
+        </div>
         <div class="movieInfo_content">
             <img src="http://p0.meituan.net/movie/e00977359c9718949a7d1fff69f5baeb3782915.jpg">
             <div class="movieInfo">
@@ -16,15 +26,670 @@
                 <span>动画,动作,冒险</span>
                 <span>导演：程腾,李炜,王昕,李夏</span>
                 <span>2020-10-01上映</span>
-                <button>收藏本片</button>
+                <span>简介：动画电影《姜子牙》的故事发生于封神大战之后。昆仑弟子姜子牙，率领众神战胜狐妖，推翻了残暴的商王朝，赢得封神大战的胜利，即将受封为众神之长。在巅峰时刻，他却因一时之过被贬下凡间。失去神力，被世人唾弃。为重回昆仑，姜子牙踏上旅途。在战后的废墟之上，他重新找到了自我，也发现了当年一切的真相。</span>
+                <div>
+                    <button><i class="iconfont">&#xe8f8;</i>收藏本片</button>
+                    <button><i class="iconfont">&#xe60c;</i>添加到影集</button>
+                </div>
             </div>
             <div class="movieScore">
-
+                <span>评分</span>
+                <div>
+                    <span>8.4</span>
+                    <div id="score" lay-data="{value:3.75 ,half: true, readonly:true}"></div>
+                </div>
             </div>
+        </div> -->
+    </div>
+    <div class="bar">
+        <ul>
+            <li class="select">评论</li>
+            <!-- <li>长评</li> -->
+        </ul>
+    </div>
+    <div class="content">
+        <div class="shortContent">
+            <div class="contentTitle">
+                <span>短评</span>
+                <button id="shortComment">去写短评</button>
+            </div>
+            <ul class="shortUl">
+                <!-- <li>
+                    <div class="userInfo">
+                        <img src="../../static/img/logo.png">
+                        <span>指法芬芳张大仙</span>
+                        <i class="iconfont" id="del">&#xe614;</i>
+                        <span class='userInfo_time'>2020-10-28 05:20</span>
+                    </div>
+                    <div class="comment">
+                        第一次给一部影视作品打分，从小学五年级刚播出开始便追剧，初高中又在电视上看重播，大学后又独自一人一集不拉看了好几遍，已经追剧不下8遍，
+                        随着年龄增长每次观看时的感受都不相同，陪我走过了青春年华！力挺！
+                    </div>
+                </li> -->
+            </ul>
+        </div>
+        <div class="longContent hide">
+            <div class="contentTitle">
+                <span>长评</span>
+                <button id="shortComment">去写长评</button>
+            </div>
+            <ul class="longUl">
+                <li>
+                    <div class="userInfo">
+                        <img src="../../static/img/logo.png">
+                        <span>指法芬芳张大仙</span>
+                        <span>2020-10-28 05:20</span>
+                    </div>
+                    <div class="comment longComment">
+                        <img class="coverImg"
+                            src="http://p0.meituan.net/movie/e00977359c9718949a7d1fff69f5baeb3782915.jpg">
+                        <div>
+                            <h3>一部电视剧，反映了一代人的价值观变化</h3>
+                            <p>
+                                即便是在现在看仍然不减魅力的影视剧。开头浓浓的淳朴农村模样，真实再现普通农村人的生活场景。这部剧中的人物每个我都好喜欢，
+                                即便是王大治饰演的二哥，让我这个完全不了解他的人抛去了他的外表，看到他的演技。白月光存在的班长史今，如石头般坚硬的班副
+                                伍六一，傲娇的连长七公主高成，妖孽撩人的老A队长袁朗，曾经走歪跌落谷底又重拾内心的成才，还有很多的配角，平常心吴哲、
+                                小骨头、绝情坑坑主、
+                            </p>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="userInfo">
+                        <img src="../../static/img/logo.png">
+                        <span>指法芬芳张大仙</span>
+                        <span>2020-10-28 05:20</span>
+                    </div>
+                    <div class="comment longComment">
+                        <img class="coverImg"
+                            src="http://p0.meituan.net/movie/e00977359c9718949a7d1fff69f5baeb3782915.jpg">
+                        <div>
+                            <h3>史今班长就是我心中军人的模样</h3>
+                            <p>
+                                我还记得，小学的时候和爸妈在电视机前看《士兵突击》看得特别起劲。虽然大部分的情节都模糊了，但是细细回想，我对军旅部队的印象都是从这部剧开始的。
+                                时至今日，纵观全剧，记忆最深刻，也是最意难平的，就是史今班长。十多年过去了，我还能记得他叫史今， 这脱口而出的名字，在我当年小学看完大结局之
+                                后耿耿于怀。我还能记得好多史今班长的片段，每一个片段都停留在记忆深处，每一处细节都历历在目。
+                            </p>
+                        </div>
+                    </div>
+                </li>
+            </ul>
         </div>
     </div>
-    <div style="height: 1500px">
 
+    <div class="masker">
+        <div class="masker_content">
+            <div><i id="maskerClose" class="iconfont">&#xe605;</i></div>
+            <textarea id="commentText" placeholder="对于这个影片，我想说..."></textarea>
+            <button id="btnComment" type="button" class="layui-btn layui-btn-normal">发表短评</button>
+            <div><a id="filmReview">点这里，写长评>></a></div>
+        </div>
     </div>
+
+    <div class="maskerFav">
+        <div class="maskerFav_content">
+            <span><i id="masFavClose" class="iconfont">&#xe605;</i></span>
+            <span>添加到影集</span>
+            <ul class="favName">
+                <!-- <li><img src="../../static/img/收藏夹.png">冰爽到鸡皮疙瘩竖起的雪地……</li> -->
+            </ul>
+        </div>
+    </div>
+
+    <div class="maskerScore">
+        <div class="maskerScore_content">
+            <span><i id="masScoreClose" class="iconfont">&#xe605;</i></span>
+            <div id="masSco"></div>
+            <button id="releaseScore">发布</button>
+        </div>
+    </div>
+
+    <script src="../../static/js/jquery-1.11.0.min.js"></script>
+    <script src="../../static/layui/layui.js" charset="utf-8"></script>
+    <script src="../../static/js/header.js" charset="utf-8"></script>
+
+    <script>
+        $(document).ready(function () {
+
+            var userInfo = JSON.parse(localStorage.getItem('userInfo'));
+            if (userInfo == null) {
+                userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
+                if (userInfo == null) {
+                    userInfo = {
+                        id: 0
+                    }
+                }
+            }
+            var filmInfo = JSON.parse(sessionStorage.getItem('movie_details'));
+            sessionStorage.removeItem('movie_details');
+
+            const Ip = localStorage.getItem('Ip');
+
+            var score;
+            var scoreNumber = 0;
+
+            var filmId = filmInfo.id;
+            /* var filmInfo = []; */
+
+            /* getMovieInfo(movie_details.nm); */
+
+            appendMovie();
+            queryMovieScore();
+            getCreMovieList(1);
+
+            $("#shortComment").click(function () {
+                if (userInfo.id == 0) {
+                    alert("请先登录！");
+                    window.location.href = "login.html";
+                    return false;
+                } else {
+                    $(".masker").fadeToggle()
+                }
+            });
+
+            $("#maskerClose").click(function () {
+                $(".masker").fadeToggle();
+            });
+
+            $("#btnFav").click(function () {
+                if (userInfo.id == 0) {
+                    alert("请先登录！");
+                    window.location.href = "login.html";
+                    return false;
+                } else {
+                    $(".maskerFav").fadeToggle();
+                }
+            });
+
+            $("#masFavClose").click(function () {
+                $(".maskerFav").fadeToggle();
+            });
+
+            $(document).on('click', '#scoring', function () {
+                if (userInfo.id == 0) {
+                    alert("请先登录！");
+                    window.location.href = "login.html";
+                    return false;
+                } else {
+                    queryScore();
+                }
+            })
+
+            $("#masScoreClose").click(function () {
+                $(".maskerScore").fadeToggle();
+            });
+
+            $("#releaseScore").click(function () {
+                $(".maskerScore").fadeToggle();
+                insertScore();
+            });
+
+            $('#btnComment').click(function () {
+                if (userInfo.id == 0) {
+                    alert("请先登录！");
+                    window.location.href = "login.html";
+                    return false;
+                } else {
+                    var commentText = $('#commentText').val();
+                    var time;
+                    var myDate = new Date();
+                    var year = myDate.getFullYear();        //获取当前年
+                    var month = myDate.getMonth() + 1;   //获取当前月
+                    var date = myDate.getDate();            //获取当前日
+                    time = year + '-' + month + '-' + date
+                    console.log(commentText + ',' + time);
+                    addComment(time, commentText)
+                }
+            })
+
+            $(document).on("click", "#btnCol", function () {
+                if (userInfo.id == 0) {
+                    alert("请先登录！");
+                    window.location.href = "login.html";
+                    return false;
+                } else {
+                    if ($(this).hasClass('liked')) {
+                        $('#btnCol').removeClass('liked');
+                        $('#btnCol').text('收藏本片');
+                    } else {
+                        $('#btnCol').addClass('liked');
+                        $('#btnCol').text('已收藏');
+                    }
+                    like();
+                }
+            })
+
+            $(document).on("click", ".favName li", function () {
+                var moviesId = $(this).data('id')
+                console.log(moviesId);
+                addFavorite(moviesId);
+            })
+
+            $('#filmReview').click(function () {
+                var jsonStr = JSON.stringify(filmInfo);
+                sessionStorage.setItem("filmInfo", jsonStr);
+                window.location.href = "release_filmReviews.html";
+            })
+
+            $('.shortUl').on('click','li #del',function(){
+                delComment($(this).data('id'));
+                $(this).closest('li').remove();
+            })
+
+            function appendMovie() {
+                var reg = new RegExp("/w.h/", 'g')
+                var moviesImg = filmInfo.img;
+                moviesImg = moviesImg.replace(reg, '/');
+                console.log(moviesImg);
+                $(".movie").append(
+                    '<div class="bgImg" style="background-image: url(' + moviesImg + ')"></div>' +
+                    '<div class="movieInfo_content">' +
+                    '<img src="' + moviesImg + '">' +
+                    '<div class="movieInfo">' +
+                    '<h2>' + filmInfo.nm + '</h2>' +
+                    '<span>' + filmInfo.cat + '</span>' +
+                    '<span>' + filmInfo.act + '</span>' +
+                    '<span>' + filmInfo.ver + '</span>' +
+                    '<span>' + filmInfo.dur + '分钟</span>' +
+                    '<span>' + filmInfo.pubDesc + '</span>' +
+                    '<span></span>' +
+                    '<div>' +
+                    '<button id="btnCol"><i class="iconfont">&#xe8f8;</i><span>收藏本片</span></button>' +
+                    '<button id="btnFav"><i class="iconfont">&#xe60c;</i>添加到影集</button>' +
+                    '</div>' +
+                    '<div class="movieScore">' +
+                    '<span>大众评分</span>' +
+                    '<div>' +
+                    '<span>' + filmInfo.sc + '</span>' +
+                    '<div id="score"></div>' +
+                    '</div>' +
+                    '</div>' +
+                    '<div class="movieScore ms">' +
+                    '<span id="scoring">评分</span>' +
+                    '<div>' +
+                    '<span id="nuber">' + 0 + '</span>' +
+                    '<div id="score_2"></div>' +
+                    '</div>' +
+                    '</div>'+
+                    '</div>')
+
+                layui.use(['rate'], function () {
+                    var rate = layui.rate;
+                    rate.render({
+                        elem: '#score'
+                        , value: filmInfo.sc / 2
+                        , readonly: true
+                        , half: true //开启半星
+                    });
+                });
+                ifLike()
+            }
+
+            function queryMovieScore() {
+                $.ajax({
+                    type: "get",
+                    url: Ip + '/movie/queryMovieScore/?movieId=' + filmInfo.id,
+                    dataType: 'json',
+                    timeout: 0,
+                    success: function (res) {
+                        $('#nuber').text(res.data)
+                        layui.use(['rate'], function () {
+                            var rate = layui.rate;
+                            rate.render({
+                                elem: '#score_2'
+                                , value: res.data / 2
+                                , readonly: true
+                                , half: true //开启半星
+                            });
+                        });
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                });
+            }
+
+            /* function getMovieInfo(filmName) {
+                $.ajax({
+                    type: "post",
+                    url: 'http://106.53.127.8:8080/movie/getMovies?kw=' + filmName,
+                    dataType: 'json',
+                    timeout: 0,
+                    success: function (res) {
+                        console.log(res);
+
+                        filmInfo = res.movies.list[0];
+
+                        var reg = new RegExp("/w.h/", 'g')
+                        var moviesImg = filmInfo.img;
+                        moviesImg = moviesImg.replace(reg, '/');
+                        console.log(moviesImg);
+
+                        $(".movie").append(
+                            '<div class="bgImg" style="background-image: url(' + moviesImg + ')"></div>' +
+                            '<div class="movieInfo_content">' +
+                            '<img src="' + moviesImg + '">' +
+                            '<div class="movieInfo">' +
+                            '<h2>' + filmInfo.nm + '</h2>' +
+                            '<span>' + filmInfo.cat + '</span>' +
+                            '<span>' + filmInfo.act + '</span>' +
+                            '<span>' + filmInfo.pubDesc + '</span>' +
+                            '<span></span>' +
+                            '<button id="btnCol"><i class="iconfont">&#xe60c;</i><span>收藏本片</span></button>' +
+                            '</div>' +
+                            '<div class="movieScore">' +
+                            '<span>评分</span>' +
+                            '<div>' +
+                            '<span>' + filmInfo.sc + '</span>' +
+                            '<div id="score"></div>' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>')
+
+                        layui.use(['rate'], function () {
+                            var rate = layui.rate;
+                            rate.render({
+                                elem: '#score'
+                                , value: filmInfo.sc / 2
+                                , readonly: true
+                                , half: true //开启半星
+                            });
+                        });
+                        ifLike()
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                });
+            } */
+
+            function getCreMovieList(index) {
+                $.ajax({
+                    type: "get",
+                    url: Ip + '/movie/queryMovieListByUser/' + index,
+                    dataType: 'json',
+                    timeout: 0,
+                    data: {
+                        userId: userInfo.id
+                    },
+                    success: function (res) {
+                        (res.data).forEach(value => {
+                            $(".favName").append(
+                                '<li data-id="' + value.id + '"><img src="../../static/img/收藏夹.png">' + value.tittle + '</li>'
+                            )
+                        });
+
+                        if (res.data.length != 0 && res.data != []) {
+                            getCreMovieList(++index);
+                        }
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                });
+            }
+
+            function addComment(time, content) {
+                $.ajax({
+                    type: "post",
+                    url: Ip + '/comment/insertComment',
+                    dataType: 'json',
+                    timeout: 0,
+                    data: {
+                        filmId: filmId,
+                        userId: userInfo.id,
+                        time: time,
+                        sort: 1,
+                        content: content
+                    },
+                    success: function (res) {
+                        console.log(res);
+                        $('.shortUl').prepend('<li><div class="userInfo">' +
+                            '<img src="' + Ip + '/file/images/' + userInfo.id + '/' + userInfo.headImg + '">' +
+                            '<span>' + userInfo.nickName + '</span>' +
+                            '<i data-id='+res.data.id+' class="iconfont" id="del">&#xe614;</i>'+
+                            '<span class="userInfo_time">' + time + '</span></div>' +
+                            '<div class="comment">' + content + '</div>' +
+                            '</li>');
+                        $('#commentText').val('');
+                        $(".masker").fadeToggle();
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                });
+            }
+
+            function ifLike() {
+                $.ajax({
+                    type: "post",
+                    url: Ip + '/review/isPraise',
+                    dataType: 'json',
+                    timeout: 0,
+                    data: {
+                        filmId: filmId,
+                        userId: userInfo.id,
+                        sort: 1
+                    },
+                    success: function (res) {
+                        console.log(res);
+                        if (res.data == true) {
+                            $('#btnCol').addClass('liked');
+                            $('#btnCol span').text('已收藏');
+                        } else {
+                            $('#btnCol').removeClass('liked');
+                            $('#btnCol span').text('收藏本片');
+                        }
+
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                });
+            }
+
+            function like() {
+                var movie = {
+                    id: filmInfo.id,
+                    moviesId: -1,
+                    nm: filmInfo.nm,
+                    cat: filmInfo.cat,
+                    ver: filmInfo.ver,
+                    act: filmInfo.act,
+                    pubDesc: filmInfo.pubDesc,
+                    dur: filmInfo.dur,
+                    sc: filmInfo.sc,
+                    img: filmInfo.img
+                };
+                var jsonStr = JSON.stringify(movie);
+                $.ajax({
+                    type: "post",
+                    url: Ip + '/review/praise',
+                    dataType: 'json',
+                    timeout: 0,
+                    data: {
+                        filmId: filmInfo.id,
+                        userId: userInfo.id,
+                        sort: 1,
+                        movie: jsonStr
+                    },
+                    success: function (res) {
+                        console.log(res);
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                });
+            }
+
+            function addFavorite(moviesId) {
+                var movie = [{
+                    id: filmInfo.id,
+                    moviesId: moviesId,
+                    nm: filmInfo.nm,
+                    cat: filmInfo.cat,
+                    ver: filmInfo.ver,
+                    act: filmInfo.act,
+                    pubDesc: filmInfo.pubDesc,
+                    dur: filmInfo.dur,
+                    sc: filmInfo.sc,
+                    img: filmInfo.img
+                }];
+
+                var jsonStr = JSON.stringify(movie);
+                console.log(jsonStr)
+                $.ajax({
+                    type: "post",
+                    url: Ip + '/movie/insertMovie/',
+                    dataType: 'json',
+                    timeout: 0,
+                    data: {
+                        movies: jsonStr
+                    },
+                    success: function (res) {
+                        console.log(res);
+                        $(".maskerFav").fadeToggle();
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                });
+            }
+
+            function insertScore() {
+                if (score == null) {
+                    score = {
+                        "userId": userInfo.id,
+                        "movieId": filmInfo.id,
+                        "score": scoreNumber,
+                    }
+                }
+                var jsonStr = JSON.stringify(score);
+                $.ajax({
+                    type: "post",
+                    url: Ip + '/movie/insertScore/',
+                    dataType: 'json',
+                    timeout: 0,
+                    data: {
+                        score: jsonStr,
+                        scoreNew: scoreNumber,
+                    },
+                    success: function (res) {
+                        console.log(res);
+                        queryMovieScore();
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                });
+            }
+
+            function queryScore() {
+                $.ajax({
+                    type: "get",
+                    url: Ip + '/movie/queryScore/',
+                    dataType: 'json',
+                    timeout: 0,
+                    data: {
+                        movieId: filmInfo.id,
+                        userId: userInfo.id,
+                    },
+                    success: function (res) {
+                        console.log(res);
+                        score = '';
+                        score = (res.data);
+                        $(".maskerScore").fadeToggle()
+
+                        layui.use(['rate'], function () {
+                            var number = 0;
+                            if (score != null) {
+                                number = score.score;
+                            }
+                            var rate = layui.rate;
+                            //渲染
+                            var ins1 = rate.render({
+                                elem: '#masSco', //绑定元素
+                                value: number/2,
+                                half: true,
+                                text: true,
+                                choose: function (value) {
+                                    scoreNumber = value * 2;
+                                },
+                                setText: function (value) { //自定义文本的回调
+                                    var arrs = {
+                                        '0': '暂无评分',
+                                        '0.5': '惨不忍睹',
+                                        '1': '惨不忍睹',
+                                        '1.5': '惨不忍睹',
+                                        '2': '差强人意',
+                                        '2.5': '差强人意',
+                                        '3': '可以一试',
+                                        '3.5': '可以一试',
+                                        '4': '佳片推荐',
+                                        '4.5': '佳片推荐',
+                                        '5': '必看影片',
+                                        '5.5': '必看影片'
+                                    };
+                                    this.span.text(value + '星 ' + ' " ' + arrs[value] + ' " ');
+                                }
+                            });
+                        });
+
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                });
+            }
+
+            function delComment(id) {
+                $.ajax({
+                    type: "post",
+                    url: Ip + '/comment/deleteComment',
+                    dataType: 'json',
+                    timeout: 0,
+                    data: {
+                        id: id,
+                        userId: userInfo.id,
+                    },
+                    success: function (res) {
+                        console.log(res);
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                });
+            }
+
+            layui.use('flow', function () {
+                var $ = layui.jquery; //不用额外加载jQuery，flow模块本身是有依赖jQuery的，直接用即可。
+                var flow = layui.flow;
+                flow.load({
+                    elem: '.shortUl' //指定列表容器
+                    , done: function (page, next) { //到达临界点（默认滚动触发），触发下一页
+                        var lis = [];
+                        $.get(Ip + '/comment/queryComment/' + page + '?filmId=' + filmId + '&sort=1', function (res) {
+                            layui.each(res.data, function (index, value) {
+                                var flag='';
+                                if(userInfo.id==value.userId){
+                                    flag='<i data-id='+value.id+' class="iconfont" id="del">&#xe614;</i>';
+                                }
+                                lis.push('<li><div class="userInfo">' +
+                                    '<img src="' + Ip + '/file/images/' + value.userId + '/' + value.headImg + '">' +
+                                    '<span>' + value.nickName + '</span>' +
+                                    flag+
+                                    '<span class="userInfo_time">' + value.time + '</span></div>' +
+                                    '<div class="comment">' + value.content + '</div>' +
+                                    '</li>');
+                            });
+                            next(lis.join(''), res.data != [] && res.data.length > 0);
+                        });
+                    }
+                });
+            });
+
+        });
+    </script>
 </body>
+
 </html>

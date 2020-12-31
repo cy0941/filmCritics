@@ -1,62 +1,24 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+
 <head>
     <meta charset="utf-8">
-    <title>Layui</title>
+    <title>影评中心</title>
     <meta name="referrer" content="no-referrer">
     <meta name="renderer" content="webkit">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="../../static/layui/css/layui.css"  media="all">
-    <link rel="stylesheet" type="text/css" href="../../static/css/filmCritics.css">
+
+    <link rel="stylesheet" href="../../static/layui/css/layui.css" media="all">
+    <link rel="stylesheet" type="text/css" href="../../static/css/user/filmCritics.css">
     <link rel="stylesheet" href="../../static/css/iconfont.css" type="text/css">
-    <link rel="stylesheet" href="../../static/css/rotationChart.css" type="text/css">
-    <th:block th:replace="user/index::index_head" />
-    <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
-
-    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js">
-    </script>
-    <script>
-
-        $(document).ready(function(){
-
-            $("#hamburger-12").click(function(){
-
-                $(this).toggleClass("is-active");
-
-                if($(".fc").hasClass("filmCritics_item")){
-                    $(".filmCritics_item").addClass("filmCritics_list");
-                    $(".filmCritics_text_item").addClass("filmCritics_text");
-
-                    $(".filmCritics_item").removeClass("filmCritics_item");
-                    $(".filmCritics_text_item").removeClass("filmCritics_text_item");
-                    $(".filmCritics_title").removeClass("filmCritics_title_item");
-                    $(".filmCritics_info").removeClass("filmCritics_info_item");
-
-                    $(".filmName").css("display","none");
-                }else {
-                    $(".filmCritics_list").addClass("filmCritics_item");
-                    $(".filmCritics_text").addClass("filmCritics_text_item");
-                    $(".filmCritics_title").addClass("filmCritics_title_item");
-                    $(".filmCritics_info").addClass("filmCritics_info_item");
-
-                    $(".filmCritics_list").removeClass("filmCritics_list");
-                    $(".filmCritics_text").removeClass("filmCritics_text");
-
-                    $(".filmName").css("display","block");
-                }
-
-            });
-        })
-
-    </script>
-
+    <link rel="stylesheet" href="../../static/css/user/rotationChart.css" type="text/css">
+    <link rel="stylesheet" type="text/css" href="../../static/css/user/header.css">
 </head>
 
 <body>
-
-    <div th:replace="~{user/index::index_topBar}"></div>
-
+    <!-- <header style="width: 100%; height: 60px; position: fixed; top: 0; z-index: 999;">
+        <embed type="text/html" src="header.html" style="width: 100%;height: 100%;"/>
+    </header> -->
+    <header></header>
     <div class="main_banner">
         <div class="main_banner_wrap">
             <div class="main_banner_box" id="m_box">
@@ -66,31 +28,31 @@
                 <a href="javascript:void(0)" class="banner_btn btn_next js_next">
                     <span class="banner_btn_arrow"><i></i></span>
                 </a>
-                <ul>
+                <ul class="loopImg">
                     <li id="imgCard0">
                         <a href=""><span style="opacity:0;"></span></a>
-                        <img src="https://i0.hdslb.com/bfs/archive/a7bb3e3bfb9a233ee08a897f054991fb2c0f6e20.png@880w_388h_1c_95q" alt="">
-                        <p style="bottom:0">周杰伦粉丝版MV</p>
+                        <img src="https://img9.doubanio.com/view/photo/l/public/p2628777156.webp" alt="">
+                        <p style="bottom:0">送你一朵小红花2020年12月31日上映！</p>
                     </li>
                     <li id="imgCard1">
                         <a href=""><span style="opacity:0.4;"></span></a>
-                        <img src="https://i0.hdslb.com/bfs/archive/eec0694eebfa63bb24061d2bda9ec97db0ed1f6a.jpg@880w_388h_1c_95q" alt="">
-                        <p>乐侃有声节目第二期</p>
+                        <img src="https://img1.doubanio.com/view/photo/l/public/p2573578939.webp" alt="">
+                        <p>灵魂不会被压垮，压垮你的是生活啊</p>
                     </li>
                     <li id="imgCard2">
-                        <a href=""><span style="opacity:0.4;" ></span></a>
-                        <img src="https://i0.hdslb.com/bfs/archive/06d85189bdb88bc3bec417bc2e5b321db582db13.png@880w_388h_1c_95q" alt="">
-                        <p>乐见大牌：”荣“耀之声，”维“我独尊</p>
+                        <a href=""><span style="opacity:0.4;"></span></a>
+                        <img src="https://img3.doubanio.com/view/photo/l/public/p456942791.webp" alt="">
+                        <p>宫崎骏的电影，绝对是浮生安慰</p>
                     </li>
                     <li id="imgCard3">
                         <a href=""><span style="opacity:0.4;"></span></a>
-                        <img src="../../static/img/rsyc.jpg" alt="">
-                        <p>王力宏四年心血结晶</p>
+                        <img src="https://img2.doubanio.com/view/photo/l/public/p2577575013.webp" alt="">
+                        <p>唐人街探案3，2021年正式上映</p>
                     </li>
                     <li id="imgCard4">
                         <a href=""><span style="opacity:0.4;"></span></a>
-                        <img src="../../static/img/rsyc.jpg" alt="">
-                        <p>MV精选：《武媚》女神团美艳大比拼</p>
+                        <img src="https://img3.doubanio.com/view/photo/l/public/p2580789251.webp" alt="">
+                        <p>放下成见，你会看到一部意料之外的《熊出没》</p>
                     </li>
                 </ul>
                 <!--火狐倒影图层-->
@@ -108,6 +70,12 @@
         </div>
     </div>
 
+    <!-- <div>
+        <input type="text" id="input1"></input>
+        <input type="text" id="input2"></input>
+        <input type="text" id="input3"></input>
+    </div> -->
+
     <div class="content">
 
         <div class="content_left">
@@ -123,293 +91,316 @@
             </div>
 
             <ul class="list_list">
-                <li class="filmCritics_list fc">
-                    <div class="filmCritics_cover" style="background-image:url(../../static/img/index.jpg)">
-                        <span class="filmName"><i class="iconfont">&#xe62e;</i>从你的全世界路过</span>
-                    </div>
 
+                <!-- <li class="filmCritics_list fc">
+                    <div class="filmCritics_cover" style="background-image:url(../../static/img/index.jpg)">
+                        <span class="filmName"><i class="iconfont">&#xe8f9;</i>从你的全世界路过</span>
+                    </div>
                     <div class="filmCritics_text">
                         <div class="filmCritics_title">
                             <h3>《花木兰》前途未卜？央视制作专题节目，从3个角度深入分析</h3>
-                            <h5>9月的电影市场，无疑是属于《花木兰》和《信条》的。</h5>
                         </div>
                         <div class="filmCritics_info">
-                            <span><i class="iconfont">&#xe62e;</i>一个母亲的复仇</span>
+                            <img src="../../static/img/zhl.png">
+                            <span>不捏泥人</span>
+                            <span><i class="iconfont">&#xe8f9;</i>一个母亲的复仇</span>
                             <span><i class="layui-icon">&#xe63a;</i>4.6K</span>
                             <span><i class="layui-icon">&#xe68d;</i>2020-09-17 15:30</span>
                         </div>
                     </div>
-                </li>
-
-                <li class="filmCritics_list fc">
-                    <div class="filmCritics_cover" style="background-image:url(../../static/img/index.jpg)">
-                        <span class="filmName"><i class="iconfont">&#xe62e;</i>花木兰</span>
-                    </div>
-
-                    <div class="filmCritics_text">
-                        <div class="filmCritics_title">
-                            <h3>《花木兰》前途未卜？央视制作专题节目，从3个角度深入分析</h3>
-                            <h5>9月的电影市场，无疑是属于《花木兰》和《信条》的。</h5>
-                        </div>
-                        <div class="filmCritics_info">
-                            <span><i class="iconfont">&#xe62e;</i>一个母亲的复仇</span>
-                            <span><i class="layui-icon">&#xe63a;</i>4.6K</span>
-                            <span><i class="layui-icon">&#xe68d;</i>2020-09-17 15:30</span>
-                        </div>
-                    </div>
-                </li>
-
-                <li class="filmCritics_list fc">
-                    <div class="filmCritics_cover" style="background-image:url(../../static/img/index.jpg)">
-                        <span class="filmName"><i class="iconfont">&#xe62e;</i>少年的你</span>
-                    </div>
-
-                    <div class="filmCritics_text">
-                        <div class="filmCritics_title">
-                            <h3>《花木兰》前途未卜？央视制作专题节目，从3个角度深入分析</h3>
-                            <h5>9月的电影市场，无疑是属于《花木兰》和《信条》的。</h5>
-                        </div>
-                        <div class="filmCritics_info">
-                            <span><i class="iconfont">&#xe62e;</i>一个母亲的复仇</span>
-                            <span><i class="layui-icon">&#xe63a;</i>4.6K</span>
-                            <span><i class="layui-icon">&#xe68d;</i>2020-09-17 15:30</span>
-                        </div>
-                    </div>
-                </li>
-
-                <li class="filmCritics_list fc">
-                    <div class="filmCritics_cover" style="background-image:url(../../static/img/index.jpg)">
-                        <span class="filmName"><i class="iconfont">&#xe62e;</i>信条</span>
-                    </div>
-
-                    <div class="filmCritics_text">
-                        <div class="filmCritics_title">
-                            <h3>《花木兰》前途未卜？央视制作专题节目，从3个角度深入分析</h3>
-                            <h5>9月的电影市场，无疑是属于《花木兰》和《信条》的。</h5>
-                        </div>
-                        <div class="filmCritics_info">
-                            <span><i class="iconfont">&#xe62e;</i>一个母亲的复仇</span>
-                            <span><i class="layui-icon">&#xe63a;</i>4.6K</span>
-                            <span><i class="layui-icon">&#xe68d;</i>2020-09-17 15:30</span>
-                        </div>
-                    </div>
-                </li>
+                </li> -->
 
             </ul>
 
+            <div>
 
-            <!--<div class="filmCritics_list fc">
-
-                <div class="filmCritics_cover_list" style="background-image:url(../../../../static/img/index.jpg)">
-                </div>
-
-                <div class="filmCritics_text_list">
-
-                    <div class="filmCritics_title">
-                        <h2>《花木兰》前途未卜？央视制作专题节目，从3个角度深入分析</h2>
-                        <h4>9月的电影市场，无疑是属于《花木兰》和《信条》的。</h4>
-                    </div>
-                    <div class="filmCritics_info">
-                        <span class="span_i"><i class="layui-icon">&#xe6ed;</i></span>
-                        <span class="span_name">一个母亲的复仇</span>
-                        <span class="span_time">2020-09-17 15:30</span>
-                    </div>
-
-                </div>
-
-            </div>-->
+            </div>
 
         </div>
 
         <div class="content_right">
 
             <div class="menu_top">
-                <span>最近热映</span>
+                <span>热门影评</span>
             </div>
 
-            <ul>
+            <div class="filmReview">
+                <!-- <div class="filmReview_cover" style="background-image:url(../../static/img/hml2.jpg)">
+                    <div class="tag">1</div>
+                    <span>《花木兰》前途未卜？央视制作专题节目，从3个角度深入分析</span>
+                </div> -->
+            </div>
 
-                <!--<li class="film">
-                    <div class="film_cover" style="background-image:url(../../static/img/hml2.jpg)">
+            <ul class="hotList">
+                <!-- <li class="filmReview_last">
+                    <div class="filmReview_last_cover" style="background-image:url(../../static/img/logo.png)">
+                        <div class="tag">1</div>
                     </div>
-                    <div class="film_info">
-                        <span>花木兰</span>
-                        <span>刘亦菲/甄子丹/巩俐</span>
-                        <span>剧情/动作/奇幻/冒险/古装</span>
-                        <span>115分钟</span>
-                        <span class="film_score"></span>
-                    </div>
-                </li>-->
-
-                <li class="film">
-                    <span>
-                        1
-                    </span>
-                    <div class="film_cover" style="background-image:url(../../static/img/hml2.jpg)">
-                        <div class="tag-vertical discount">5.6</div>
-                    </div>
-                    <div class="film_info">
-                        <h3>花木兰</h3>
-                        <span>刘亦菲|甄子丹</span>
-                        <span>剧情|喜剧</span>
-                        <span>2020.10.24</span>
-                    </div>
+                    <span>史今班长就是我心中军人的模样</span>
                 </li>
-
-                <li class="film">
-                    <span>
-                        2
-                    </span>
-                    <div class="film_cover" style="background-image:url(../../static/img/hml2.jpg)">
-                        <div class="tag-vertical discount">5.6</div>
-                    </div>
-                    <div class="film_info">
-                        <h3>花木兰</h3>
-                        <span>刘亦菲|甄子丹</span>
-                        <span>剧情|喜剧</span>
-                        <span>2020.10.24</span>
-                    </div>
-                </li>
-
-                <li class="film">
-                    <span>
-                        3
-                    </span>
-                    <div class="film_cover" style="background-image:url(../../static/img/hml2.jpg)">
-                        <div class="tag-vertical discount">5.6</div>
-                    </div>
-                    <div class="film_info">
-                        <h3>花木兰</h3>
-                        <span>刘亦菲|甄子丹</span>
-                        <span>剧情|喜剧</span>
-                        <span>2020.10.24</span>
-                    </div>
-                </li>
-
+                <li>
+                    <div>2</div>
+                    <span>最好的《士兵突击》，回味无穷</span>
+                </li> -->
             </ul>
 
         </div>
 
     </div>
 
+    <img class="top" src="../../static/img/rocket_up.png">
+
+    <script src="../../static/js/jquery-1.11.0.min.js"></script>
     <script src="../../static/layui/layui.js" charset="utf-8"></script>
     <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+    <script type="text/javascript" src="../../static/js/rotationChart.js"></script>
+    <script src="../../static/js/header.js"></script>
 
     <script>
-        layui.use(['carousel', 'form'], function(){
-            var carousel = layui.carousel
-                ,form = layui.form;
 
-            //常规轮播
-            carousel.render({
-                elem: '#test1'
-                ,arrow: 'always'
+        $(document).ready(function () {
+
+            var userInfo = JSON.parse(localStorage.getItem('userInfo'));
+            if (userInfo == null) {
+                userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
+            }
+
+            const Ip = localStorage.getItem('Ip');
+
+            var pageNumber = 1;
+            var filmCritics_list = [];
+            var hotList = [];
+            var hotCriticsList = [];
+
+            $("#hamburger-12").click(function () {
+
+                $(this).toggleClass("is-active");
+
+                $(".fc").toggleClass("filmCritics_list");
+                $(".fc").toggleClass("filmCritics_item");
+
+                $(".filmName").toggle();
+                $('.movieName').toggle();
+                $('.movieTime').toggle();
+
+                /* if ($(".fc").hasClass("filmCritics_item")) {
+                    $(".filmCritics_item").addClass("filmCritics_list");
+                    $(".filmCritics_text_item").addClass("filmCritics_text");
+
+                    $(".filmCritics_item").removeClass("filmCritics_item");
+                    $(".filmCritics_text_item").removeClass("filmCritics_text_item");
+                    $(".filmCritics_title").removeClass("filmCritics_title_item");
+                    $(".filmCritics_info").removeClass("filmCritics_info_item");
+
+                    $(".filmName").css("display", "none");
+                    $('.movieName').show();
+                    $('.movieTime').show();
+                } else {
+                    $(".filmCritics_list").addClass("filmCritics_item");
+                    $(".filmCritics_text").addClass("filmCritics_text_item");
+                    $(".filmCritics_title").addClass("filmCritics_title_item");
+                    $(".filmCritics_info").addClass("filmCritics_info_item");
+
+                    $(".filmCritics_list").removeClass("filmCritics_list");
+                    $(".filmCritics_text").removeClass("filmCritics_text");
+
+                    $(".filmName").css("display", "block");
+                    $('.movieName').hide();
+                    $('.movieTime').hide();
+                } */
             });
 
-            //改变下时间间隔、动画类型、高度
-            carousel.render({
-                elem: '#test2'
-                ,interval: 1800
-                ,anim: 'fade'
-                ,height: '120px'
+            getHotFilm(1);
+
+            $(".list_list").on("click", "li", function () {
+                var id = $(this).data('id');
+                var list = filmCritics_list.find((value, index, arr) => {
+                    return value.id == id
+                });
+
+                var jsonStr = JSON.stringify(list);
+                sessionStorage.setItem("filmReviewsInfo", jsonStr);
+                window.location.href = "view_filmReviews.html";
             });
 
-            //设定各种参数
-            var ins3 = carousel.render({
-                elem: '#test3',
-                width:'550px',
-                height:"310px",
-                interval:5000
-            });
-            //图片轮播
-            carousel.render({
-                elem: '#test10'
-                ,width: '778px'
-                ,height: '440px'
-                ,interval: 5000
+            $(document).on("click", ".filmReview_cover", function () {
+                var id = $(this).data('id');
+                findId(id);
             });
 
-            //事件
-            carousel.on('change(test4)', function(res){
-                console.log(res)
+            $('.hotList').on("click", "li", function () {
+                var id = $(this).data('id');
+                console.log(id);
+                findId(id);
             });
 
-            var $ = layui.$, active = {
-                set: function(othis){
-                    var THIS = 'layui-bg-normal'
-                        ,key = othis.data('key')
-                        ,options = {};
+            function findId(id) {
+                var list = hotCriticsList.find((value, index, arr) => {
+                    return value.id == id
+                });
+                var jsonStr = JSON.stringify(list);
+                sessionStorage.setItem("filmReviewsInfo", jsonStr);
+                window.location.href = "view_filmReviews.html";
+            }
 
-                    othis.css('background-color', '#5FB878').siblings().removeAttr('style');
-                    options[key] = othis.data('value');
-                    ins3.reload(options);
+            function compare(property, desc) {
+                return function (a, b) {
+                    var value1 = a[property];
+                    var value2 = b[property];
+                    if (desc == true) {
+                        return value1 - value2;
+                    } else {
+                        return value2 - value1;
+                    }
                 }
-            };
+            }
 
-            //监听开关
-            form.on('switch(autoplay)', function(){
-                ins3.reload({
-                    autoplay: this.checked
+            function getHotFilm(page) {
+                $.ajax({
+                    type: "get",
+                    url: Ip + '/review/queryReview/' + page,
+                    dataType: 'json',
+                    timeout: 0,
+                    success: function (res) {
+                        (res.data).forEach(value => {
+                            hotCriticsList.push(value);
+                            getFilmCrContent(value.id, value.userId);
+                        });
+                        if (res.data != [] && res.data.length > 0) {
+                            getHotFilm(++page);
+                        } else {
+                            hot();
+                        }
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                });
+            }
+
+            function getFilmCrContent(filmId, authorId) {
+                $.ajax({
+                    type: "post",
+                    url: Ip + '/review/queryContent/1',
+                    dataType: 'json',
+                    timeout: 0,
+                    data: {
+                        filmId: filmId,
+                        authorId: authorId,
+                        sort: 0,
+                    },
+                    success: function (res) {
+                        hotList.push({
+                            id: res.data.id,
+                            skim: res.data.skim,
+                            praise: res.data.praise
+                        });
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                });
+            }
+
+            function hot() {
+                hotList.sort(compare("skim", false));
+
+                $('.hotList').empty();
+
+                var list = hotCriticsList.find((value, index, arr) => {
+                    return value.id == hotList[0].id
+                });
+
+                $('.filmReview').append(
+                    '<div data-id=' + list.id + ' class="filmReview_cover" style="background-image:url(' + Ip + "/file/images/" + list.userId + '/' + list.coverImg + ')">' +
+                    '<div class="tag">1</div>' +
+                    '<span>' + list.title + '</span>' +
+                    '</div>'
+                )
+
+                for (let i = 1; i < 10; i++) {
+
+                    var list = hotCriticsList.find((value, index, arr) => {
+                        return value.id == hotList[i].id
+                    });
+
+                    $('.hotList').append(
+                        '<li data-id=' + list.id + '>' +
+                        '<div>' + (i + 1) + '</div>' +
+                        '<span>' + list.title + '</span>' +
+                        '</li>')
+                }
+            }
+
+            layui.use('flow', function () {
+                var $ = layui.jquery; //不用额外加载jQuery，flow模块本身是有依赖jQuery的，直接用即可。
+                var flow = layui.flow;
+                flow.load({
+                    elem: '.list_list' //指定列表容器
+                    , done: function (page, next) { //到达临界点（默认滚动触发），触发下一页
+
+                        var lis = [];
+                        //以jQuery的Ajax请求为例，请求下一页数据（注意：page是从2开始返回）
+                        $.get(Ip + '/review/queryReview/' + page, function (res) {
+                            //假设你的列表返回在data集合中
+                            layui.each(res.data, function (index, value) {
+                                lis.unshift('<li data-id=' + value.id + ' class="filmCritics_list fc">' +
+                                    '<div class="filmCritics_cover" style="background-image:url(' + Ip + '/file/images/' + value.userId + '/' + value.coverImg + ')">' +
+                                    '<span class="filmName"><i class="iconfont">&#xe8f9;</i>' + value.filmName + '</span>' +
+                                    '</div>' +
+                                    '<div class="filmCritics_text">' +
+                                    '<div class="filmCritics_title">' +
+                                    '<h3>' + value.title + '</h3>' +
+                                    '</div>' +
+                                    '<div class="filmCritics_info">' +
+                                    '<img src="' + Ip + '/file/images/' + value.userId + '/' + value.headImg + '">' +
+                                    '<span>' + value.nickName + '</span>' +
+                                    '<span class="movieName"><i class="iconfont">&#xe8f9;</i>' + value.filmName + '</span>' +
+                                    '<span class="movieTime"><i class="layui-icon">&#xe68d;</i>' + value.time + '</span>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '</li>');
+                                filmCritics_list.push(value);
+                            });
+                            next(lis.join(''), res.data != [] && res.data.length > 0);
+                        });
+                    }
                 });
             });
 
-            $('.demoSet').on('keyup', function(){
-                var value = this.value
-                    ,options = {};
-                if(!/^\d+$/.test(value)) return;
+        })
 
-                options[this.name] = value;
-                ins3.reload(options);
-            });
-
-            //其它示例
-            $('.demoTest .layui-btn').on('click', function(){
-                var othis = $(this), type = othis.data('type');
-                active[type] ? active[type].call(this, othis) : '';
-            });
-        });
     </script>
 
     <script>
-        layui.use('rate', function(){
-            var rate = layui.rate;
 
-            //渲染
-            var ins1 = rate.render({
-                elem: '.film_score', //绑定元素
-                value: 2.5,
-                half: true,
-                readonly: true,
-                text: true,
-                setText: function(value) { //自定义文本的回调
-                    this.span.text(4.5);
-                }
-            });
-
-        });
-    </script>
-
-    <script type="text/javascript">
-
-        document.onscroll=function()
-        {
-            var scrollTop=document.documentElement.scrollTop||document.body.scrollTop;
-            var cHeight=window.innerHeight||document.documentElement.clientHeight||document.body.clientHeight;
-            if(scrollTop>1000){
-                $("#dw").addClass("position");
-            }else {
-                $("#dw").removeClass("position");
+        window.onscroll = function () {
+            var scroH = $(document).scrollTop();
+            if (scroH >= 480) {
+                $('.content_right').addClass('position');
+            } else {
+                $('.content_right').removeClass('position');
             }
-
         }
 
     </script>
 
-    <script src="http://cdn.bootcss.com/jquery/1.11.0/jquery.min.js" type="text/javascript"></script>
-    <script>window.jQuery || document.write('<script src="../../static/js/jquery-1.11.0.min.js"><\/script>')</script>
-    <script type="text/javascript" src="../../static/js/rotationChart.js"></script>
+    <script>
+        $(".top").click(function () {
+            $(this).attr("src", "../../static/img/rocket.gif")
+            $(this).animate({ top: -200 }, 1000);
+            $('html,body').animate({ scrollTop: 0 }, 1000);
+            setTimeout(function () {
+                $("top").animate({ top: -200 }, 3000);
+                $(".top").attr("src", "../../static/img/rocket_up.png");
+                $(".top").css("top", "66.5%!important");
+            }, 3000);
+        })
+    </script>
 
-    <th:block th:replace="user/index::index_js" />
+    <!-- <script src="http://cdn.bootcss.com/jquery/1.11.0/jquery.min.js" type="text/javascript"></script>
+    <script>window.jQuery || document.write('<script src="../../static/js/jquery-1.11.0.min.js"><\/script>')</script> -->
 
 </body>
+
 </html>

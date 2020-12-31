@@ -1,36 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    <link href="../../static/css/userInfo_filmCritics.css" type="text/css" rel="stylesheet">
-    <link rel="stylesheet" href="../../static/layui/css/layui.css"  media="all">
-    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js">
-    </script>
-    <script>
+    <title>个人影评</title>
+    <link href="../../static/css/user/userInfo.css" type="text/css" rel="stylesheet">
 
-        function showDel(_this){
+    <link href="../../static/css/user/userInfo_filmCritics.css" type="text/css" rel="stylesheet">
+    <link rel="stylesheet" href="../../static/layui/css/layui.css" media="all">
+    <link href="../../static/css/iconfont.css" type="text/css" rel="stylesheet">
 
-            $(_this).next().css('display','block')
-
-            /*if($(_this).next().hasClass("show")){
-                $(_this).next().addClass('hide');
-                $(_this).next().removeClass('show');
-            }else {
-                $(_this).next().addClass('show')
-                $(_this).next().removeClass('hide');
-            }*/
-
-        }
-
-        function hideDel(_this) {
-            $(_this).css('display','none');
-        }
-
-    </script>
-
+    <link href="../../static/css/user/header.css" type="text/css" rel="stylesheet">
 </head>
+
 <body>
+    <header></header>
+
+    <div id="bodyBar"></div>
+
     <div class="content">
 
         <ul class="menu">
@@ -40,16 +27,21 @@
         </ul>
 
         <ul class="list">
-            <li class="item">
+            <!-- <li class="item">
                 <div class="cover" style="background-image: url(../../static/img/index.jpg)"></div>
                 <div class="text">
                     <div class="title">
                         <h2>《花木兰》前途未卜？央视制作专题节目，从3个角度深入分析</h2>
-                        <h4>9月的电影市场，无疑是属于《花木兰》和《信条》的。</h4>
+                        <h4>
+                            即便是在现在看仍然不减魅力的影视剧。开头浓浓的淳朴农村模样，真实再现普通农村人的生活场景。这部剧中的人物每个我都好喜欢，
+                            即便是王大治饰演的二哥，让我这个完全不了解他的人抛去了他的外表，看到他的演技。白月光存在的班长史今，如石头般坚硬的班副
+                            伍六一，傲娇的连长七公主高成，妖孽撩人的老A队长袁朗，曾经走歪跌落谷底又重拾内心的成才，还有很多的配角，平常心吴哲、
+                            小骨头、绝情坑坑主。
+                        </h4>
                     </div>
                     <div class="info">
                         <span>
-                            <i class="layui-icon">&#xe6ed;</i>
+                            <i class="iconfont">&#xe8f9;</i>
                             一个母亲的复仇
                         </span>
                         <span>
@@ -68,81 +60,123 @@
                 <div class="card hide" onmouseleave="hideDel(this)">
                     <p><a class="sc" data-method="notice">删除</a></p>
                 </div>
-            </li>
-            <li class="item">
-                <div class="cover" style="background-image: url(../../static/img/index.jpg)"></div>
-                <div class="text">
-                    <div class="title">
-                        <h2>《花木兰》前途未卜？央析</h2>
-                        <h4>9月的电影市场，</h4>
-                    </div>
-                    <div class="info">
-                        <span>
-                            <i class="layui-icon">&#xe6ed;</i>
-                            一个母亲的复仇
-                        </span>
-                        <span>
-                            <i class="layui-icon">&#xe63a;</i>
-                            4.6K
-                        </span>
-                        <span>
-                            <i class="layui-icon">&#xe68d;</i>
-                            2020-09-17 15:30
-                        </span>
-                    </div>
-                </div>
-                <div class="delete" onclick="showDel(this)">
-                    <i class="layui-icon">&#xe671;</i>
-                </div>
-                <div class="card hide" onmouseleave="hideDel(this)">
-                    <p><a class="sc" data-method="notice">删除</a></p>
-                </div>
-            </li>
+            </li> -->
         </ul>
     </div>
 
     <script src="../../static/layui/layui.js" charset="utf-8"></script>
+    <script src="../../static/js/jquery-1.11.0.min.js"></script>
+    <script src="../../static/js/header.js"></script>
+
+    <script>
+        function showDel(_this) {
+            _this.stopPropagation();
+            $(_this).next().css('display', 'block')
+        }
+        function hideDel(_this) {
+            $(_this).css('display', 'none');
+        }
+    </script>
 
     <script>
 
-        layui.use('layer', function(){ //独立版的layer无需执行这一句
-            var $ = layui.jquery, layer = layui.layer; //独立版的layer无需执行这一句
+        var userInfo = JSON.parse(localStorage.getItem('userInfo'));
+        if (userInfo == null) {
+            userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
+        }
 
-            //触发事件
-            var active = {
-                notice: function(){
-                    //示范一个公告层
-                    layer.open({
-                        type: 1
-                        ,title: false //不显示标题栏
-                        ,closeBtn: false
-                        ,area: '300px;'
-                        ,shade: [0.6,'#7a7a7b']
-                        ,anim: 2
-                        ,id: 'LAY_layuipro' //设定一个id，防止重复弹出
-                        ,btn: ['删除', '点错了']
-                        ,btnAlign: 'c'
-                        ,moveType: 1 //拖拽模式，0或者1
-                        ,content: '<div style="padding: 50px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;">确定要删除此条动态吗？</div>'
-                        ,success: function(layero){
-                            var btn = layero.find('.layui-layer-btn');
-                            btn.find('.layui-layer-btn0').attr({
-                                href: 'http://www.layui.com/'
-                                ,target: '_blank'
-                            });
-                        }
+        const Ip = localStorage.getItem('Ip');
+
+        var filmReview = [];
+
+        $('.list').on('click', '.del', function (event) {
+            event.stopPropagation();
+            if (confirm("确定要删除吗？") == true) {
+                $(this).closest('li').remove();
+                var filmId = this.getAttribute('data-id');
+                del(filmId);
+            }
+        });
+
+        $('.list').on('click', 'li .delete', function (event) {
+            event.stopPropagation();
+            $(this).next().css('display', 'block');
+        })
+
+        $('.list').on('click', 'li', function () {
+            var jsonStr = JSON.stringify(filmReview[$(this).index()]);
+            sessionStorage.setItem("filmReviewsInfo", jsonStr);
+            window.location.href = "view_filmReviews.html";
+        })
+
+        $('#bodyBar').load('userInfo_header.html', function () {
+            $('#bodyBar ul li').eq(1).css('border-bottom', '#00a1d6 solid 3px');
+        })
+
+        function del(filmId) {
+            $.ajax({
+                type: "post",
+                url: Ip+'/review/delReviewById?filmId=' + filmId,
+                dataType: 'json',
+                timeout: 0,
+                success: function (res) {
+                    console.log(res)
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+        }
+
+        layui.use('flow', function () {
+            var $ = layui.jquery; //不用额外加载jQuery，flow模块本身是有依赖jQuery的，直接用即可。
+            var flow = layui.flow;
+            flow.load({
+                elem: '.list' //指定列表容器
+                , done: function (page, next) { //到达临界点（默认滚动触发），触发下一页
+                    var lis = [];
+                    //以jQuery的Ajax请求为例，请求下一页数据（注意：page是从2开始返回）
+                    $.get(Ip+'/review/queryReviewByUser/' + page + '?userId=' + userInfo.id, function (res) {
+                        //假设你的列表返回在data集合中
+                        layui.each(res.data, function (index, value) {
+                            filmReview.push(value);
+                            lis.push('<li class="item">' +
+                                '<div class="cover" style="background-image: url('+Ip+'/file/images/' + userInfo.id + '/' + value.coverImg + ')"></div>' +
+                                '<div class="text">' +
+                                '<div class="title">' +
+                                '<h2>' + value.title + '</h2>' +
+                                '<h4></h4>' +
+                                '</div>' +
+                                '<div class="info">' +
+                                '<span>' +
+                                '<i class="iconfont">&#xe8f9;</i>' + value.filmName +
+                                '</span>' +
+                                '<span>' +
+                                '<i class="layui-icon">&#xe63a;</i>4.6K' +
+                                '</span>' +
+                                '<span>' +
+                                '<i class="layui-icon">&#xe68d;</i>' + value.time +
+                                '</span>' +
+                                '</div>' +
+                                '</div>' +
+                                '<div class="delete">' +
+                                '<i class="layui-icon">&#xe671;</i>' +
+                                '</div>' +
+                                '<div class="card hide" onmouseleave="hideDel(this)">' +
+                                '<p><a class="sc del" data-id="' + value.id + '">删除</a></p>' +
+                                '</div>' +
+                                '</li>');
+                        });
+                        //执行下一页渲染，第二参数为：满足“加载更多”的条件，即后面仍有分页
+                        //pages为Ajax返回的总页数，只有当前页小于总页数的情况下，才会继续出现加载更多
+                        next(lis.join(''), res.data != [] && res.data.length > 0);
                     });
                 }
-            };
-
-            $('.sc').on('click', function(){
-                var othis = $(this), method = othis.data('method');
-                active[method] ? active[method].call(this, othis) : '';
             });
-
         });
 
     </script>
 
 </body>
+
 </html>

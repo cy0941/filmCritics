@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>个人影评</title>
+    <link href="../../static/css/user/userInfo.css" type="text/css" rel="stylesheet">
+
+    <link href="../../static/css/user/userInfo_filmCritics.css" type="text/css" rel="stylesheet">
+    <link rel="stylesheet" href="../../static/layui/css/layui.css" media="all">
+    <link href="../../static/css/iconfont.css" type="text/css" rel="stylesheet">
+
+    <link href="../../static/css/user/header.css" type="text/css" rel="stylesheet">
+</head>
+
+<body>
+    <header></header>
+
+    <div id="bodyBar"></div>
+
+    <div class="content">
+
+        <ul class="menu">
+            <li>影评</li>
+            <li><i class="layui-icon">&#xe756;</i>最多热度</li>
+            <li><i class="layui-icon">&#xe60e;</i>最新发布</li>
+        </ul>
+
+        <ul class="list">
+            <!-- <li class="item">
+                <div class="cover" style="background-image: url(../../static/img/index.jpg)"></div>
+                <div class="text">
+                    <div class="title">
+                        <h2>《花木兰》前途未卜？央视制作专题节目，从3个角度深入分析</h2>
+                        <h4>
+                            即便是在现在看仍然不减魅力的影视剧。开头浓浓的淳朴农村模样，真实再现普通农村人的生活场景。这部剧中的人物每个我都好喜欢，
+                            即便是王大治饰演的二哥，让我这个完全不了解他的人抛去了他的外表，看到他的演技。白月光存在的班长史今，如石头般坚硬的班副
+                            伍六一，傲娇的连长七公主高成，妖孽撩人的老A队长袁朗，曾经走歪跌落谷底又重拾内心的成才，还有很多的配角，平常心吴哲、
+                            小骨头、绝情坑坑主。
+                        </h4>
+                    </div>
+                    <div class="info">
+                        <span>
+                            <i class="iconfont">&#xe8f9;</i>
+                            一个母亲的复仇
+                        </span>
+                        <span>
+                            <i class="layui-icon">&#xe63a;</i>
+                            4.6K
+                        </span>
+                        <span>
+                            <i class="layui-icon">&#xe68d;</i>
+                            2020-09-17 15:30
+                        </span>
+                    </div>
+                </div>
+                <div class="delete" onclick="showDel(this)">
+                    <i class="layui-icon">&#xe671;</i>
+                </div>
+                <div class="card hide" onmouseleave="hideDel(this)">
+                    <p><a class="sc" data-method="notice">删除</a></p>
+                </div>
+            </li> -->
+        </ul>
+    </div>
+
+    <script src="../../static/layui/layui.js" charset="utf-8"></script>
+    <script src="../../static/js/jquery-1.11.0.min.js"></script>
+    <script src="../../static/js/header.js"></script>
+    <script src="../../static/js/other_userInfo_header.js"></script>
+
+    <script>
+
+        var userInfo = JSON.parse(localStorage.getItem('userInfo'));
+        if(userInfo==null){
+            userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
+        }
+        var filmReview = [];
+
+        var type = window.location.href;
+        var data = type.split("="); //截取 url中的“=”,获得“=”后面的参数  
+        var type = decodeURI(data[1]); //decodeURI解码  
+
+        const Ip = localStorage.getItem('Ip');
+
+        $('.list').on('click', 'li', function () {
+            console.log($(this).index())
+            console.log(filmReview)
+            var jsonStr = JSON.stringify(filmReview[$(this).index()]);
+            sessionStorage.setItem("filmReviewsInfo", jsonStr);
+            window.location.href = "view_filmReviews.html";
+        })
+
+        layui.use('flow', function () {
+            var $ = layui.jquery; //不用额外加载jQuery，flow模块本身是有依赖jQuery的，直接用即可。
+            var flow = layui.flow;
+            flow.load({
+                elem: '.list' //指定列表容器
+                , done: function (page, next) { //到达临界点（默认滚动触发），触发下一页
+                    var lis = [];
+                    //以jQuery的Ajax请求为例，请求下一页数据（注意：page是从2开始返回）
+                    $.get( Ip+'/review/queryReviewByUser/' + page + '?userId=' + type, function (res) {
+                        //假设你的列表返回在data集合中
+                        layui.each(res.data, function (index, value) {
+                            filmReview.push(value);
+                            lis.push('<li class="item">' +
+                                '<div class="cover" style="background-image: url('+Ip+'/file/images/'+value.userId+'/'+value.coverImg+')"></div>' +
+                                '<div class="text">' +
+                                '<div class="title">' +
+                                '<h2>' + value.title + '</h2>' +
+                                '<h4></h4>' +
+                                '</div>' +
+                                '<div class="info">' +
+                                '<span>' +
+                                '<i class="iconfont">&#xe8f9;</i>' + value.filmName +
+                                '</span>' +
+                                '<span>' +
+                                '<i class="layui-icon">&#xe63a;</i>4.6K' +
+                                '</span>' +
+                                '<span>' +
+                                '<i class="layui-icon">&#xe68d;</i>' + value.time +
+                                '</span>' +
+                                '</div>' +
+                                '</div>' +
+                                '<div class="delete" onclick="showDel(this)">' +
+                                '<i class="layui-icon">&#xe671;</i>' +
+                                '</div>' +
+                                '<div class="card hide" onmouseleave="hideDel(this)">' +
+                                '<p><a class="sc del" data-id="' + value.id + '">删除</a></p>' +
+                                '</div>' +
+                                '</li>');
+                        });
+                        //执行下一页渲染，第二参数为：满足“加载更多”的条件，即后面仍有分页
+                        //pages为Ajax返回的总页数，只有当前页小于总页数的情况下，才会继续出现加载更多
+                        next(lis.join(''), res.data != [] && res.data.length > 0);
+                    });
+                }
+            });
+        });
+
+    </script>
+
+</body>
+
+</html>

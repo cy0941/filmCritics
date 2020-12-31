@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>搜索中心</title>
+    <link href="../../static/css/user/search.css" rel="stylesheet" type="text/css">
+    <link href="../../static/layui/css/layui.css" rel="stylesheet">
+    <link href="../../static/css/iconfont.css" rel="stylesheet">
+    <link href="../../static/css/user/header.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+    <header></header>
+    <div class="content">
+        <div class="film">
+            <div class="title">相关影片</div>
+            <ul class="filmInfo">
+                <!-- <li>
+                    <img src="../../static/img/xt.jpg">
+                    <div>
+                        <span>信条</span>
+                        <span>评分：<span class="score">7.8</span></span>
+                        <span>导演：克里斯托弗·诺兰</span>
+                        <span>科幻,动作,剧情</span>
+                        <span>2020-09-04上映</span>
+                    </div>
+                </li> -->
+            </ul>
+        </div>
+        <div class="article">
+            <div class="title">相关文章</div>
+            <ul class="filmReview">
+                <!-- <li>
+                    <div class="userInfo">
+                        <img src="../../static/img/zhl.png">
+                        <span>指法芬芳张大仙</span>
+                        <span>2020-10-28 05:20</span>
+                    </div>
+                    <div class="comment">
+                        <img class="coverImg"
+                            src="http://p0.meituan.net/movie/e00977359c9718949a7d1fff69f5baeb3782915.jpg">
+                        <div>
+                            <h3>一部电视剧，反映了一代人的价值观变化</h3>
+                            <p>
+                                即便是在现在看仍然不减魅力的影视剧。开头浓浓的淳朴农村模样，真实再现普通农村人的生活场景。这部剧中的人物每个我都好喜欢，
+                                即便是王大治饰演的二哥，让我这个完全不了解他的人抛去了他的外表，看到他的演技。白月光存在的班长史今，如石头般坚硬的班副
+                                伍六一，傲娇的连长七公主高成，妖孽撩人的老A队长袁朗，曾经走歪跌落谷底又重拾内心的成才，还有很多的配角，平常心吴哲、
+                                小骨头、绝情坑坑主、
+                            </p>
+                        </div>
+                    </div>
+                </li> -->
+                <!-- <li>
+                    <img class="coverImg" src="http://p0.meituan.net/movie/e00977359c9718949a7d1fff69f5baeb3782915.jpg">
+                    <div>
+                        <h3 class='filmTitle'>一部电视剧，反映了一代人的价值观变化</h3>
+                        <div class="userInfo">
+                            <img src="../../static/img/zhl.png">
+                            <span>指法芬芳张大仙</span>
+                            <span><i class="iconfont" style="margin-right: 5px;">&#xe664;</i>2020-10-28 05:20</span>
+                        </div>
+                    </div>
+                </li> -->
+            </ul>
+        </div>
+    </div>
+
+    <script src="../../static/js/jquery-1.11.0.min.js"></script>
+    <script src="../../static/layui/layui.js" charset="utf-8"></script>
+    <script src="../../static/js/header.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            var userInfo = JSON.parse(localStorage.getItem('userInfo'));
+            if(userInfo==null){
+                userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
+            }
+            var filmInfo = JSON.parse(sessionStorage.getItem('filmInfo'));
+            var filmReview=[];
+            sessionStorage.removeItem('filmInfo');
+
+            const Ip = localStorage.getItem('Ip');
+
+            var keyword = window.location.href;
+            var data = keyword.split("="); //截取 url中的“=”,获得“=”后面的参数  
+            var keyword = decodeURI(data[1]); //decodeURI解码  
+
+            $.each(filmInfo, function(i, value){     
+                var reg = new RegExp("/w.h/", 'g')
+                var moviesImg =value.img;
+                moviesImg = moviesImg.replace(reg, '/');
+                $('.filmInfo').append(
+                    '<li>' +
+                    '<img src="' + moviesImg + '">' +
+                    '<div>' +
+                    '<span>' + value.nm + '</span>' +
+                    '<span>评分：<span class="score">' + value.sc + '</span></span>' +
+                    '<span>' + value.act + '</span>' +
+                    '<span>' + value.cat + '</span>' +
+                    '<span>' + value.pubDesc + '</span>' +
+                    '</div>' +
+                    '</li>')     
+            });
+
+            $(document).on('click','.filmReview li',function(){
+                console.log(filmReview[$(this).index()]);
+                var jsonStr = JSON.stringify(filmReview[$(this).index()]);
+                sessionStorage.setItem("filmReviewsInfo", jsonStr);
+                window.location.href = "view_filmReviews.html";
+            })
+
+            $('.filmInfo').on('click','li',function(){
+                console.log(filmInfo[$(this).index()]);
+                var jsonStr = JSON.stringify(filmInfo[$(this).index()]);
+                sessionStorage.setItem("movie_details", jsonStr);
+                window.location.href = "movie_details.html";
+            })
+
+            layui.use('flow', function () {
+                var $ = layui.jquery; //不用额外加载jQuery，flow模块本身是有依赖jQuery的，直接用即可。
+                var flow = layui.flow;
+                flow.load({
+                    elem: '.filmReview' //指定列表容器
+                    , done: function (page, next) { //到达临界点（默认滚动触发），触发下一页
+
+                        var lis = [];
+                        //以jQuery的Ajax请求为例，请求下一页数据（注意：page是从2开始返回）
+                        $.get(Ip+'/review/queryReviewByFilm/' + page + '?filmName=' + keyword, function (res) {
+                            //假设你的列表返回在data集合中
+                            layui.each(res.data, function (index, value) {
+                                filmReview.push(value);
+                                lis.push(
+                                    '<li>'+
+                                        '<img class="coverImg" src="'+Ip+'/file/images/' + value.userId + '/' + value.coverImg + '">'+
+                                        '<div>'+
+                                            '<h3>' + value.title + '</h3>'+
+                                            '<div class="userInfo">'+
+                                                '<img src="'+Ip+'/file/images/' + value.userId + '/' + value.headImg + '">'+
+                                                '<span>' + value.nickName + '</span>'+
+                                                '<span><i class="iconfont" style="margin-right: 5px;">&#xe664;</i>' + value.time + '</span>'+
+                                            '</div>'+
+                                        '</div>'+
+                                    '</li>'
+                                )
+                            });
+                            next(lis.join(''), res.data != [] && res.data.length > 0);
+                        });
+                    }
+                });
+            });
+
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../../static/css/iconfont.css">
+    <link rel="stylesheet" href="../../static/css/admin/frame.css">
+</head>
+<body>
+    <header>
+        <ul>
+            <li>
+                <img class="logo hide" src="../../static/img/logo.png">
+                <span class="projectName">FilmCritic Admin</span> 
+            </li>
+            <li><!-- <i class="iconfont" id="move">&#xe61a;</i> --></li>
+            <li><a href="../user/filmCritics.html"><i class="iconfont">&#xe616;</i></li></a>
+            <li><!-- <i class="iconfont">&#xe60f;</i> --></li>
+            <li>
+                <img id='headImg' src="../../static/img/logo.png">
+                <span id='userName'>不捏泥人</span>
+                <!-- <i class="iconfont below"></i> -->
+            </li>
+        </ul>
+    </header>
+    <div class="body">
+        <div class="body_left">
+            <div class="item itemHome">
+                <i class="iconfont">&#xe60d;</i>
+                <div class="float">
+                    主页
+                </div>
+            </div>
+            <ul>
+                <li class="select">
+                    <a href="edit_userInfo.html" target="content"><i class="iconfont">&#xe8ff;</i>用户信息</a>
+                </li>
+                <li>
+                    <a href="edit_filmCritics.html" target="content"><i class="iconfont">&#xe8fe;</i>影评信息</a>
+                </li>
+                <li>
+                    <a href="edit_moviesList.html" target="content"><i class="iconfont">&#xe619;</i>影单信息</a>
+                </li>
+            </ul>
+            <!-- <div class="item itemHome">
+                <i class="iconfont">&#xe648;</i>
+                <div class="float">
+                    账号
+                    <i class="iconfont below"></i>
+                </div>
+            </div> -->
+        </div>
+        <div class="body_right">
+            <iframe name="content" src="edit_userInfo.html" height="622" width="100%" frameborder='0' scrolling='no'></iframe>
+        </div>
+    </div>
+
+    <script src="../../static/js/jquery-1.11.0.min.js"></script>
+  
+    <script>
+        $(document).ready(function () {
+
+            var userInfo = JSON.parse(localStorage.getItem('userInfo'));
+            if(userInfo==null){
+                userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
+            }
+
+            const Ip = localStorage.getItem('Ip');
+
+            $("#headImg").attr("src", ""+Ip+"/file/images/" + userInfo.id + "/" + userInfo.headImg);
+            $("#userName").text(userInfo.nickName);
+
+            $('.body_left').on('click','ul li',function(){
+                $('.body_left ul li').removeClass('select');
+                console.log("dddd")
+                $(this).addClass('select');
+            })
+
+            /* $('#move').click(function(){
+
+            }) */
+        })
+    </script>
+</body>
+</html>

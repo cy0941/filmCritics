@@ -1,23 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="referrer" content="no-referrer">
-    <title>Title</title>
-    <link href="../../static/css/movies.css" rel="stylesheet" type="text/css">
+    <title>影视中心</title>
+    <link href="../../static/layui/css/layui.css" rel="stylesheet" media="all">
+    <link href="../../static/css/user/movies.css" rel="stylesheet" type="text/css">
     <link href="../../static/css/iconfont.css" rel="stylesheet">
-    <link href="../../static/css/sliderx.css" rel="stylesheet">
+    <link href="../../static/css/user/sliderx.css" rel="stylesheet">
+    <link href="../../static/css/user/header.css" rel="stylesheet">
 </head>
 <body>
+    <header></header>
     <div class="rankList">
         <ul class="title">
             <li>高能排行</li>
-            <li class="select">热映榜</li>
-            <li>热播榜</li>
-            <li>口碑榜</li>
+            <li class="titleItem select">热映榜</li>
+            <li class="titleItem">热播榜</li>
+            <li class="titleItem">热漫榜</li>
         </ul>
         <ul class="list hotMovies">
-            <li>
+            <!-- <li>
                 <div class="cover" style="background-image: url(https://img2.doubanio.com/view/photo/s_ratio_poster/public/p2572166063.jpg)">
                     <span class="score">8.3</span>
                 </div>
@@ -83,12 +87,13 @@
                     <span class="rank">9</span>
                 </div>
                 <span>人间世 第二季</span>
-            </li>
+            </li> -->
         </ul>
     </div>
 
-    <div class="collectionList" style="background-image: url(https://wx1.sinaimg.cn/large/0029D7FZly1gkzum2ct14j60my0cw14t02.jpg)">
-        <div class="collectionInfo" >
+    <!-- <div class="collectionList"
+        style="background-image: url(https://wx1.sinaimg.cn/large/0029D7FZly1gkzum2ct14j60my0cw14t02.jpg)">
+        <div class="collectionInfo">
             <h2>打工人不可错过的纪录片</h2>
             <h4>世间职业千千万，而我们有个共同的名字：打工人</h4>
             <div class="info">
@@ -100,7 +105,8 @@
             </div>
             <ul>
                 <li>
-                    <div class="cover_" style="background-image: url(https://img2.doubanio.com/view/photo/s_ratio_poster/public/p2369039272.jpg)">
+                    <div class="cover_"
+                        style="background-image: url(https://img2.doubanio.com/view/photo/s_ratio_poster/public/p2369039272.jpg)">
                         <span class="score">4.8</span>
                     </div>
                     <span>人间世 第二季</span>
@@ -124,72 +130,42 @@
                     <span>人间世 第二季</span>
                 </li>
                 <li>
-                    <div class="cover_" style="background-image: url(https://img2.doubanio.com/view/photo/s_ratio_poster/public/p2369039272.jpg)">
+                    <div class="cover_"
+                        style="background-image: url(https://img2.doubanio.com/view/photo/s_ratio_poster/public/p2369039272.jpg)">
                         <span class="score">4.8</span>
                     </div>
                     <span>人间世 第二季</span>
                 </li>
                 <li>
-                    <div class="cover_" style="background-image: url(https://img2.doubanio.com/view/photo/s_ratio_poster/public/p2369039272.jpg)">
+                    <div class="cover_"
+                        style="background-image: url(https://img2.doubanio.com/view/photo/s_ratio_poster/public/p2369039272.jpg)">
                         <span class="score">4.8</span>
                     </div>
                     <span>人间世 第二季</span>
                 </li>
             </ul>
         </div>
-    </div>
+    </div> -->
 
-    <div class="collectionList" style="background-image: url(../../static/img/yyqx.jpg)">
-        <div class="collectionInfo" >
-            <h2>打工人不可错过的纪录片</h2>
-            <h4>世间职业千千万，而我们有个共同的名字：打工人</h4>
-            <div class="info">
-                <img src="../../static/img/zhl.png">
-                <span>匿名用户</span>
-                <span>13部影片</span>
-                <i class="iconfont">&#xe664;</i>
-                <span>2020.10.28 更新</span>
+    <ul class="movieMenu_list">
+        <!-- <li class="movieMenu_item">
+            <div class="movieMenu_cover" style="background-image: url(../../static/img/yyqx.jpg)">
+                <div>
+                    <i class="iconfont">&#xe664;</i>
+                    <span>2020.10.28 更新</span>
+                </div>
             </div>
-            <ul>
-                <li>
-                    <div class="cover_" style="background-image: url(https://img2.doubanio.com/view/photo/s_ratio_poster/public/p2369039272.jpg)">
-                        <span class="score">4.8</span>
-                    </div>
-                    <span>人间世 第二季</span>
-                </li>
-                <li>
-                    <div class="cover_" style="background-image: url(../../static/img/hml2.jpg)">
-                        <span class="score">4.8</span>
-                    </div>
-                    <span>人间世 第二季</span>
-                </li>
-                <li>
-                    <div class="cover_" style="background-image: url(../../static/img/hml2.jpg)">
-                        <span class="score">4.8</span>
-                    </div>
-                    <span>人间世 第二季</span>
-                </li>
-                <li>
-                    <div class="cover_" style="background-image: url(../../static/img/hml2.jpg)">
-                        <span class="score">4.8</span>
-                    </div>
-                    <span>人间世 第二季</span>
-                </li>
-                <li>
-                    <div class="cover_" style="background-image: url(https://img2.doubanio.com/view/photo/s_ratio_poster/public/p2369039272.jpg)">
-                        <span class="score">4.8</span>
-                    </div>
-                    <span>人间世 第二季</span>
-                </li>
-                <li>
-                    <div class="cover_" style="background-image: url(https://img2.doubanio.com/view/photo/s_ratio_poster/public/p2369039272.jpg)">
-                        <span class="score">4.8</span>
-                    </div>
-                    <span>人间世 第二季</span>
-                </li>
-            </ul>
-        </div>
-    </div>
+            <div>
+                <h2>打工人不可错过的纪录片</h2>
+                <h4>世间职业千千万，而我们有个共同的名字：打工人世间职业千千万，而我们有个共同的名字：打工人</h4>
+                <div class="info">
+                    <img src="../../static/img/zhl.png">
+                    <span>匿名用户</span>
+                    <span>13部影片>></span>
+                </div>
+            </div>
+        </li> -->
+    </ul>
 
     <!--<div class="collectionList" style="background-image: url(../../static/img/yyqx.jpg)">
         <div class="collectionInfo" >
@@ -292,7 +268,244 @@
     </div>-->
 
     <script src="../../static/js/jquery-1.11.0.min.js"></script>
+    <script src="../../static/layui/layui.js" charset="utf-8"></script>
     <script src="../../static/js/sliderx.js" type="text/javascript"></script>
+    <script src="../../static/js/header.js" type="text/javascript"></script>
+
+    <script>
+        $(document).ready(function () {
+
+            const Ip = localStorage.getItem('Ip');
+
+            var token;
+
+            var type = 0;
+
+            var filmList;
+
+            var filmInfo;
+
+            var filmFavorite=[];
+
+            getToken();
+
+            function getToken(){
+                $.ajax({
+                    type:"get",
+                    url:"http://api.vopipi.cn/api/auth",
+                    dataType:"json",
+                    async: false,
+                    success:function(data,statusText){
+                        token=data.data.token;
+                        requestRank();
+                    },
+                    error:function(msg){
+                        console.log(msg);
+                    }
+                })
+            }
+
+            function requestRank() {
+                var settings = {
+                    "url": "http://api.vopipi.cn/api/index",
+                    "method": "GET",
+                    "timeout": 0,
+                    "dataType": "json",
+                    "headers": {
+                        "token": token
+                    },
+                };
+                $.ajax(settings).done(function (response) {
+                    filmList = response.data;
+                    filmList.splice(2, 1)
+                    requestInfo(filmList[type][0].onlyStr)
+                })
+            }
+
+            function requestInfo_maoYan(filmName) {
+                console.log(type + "-------" + filmName)
+                $.ajax({
+                    type: "post",
+                    timeout: 0,
+                    url: Ip+"/movie/getMovies?kw=" + filmName,
+                    dataType: "json",
+                    success: function (data) {
+                        console.log(data.movies.list[0][0]);
+                        filmInfo=data.movies.list[0];
+                        var jsonStr = JSON.stringify(filmInfo);
+                        sessionStorage.setItem("movie_details", jsonStr);
+                        window.location.href = "movie_details.html";
+
+                    },
+                    error: function (msg) {
+                        console.log(msg);
+                    }
+                })
+            }
+
+            function requestInfo(filmName) {
+                $.ajax({
+                    type: "get",
+                    timeout: 0,
+                    url: "http://api.vopipi.cn/api/info",
+                    dataType: "json",
+                    headers: {
+                        "token": token
+                    },
+                    data: {
+                        "type": type == 2 ? 4 : type + 1,
+                        "onlyStr": filmName
+                    },
+                    success: function (data) {
+                        $(".hotMovies").append('<li data-title='+filmList[type][0].title+'>' +
+                            '<div class="cover" style="background-image: url(' + filmList[type][0].imgUrl + ')">' +
+                            '</div>' +
+                            '<div class="info">' +
+                            '<h2>' + filmList[type][0].title + '</h2>' +
+                            '<h5>爱情,青春,剧情 | 2019-10-25上映</h5>' +
+                            '<p>' + data.data.desc + '</p>' +
+                            '</div>' +
+                            '<div class="rank">1</div>' +
+                            '</li>');
+                        fill();
+                    },
+                    error: function (msg) {
+                        console.log(msg);
+                    }
+                })
+            }
+
+            function fill() {
+                for (var i = 1; i < (filmList[type].length) - 1; i++) {
+                    $(".hotMovies").append('<li data-title='+filmList[type][i].title+'>' +
+                        '<div class="cover" style="background-image: url(' + filmList[type][i].imgUrl + ')">' +
+                        '<span class="rank">' + (i + 1) + '</span>' +
+                        '</div>' +
+                        '<span>' + filmList[type][i].title + '</span>' +
+                        '</li>');
+                }
+            }
+
+            $(function () {
+                $('.title').on('click', '.titleItem', function () {
+                    //console.log($.myconfirm(options))
+                    $('.title .titleItem').removeClass("select");
+                    $(this).addClass("select");
+                    type = $(this).index() - 1;
+                    $('.hotMovies').empty();
+                    requestInfo(filmList[type][0].onlyStr)
+                });
+            });
+
+            $('.movieMenu_list').on('click','li',function(){
+                var jsonStr = JSON.stringify(filmFavorite[$(this).index()]);
+                sessionStorage.setItem("filmFavorite", jsonStr);
+                window.location.href = "favorite.html";
+            })
+
+            $('.hotMovies').on('click','li',function(){
+                var title=$(this).data('title');
+                requestInfo_maoYan(title);
+            })
+
+            layui.use('flow', function () {
+                var $ = layui.jquery; 
+                var flow = layui.flow;
+                flow.load({
+                    elem: '.movieMenu_list' 
+                    , done: function (page, next) { 
+                        var lis=[];
+                        $.get(Ip+'/movie/queryMovieListForPage/' + page, function (res) {
+                            layui.each(res.data,function (index,value) {
+                                filmFavorite.push(value);
+                                lis.push('<li class="movieMenu_item">'+
+                                            '<div class="movieMenu_cover" style="background-image: url('+Ip+'/file/images/'+value.userId+'/'+value.coverImg+')">'+
+                                                '<div>'+
+                                                    '<i class="iconfont" style="margin-right:5px">&#xe664;</i>'+
+                                                    '<span>'+value.time+' 更新</span>'+
+                                                '</div>'+
+                                            '</div>'+
+                                            '<div>'+
+                                                '<h2>'+value.tittle+'</h2>'+
+                                                '<h4>'+value.introduce+'</h4>'+
+                                                '<div class="info">'+
+                                                    '<img src="'+Ip+'/file/images/'+value.userId+'/'+value.headImg+'">'+
+                                                    '<span>'+value.nickName+'</span>'+
+                                                    '<span>查看影片>></span>'+
+                                                '</div>'+
+                                            '</div>'+
+                                        '</li>');
+                            });
+                            next(lis.join(''), res.data!=[]&&res.data.length>0);
+                        });
+                    }
+                });
+            });
+
+
+            /* for(var i=0;i<response.data.length;i++){
+                for(var j=0;j<response.data[i].length;j++){
+                    console.log(response.data[i][j].imgUrl)
+                     if(j==0){
+                        $(".hotMovies").append('<li>'+
+                            '<div class="cover" style="background-image: url('+response.data[i].imgUrl+')">'+
+                                '<span class="score">8.3</span>'+
+                            '</div>'+
+                            '<div class="info">'+
+                                '<h2>少年的你</h2>'+
+                                '<h5>爱情,青春,剧情 | 2019-10-25上映</h5>'+
+                                '<p>一次偶然中，陈念邂逅了名为小北（易烊千玺 饰）的小混混，随着时间的推移，心心相惜的两人之间产生了真挚的感情。小北答应陈念在暗中保护她免受魏莱的欺凌，没想到这一决定引发了一连串的连锁反应。负责调查胡晓蝶死因的警官郑易（尹昉 饰）隐隐察觉到校园里的古怪气氛，可他的调查却屡屡遭到校方的阻挠。</p>'+
+                            '</div>'+
+                            '<div class="rank">1</div>'+
+                        '</li>')
+                    } 
+                }
+            } 
+            /* console.log(type);
+                    var i=true;
+                    (response.data[type]).forEach(function(value){
+                        console.log(value.title)
+                        if(i){
+                            i=false;
+                            
+                            $(".hotMovies").append('<li>'+
+                                '<div class="cover" style="background-image: url('+value.imgUrl+')">'+
+                                    '<span class="score">8.3</span>'+
+                                '</div>'+
+                                '<div class="info">'+
+                                    '<h2>'+value.title+'</h2>'+
+                                    '<h5>爱情,青春,剧情 | 2019-10-25上映</h5>'+
+                                    '<p>一次偶然中，陈念邂逅了名为小北（易烊千玺 饰）的小混混，随着时间的推移，心心相惜的两人之间产生了真挚的感情。小北答应陈念在暗中保护她免受魏莱的欺凌，没想到这一决定引发了一连串的连锁反应。负责调查胡晓蝶死因的警官郑易（尹昉 饰）隐隐察觉到校园里的古怪气氛，可他的调查却屡屡遭到校方的阻挠。</p>'+
+                                '</div>'+
+                                '<div class="rank">1</div>'+
+                            '</li>')
+                        }
+            }) */
+            /* (response.data).forEach(function(item){
+                console.log(item)
+                var i=true;
+                item.forEach(function(value){
+                    console.log(value.title)
+                    if(i){
+                        i=false;
+                        $(".hotMovies").append('<li>'+
+                            '<div class="cover" style="background-image: url('+value.imgUrl+')">'+
+                                '<span class="score">8.3</span>'+
+                            '</div>'+
+                            '<div class="info">'+
+                                '<h2>少年的你</h2>'+
+                                '<h5>爱情,青春,剧情 | 2019-10-25上映</h5>'+
+                                '<p>一次偶然中，陈念邂逅了名为小北（易烊千玺 饰）的小混混，随着时间的推移，心心相惜的两人之间产生了真挚的感情。小北答应陈念在暗中保护她免受魏莱的欺凌，没想到这一决定引发了一连串的连锁反应。负责调查胡晓蝶死因的警官郑易（尹昉 饰）隐隐察觉到校园里的古怪气氛，可他的调查却屡屡遭到校方的阻挠。</p>'+
+                            '</div>'+
+                            '<div class="rank">1</div>'+
+                        '</li>')
+                    }
+                })
+            }) */
+
+        });
+    </script>
 
 </body>
+
 </html>

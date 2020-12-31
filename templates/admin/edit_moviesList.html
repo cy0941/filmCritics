@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../../static/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../static/css/admin/edit_filmCritics.css">
+
+</head>
+
+<body>
+
+    <header>
+        影单数据
+    </header>
+
+    <table class="layui-hide" id="dataMoviesList" lay-filter="dataMoviesList"></table>
+
+    <script type="text/html" id="barDemo">
+        <a class="layui-btn layui-btn-xs" lay-event="edit">影片</a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    </script>
+
+    <script src="../../static/layui/layui.js" charset="utf-8"></script>
+    <script src="../../static/js/jquery-1.11.0.min.js"></script>
+
+    <script>
+
+        $(document).ready(function () {
+
+            const Ip = localStorage.getItem('Ip');
+            var page = 1;
+            var movieList= [];
+
+            queryMoviesList(page);
+            /* getAll_FilmReviews(++page); */
+
+            function queryMoviesList(page) {
+                $.ajax({
+                    type: "get",
+                    url: Ip + '/movie/queryMovieListForPage/' + page,
+                    dataType: 'json',
+                    timeout: 0,
+                    success: function (res) {
+                        /* console.log(res) */
+                        res.data.forEach(function (value) {
+                            movieList.push(value)
+                        })
+                        if (res.data == [] || res.data.length <= 0) {
+                            bl();
+                        } else {
+                            queryMoviesList(++page);
+                        }
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                });
+            }
+
+            function delMoviesList(id) {
+                $.ajax({
+                    type: "post",
+                    url: Ip + "/movie/delMovieList?moviesId="+id,
+                    dataType: 'json',
+                    timeout: 0,
+                    success: function (res) {
+                        console.log(res);
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                });
+            }
+
+            function bl() {
+                layui.use('table', function () {
+                    var table = layui.table;
+                    //展示已知数据
+                    table.render({
+                        elem: '#dataMoviesList'
+                        , cols: [[ //标题栏
+                            { field: 'id', title: 'ID', width: 80, sort: true }
+                            , { field: 'userId', title: '用户ID', width: 100, sort: true }
+                            , { field: 'coverImg', title: '封面', width: 150 }
+                            , { field: 'tittle', title: '标题', minWidth: 150 }
+                            , { field: 'introduce', title: '简介', minWidth: 80 }
+                            , { field: 'time', title: '时间', width: 150, sort: true }
+                            , { field: 'praise', title: '点赞', width: 150 }
+                            , { field: 'nickName', title: '用户昵称', width: 150 }
+                            , { field: 'headImg', title: '头像', width: 150}
+                            , { fixed: 'right', title: '操作', toolbar: '#barDemo', width: 150 }
+                        ]]
+                        , data: movieList
+                        //, skin: 'line' //表格风格
+                        , even: true
+                        , page: true //是否显示分页
+                        , limits: [5, 10, 12]
+                        , limit: 12 //每页默认显示的数量
+                    });
+
+                    table.on('edit(dataMoviesList)', function (obj) {
+                        var value = obj.value //得到修改后的值
+                            , data = obj.data //得到所在行所有键值
+                            , field = obj.field; //得到字段
+                        layer.msg('[ID: ' + data.id + '] ' + field + ' 字段更改为：' + value);
+                    });
+
+                    table.on('tool(dataMoviesList)', function (obj) {
+                        var data = obj.data;
+                        console.log(data)
+                        if (obj.event === 'del') {
+                            layer.confirm('真的删除行么', function (index) {
+                                obj.del();
+                                layer.close(index);
+                                var list=movieList.find((value,index,arr)=>{
+                                    return value.id==data.id
+                                });
+
+                                var num=movieList.indexOf(list)
+                                movieList.splice(num, 1);
+
+                                delMoviesList(data.id);
+
+                            });
+                        } else if (obj.event === 'edit') {
+                            /* layer.prompt({
+                                formType: 2
+                                , value: data.email
+                            }, function (value, index) {
+                                obj.update({
+                                    email: value
+                                });
+                                layer.close(index);
+                            }); */
+                            window.parent.content.location.href= "edit_films.html?id="+ data.id;
+                        }
+                    });
+                });
+            }
+        })
+    </script>
+
+</body>
+
+</html>

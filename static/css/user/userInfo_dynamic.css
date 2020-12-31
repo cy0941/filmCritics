@@ -1,0 +1,438 @@
+
+body{
+    padding: 0px;
+    margin: 0px;
+    background-color: #f6f6f6;
+}
+
+.body{
+    width: 1196px;
+    margin: auto;
+}
+
+.content{
+    height: auto;
+    width: 1196px;
+    margin: 0 auto 10px auto;
+    float: left;
+}
+
+.content_left{
+    width: calc(100% - 40px);
+    margin-top: 10px;
+    padding: 20px;
+    float: left;
+    background-color: #FFFFFF;
+    box-shadow: 0 1px 3px rgba(18,18,18,.1);
+}
+
+/* .content_right{
+    position: relative;
+    height: auto;
+    width: 353px;
+    margin-top: 10px;
+    margin-left: 5px;
+    padding:20px 20px 0px 20px;
+    float: right;
+    background-color: #FFFFFF;
+    box-shadow: 0 1px 3px rgba(18,18,18,.1);
+} */
+
+.menu{
+    height:30px;
+    width: 100%;
+    font-size: 16px;
+    line-height: 30px;
+}
+
+.dynamic li{
+    height: auto;
+    width: 100%;
+    padding: 10px 0;
+    border-top: 1px solid #f0f2f7;
+}
+
+.userInfo{
+    height: 48px;
+    width: 100%;
+    float: left;
+    position: relative;
+}
+
+.userImg{
+    height: 48px;
+    width: 48px;
+    float: left;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center;
+}
+
+.userName{
+    height: 100%;
+    width: auto;
+    float: left;
+    margin-left: 2%;
+}
+
+.userName span:first-child{
+    font-size: 16px;
+    color: #fb7299;
+}
+
+.userName span{
+    height: 50%;
+    width: 100%;
+    font-size: 12px;
+    color: #99a2aa;
+    line-height: 24px;
+    float: left;
+}
+
+.delete{
+    height: 48px;
+    width: 48px;
+    font-size: 24px;
+    font-weight: 800;
+    float: right;
+    text-align: center;
+    line-height: 48px;
+}
+
+.delete :hover{
+    color: #00a1d6;
+}
+
+.card{
+    position: absolute;
+    width: 94px;
+    text-align: center;
+    top: 45px;
+    left: 651px;
+    background: #fff;
+    border: 1px solid #e5e9ef;
+    -webkit-box-shadow: 0 11px 12px 0 rgba(106,115,133,0.12);
+    box-shadow: 0 11px 12px 0 rgba(106,115,133,0.12);
+    border-radius: 8px;
+    color: #222;
+    z-index: 10;
+    display: none;
+}
+
+.card p{
+    text-align: center;
+    padding: 10px 0;
+    font-size: 14px;
+    color: #222;
+}
+
+.card p a:hover{
+    color: #00a1d6;
+}
+
+.card ::after{
+    content: "";
+    display: block;
+    border-top: 1px solid #e5e9ef;
+    border-left: 1px solid #e5e9ef;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+    width: 8px;
+    height: 8px;
+    position: absolute;
+    top: -5px;
+    right: 12px;
+    background: #fff;
+}
+
+.userContent{
+    height: auto;
+    width: 80%;
+    float: left;
+    margin-left: 48px;
+    padding: 1% 0px 1% 2%;
+    font-size: 14px;
+    line-height: 22px;
+    word-wrap: break-word;
+}
+
+.userScore{
+    height: 42px;
+    width: 80%;
+    float: left;
+    margin-left: 48px;
+    padding-left: 2%;
+}
+
+/*.score{
+    height: 0px;
+    width: 0px;
+    float: right;
+    border-style: solid;
+    border-width: 20px 20px 20px 20px;
+    border-color: transparent transparent transparent #ffb730;
+}*/
+
+.userFilm{
+    height: 110px;
+    width: 78%;
+    float: left;
+    padding: 15px;
+    margin-left: 48px;
+    background-color: #f4f5f7;
+}
+
+.userScore .layui-inline{
+    color: #666;
+}
+
+.filmCover{
+    height: 110px;
+    width: 80px;
+    float: left;
+    background-size: cover;
+    background-position: center;
+}
+
+.filmInfo{
+    height: 110px;
+    width: auto;
+    float: left;
+    margin-left: 2%;
+}
+
+.filmInfo span{
+    font-size: 12px;
+    height: 24%;
+    width: 100%;
+    color: #666;
+    display: flex;
+    align-items: center;
+}
+
+.filmInfo span:first-child{
+    font-size: 16px;
+    height: 28%;
+    color: #fb7299;
+}
+
+.label{
+    height: 48px;
+    width: 48px;
+    float: right;
+}
+
+.label img{
+    height: 100%;
+    width: 100%;
+}
+
+.show{
+    transition: all 0.8s;
+    display: block;
+}
+
+.hide{
+    transition: all 0.8s;
+    display: none;
+}
+
+.seeList{
+    height: auto;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap:wrap;
+}
+
+.list{
+    height: 144px;
+    width: 33%;
+    margin: 5px 0;
+    display: flex;
+    justify-content:center;
+    align-items:center;
+    background: white;
+}
+
+.list div{
+    height: 144px;
+    width: 104px;
+    border-radius: 8px;
+    background-size: cover;
+    background-position: center;
+}
+
+.more{
+    height: 50px;
+    width: 95%;
+    font-size: 12px;
+    text-align: right;
+    margin-right: 5%;
+    line-height: 50px;
+    color: #99a2aa;
+}
+
+.more span:hover{
+    color: #00a1d6;
+}
+
+ul{
+    list-style: none;
+}
+
+/*-------------------------书签------------------------------*/
+
+/* .tag-vertical {
+    float: left;  水平方向放多个的设置
+    margin-right: 2px; 水平方向放多个的设置
+    position: relative;
+    padding: 3px 0;
+    width: 26px;
+    color: #fff;
+    font-size: 14px;
+    text-align: center;
+    box-shadow: 0 1px 3px rgba(18,18,18,.1);
+}
+.tag-vertical::after {
+    position: absolute;
+    content: "";
+    left: 0;
+    top: 100%;
+    border-style: solid;
+    border-width: 0 13px 10px 13px;
+}
+
+可设置不同颜色
+.tag-vertical.discount::after {
+    border-color: #00d9a9 #00d9a9 transparent #00d9a9;
+}
+.tag-vertical.discount {
+    background: #00d9a9;
+}
+
+.infoContent{
+    width: 100%;
+    height: 96px;
+    margin-top: 10px;
+    display: flex;
+}
+
+.infoContent>img{
+    width: 152px;
+    height: 100%;
+    -o-object-fit: cover;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.infoContent>h3{
+    height: 100%;
+    width: 98%;
+    font-size: 16px;
+    line-height: 25px;
+    padding-left: 2%;
+    display: flex;
+    align-items: center;
+}
+
+
+.textContent{
+    width: calc(100% - 152px - 8px);
+    height: 100%;
+    padding-left: 8px;
+    display: flex;
+    flex-direction: column;
+}
+
+.textContent>h3{
+    height: 80%;
+    width: 100%;
+    font-size: 16px;
+    line-height: 30px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+
+} */
+
+
+/* --------------------------------- */
+
+.infoContent{
+    width: calc(100% - 71px);
+    height: 96px;
+    padding: 20px 0 20px 71px;
+    display: flex;
+}
+
+.infoContent>img{
+    width: 152px;
+    height: 100%;
+    -o-object-fit: cover;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.infoContent>h3{
+    height: 100%;
+    width: 98%;
+    font-size: 16px;
+    line-height: 25px;
+    padding-left: 2%;
+    display: flex;
+    align-items: center;
+}
+
+
+.textContent{
+    width: calc(100% - 152px - 8px);
+    height: 100%;
+    padding-left: 8px;
+    display: flex;
+    flex-direction: column;
+}
+
+.textContent>h3{
+    height: 80%;
+    width: 100%;
+    font-size: 18px;
+    line-height: 30px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+
+}
+
+.textContent>div{
+    height: 20%;
+    width: 100%;
+    font-size: 12px;
+    margin-right: 5%;
+    color: #aaa;
+    display: flex;
+    align-items: center;
+}
+
+.textContent>div>i{
+    margin-right: 5px;
+}
+
+.textContent>div>i:nth-child(1){
+    margin-right: 5px;
+    margin-left: 5%;
+}
+
+.textContent>div>span:nth-child(2){
+    width: 10%;
+}
+
+.likeOn{
+    color: #ff5d47;
+}

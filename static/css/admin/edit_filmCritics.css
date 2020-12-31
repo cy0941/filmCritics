@@ -1,0 +1,22 @@
+body{
+	margin: 0;
+	padding: 0;
+}
+
+header{
+	height:20px;
+	width:100%;
+	color:#6c6c6c;
+	padding-left:8px;
+	border-left:8px solid #0575ba;
+	margin:20px 0 20px 20px;
+}
+
+.demoTable{
+    width: auto !important;
+    margin-left: 20px !important;
+}
+
+.demoTable button{
+	margin-right: 50px;
+}

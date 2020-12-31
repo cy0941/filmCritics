@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../../static/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../static/css/admin/edit_filmCritics.css">
+
+</head>
+
+<body>
+
+    <header>
+        用户数据
+    </header>
+
+    <div class="demoTable">
+        查询信息：
+        <div class="layui-inline">
+            <input class="layui-input" name="id" id="demoReload" autocomplete="off">
+        </div>
+        <button class="layui-btn" id="btn">搜索</button>
+
+        <!-- 模糊查询：
+        <div class="layui-inline">
+            <input class="layui-input" id="demoReload_2" autocomplete="off">
+        </div>
+        <button class="layui-btn" id="btn2">搜索</button> -->
+
+    </div>
+
+    <table class="layui-hide" id="dataUserInfo" lay-filter="dataUserInfo"></table>
+
+    <script type="text/html" id="barDemo">
+        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    </script>
+
+    <script src="../../static/layui/layui.js" charset="utf-8"></script>
+    <script src="../../static/js/jquery-1.11.0.min.js"></script>
+
+    <script>
+
+        $(document).ready(function () {
+
+            const Ip = localStorage.getItem('Ip');
+            var page = 1;
+            var userInfo = [];
+            var userInfoList=[];
+
+            getAll_userInfo(page);
+
+            function getAll_userInfo(page) {
+                $.ajax({
+                    type: "get",
+                    url: Ip + '/user/queryAllUserForPage/' + page,
+                    dataType: 'json',
+                    timeout: 0,
+                    success: function (res) {
+                        console.log(res)
+                        res.data.forEach(function (value) {
+                            userInfo.push(value)
+                        })
+                        if (res.data != [] && res.data.length > 0) {
+                            getAll_userInfo(++page);
+                        } else {
+                            userInfoList=userInfo;
+                            bl();
+                        }
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                });
+            }
+
+            function queryUserInfo(info) {
+                $.ajax({
+                    type: "post",
+                    url: Ip + '/user/queryUserInfo?userId=' + info,
+                    dataType: 'json',
+                    timeout: 0,
+                    success: function (res) {
+                        console.log(res)
+                        if(res.data!=null&&res.data!=[]){
+                            userInfo = [];
+                            userInfo.push(res.data);
+                        }else{
+                            userInfo=userInfoList;
+                        }
+                        bl();
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                });
+            }
+
+            function queryUserInfo_2(info) {
+                $.ajax({
+                    type: "get",
+                    url: Ip + '/user/fuzzyQueryUser?key=' + info,
+                    dataType: 'json',
+                    timeout: 0,
+                    success: function (res) {
+                        res.data.forEach(function (value) {
+                            userInfo.push(value)
+                        })
+                        bl();
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                });
+            }
+
+            function modifyUserInfo(key, value, userId) {
+                $.ajax({
+                    type: "post",
+                    url: Ip + '/user/modifyInfo',
+                    dataType: 'json',
+                    timeout: 0,
+                    data: {
+                        key: key,
+                        value: value,
+                        userId: userId
+                    },
+                    success: function (res) {
+                        console.log(res)
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                });
+            }
+
+            function bl() {
+                layui.use('table', function () {
+                    var table = layui.table;
+
+                    //展示已知数据
+                    table.render({
+                        elem: '#dataUserInfo'
+                        , cols: [[ //标题栏
+                            { field: 'id', title: 'id', width: 80, sort: true }
+                            , { field: 'userName', title: '用户名', width: 120, edit: 'text' }
+                            , { field: 'passWord', title: '密码', width: 120 }
+                            , { field: 'nickName', title: '昵称', width: 150, edit: 'text' }
+                            , { field: 'email', title: '电子邮箱', width: 200 }
+                            , { field: 'headImg', title: '头像', width: 100 }
+                            , { field: 'role', title: '身份', width: 80, sort: true }
+                            , { field: 'focus', title: '关注', width: 80, sort: true }
+                            , { field: 'fans', title: '粉丝', width: 80, sort: true }
+                            , { field: 'introduce', title: '简介', width: 280, edit: 'text' }
+                            /* , { fixed: 'right', title:'操作', toolbar: '#barDemo', width:150} */
+                        ]]
+                        , id: 'testReload'
+                        , data: userInfo
+                        //,skin: 'line' //表格风格
+                        , even: true
+                        , page: true //是否显示分页
+                        , limits: [5, 10, 12]
+                        , limit: 12 //每页默认显示的数量
+                    });
+
+                    table.on('edit(dataUserInfo)', function (obj) {
+                        var value = obj.value //得到修改后的值
+                            , data = obj.data //得到所在行所有键值
+                            , field = obj.field; //得到字段
+                        layer.msg('[ID: ' + data.id + '] ' + field + ' 字段更改为：' + value);
+                        modifyUserInfo(field, value, data.id);
+                        console.log(field);
+                        console.log(value);
+                        console.log(data.id);
+                    });
+
+                    table.on('tool(dataUserInfo)', function (obj) {
+                        var data = obj.data;
+                        console.log(data)
+                        if (obj.event === 'del') {
+                            layer.confirm('真的删除行么', function (index) {
+                                obj.del();
+                                layer.close(index);
+                                var list = filmCriticsList.find((value, index, arr) => {
+                                    return value.id == data.id
+                                });
+
+                                var num = filmCriticsList.indexOf(list)
+                                filmCriticsList.splice(num, 1);
+
+                                delFilmCritics(data.id);
+
+                            });
+                        } else if (obj.event === 'edit') {
+                            layer.prompt({
+                                formType: 2
+                                , value: data.email
+                            }, function (value, index) {
+                                obj.update({
+                                    email: value
+                                });
+                                layer.close(index);
+                            });
+                        }
+                    });
+
+                    $('.demoTable #btn').on('click', function () {
+                        /* active[type] ? active[type].call(this) : ''; */
+                        /* queryUserInfo($('#demoReload').val()) */
+                        queryUserInfo($('#demoReload').val())
+                    });
+
+                    $('.demoTable #btn2').on('click', function () {
+                        console.log('222222222222222222222222222222')
+                        queryUserInfo_2($('#demoReload_2').val())
+                    });
+
+                });
+            }
+        })
+    </script>
+
+</body>
+
+</html>

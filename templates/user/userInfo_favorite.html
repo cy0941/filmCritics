@@ -1,41 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>个人影单</title>
+
+    <link href="../../static/css/user/userInfo.css" type="text/css" rel="stylesheet">
+
     <link rel="stylesheet" href="../../static/css/iconfont.css" type="text/css">
-    <link rel="stylesheet" href="../../static/css/userInfo_favorite.css" type="text/css">
-    <link rel="stylesheet" href="../../static/layui/css/layui.css"  media="all">
+    <link rel="stylesheet" href="../../static/css/user/userInfo_favorite.css" type="text/css">
+    <link rel="stylesheet" href="../../static/layui/css/layui.css" media="all">
+
+    <link href="../../static/css/user/header.css" type="text/css" rel="stylesheet">
+
 </head>
+
 <body>
+
+    <header></header>
+
+    <div id="bodyBar"></div>
+
     <div class="body">
         <div class="menu">
             影单
         </div>
         <div class="content">
             <div class="content_left">
-                <span>
-                    我的创建
-                    <i class="iconfont up"></i>
-                    <button data-method="notice" class="add" style="margin:0 5px 0 auto;">
+                <span class="favoritesList">
+                    我的创建<i class="tag iconfont down">&#xe611;</i>
+                    <button class="addMovieList">
                         <i class="iconfont">&#xe600;</i>
                     </button>
                 </span>
-                <ul>
-                    <li class="iconfont select">医生，在平凡中通完不凡</li>
-                    <li class="iconfont">关于盗墓的电视剧</li>
-                    <li class="iconfont">勾心斗角古装剧</li>
+                <ul class="creFavList favList">
+                    <!-- <li class="iconfont select">医生，在平凡中通完不凡</li> -->
                 </ul>
-                <span>我的收藏<i class="iconfont down"></i></span>
-                <ul>
-                    <li class="iconfont">看完可以装X的有趣纪录片</li>
-                    <li class="iconfont">打工人不可错过的纪录片</li>
-                    <li class="iconfont">这些电影让你读懂心理学</li>
+                <span class="favoritesList">
+                    我的收藏<i class="tag iconfont down">&#xe611;</i>
+                </span>
+                <ul class="colFavList favList">
+                    <!-- <li class="iconfont">看完可以装X的有趣纪录片</li> -->
                 </ul>
             </div>
             <div class="content_right">
                 <div class="favInfo">
-                    <div class="favInfo_cover" style="background-image: url(../../static/img/f.png)">
+                    <!-- <div class="favInfo_cover" style="background-image: url(../../static/img/f.png)">
+                        <div class="modifyCover hide">修改封面</div>
                     </div>
                     <div class="favInfo_details">
                         <span>医生，在平凡中通往不凡</span>
@@ -45,63 +56,417 @@
                             <span>2019-10-28更新</span>
                             <span>13部影片</span>
                         </div>
-                        <span>可能会有人忘记，他们不是天生神力的天使，而只是凡人。一个做出了耀眼选择的凡人。</span>
-                        <span><i class="iconfont">&#xe8f8;</i>2546收藏</span>
-                    </div>
-                </div>
-                <ul>
-                    <li>
-                        <div style="background-image: url(../../static/img/index.jpg)"></div>
-                        <div class="filmInfo">
-                            <span>人间世 第一季</span>
-                            <span>导演：曾国祥</span>
-                            <span>电视剧 纪录片</span>
-                            <span>2019-10-25上映</span>
+                        <span>可能会有人忘记，他们不是天生神力的天使，而只是凡人。一个做出了耀眼选择的凡人。可能会有人忘记，他们不是天生神力的天使，而只是凡人。一个做出了耀眼选择的凡人。</span>
+                        <div>
+                            <span><i class="iconfont colBtn">&#xe8f8;</i>2546收藏</span>
+                            <span><i class="iconfont">&#xe761;</i>编辑</span>
+                            <span><i class="iconfont delBtn">&#xe614;</i>删除</span>
                         </div>
-                    </li>
+                    </div> -->
+                </div>
+                <ul class="movie">
+                    <!-- <li data-id="">
+                        <div style="background-image: url(../../static/img/index.jpg)">
+                            <div class="score">7.8</div>
+                        </div>
+                        <div class="filmInfo">
+                            <span>信条</span>
+                            <span>导演：克里斯托弗·诺兰</span>
+                            <span>科幻,动作,剧情</span>
+                            <span>2020-09-04上映</span>
+                            <div><i class="iconfont collection">&#xe60c;</i>已收藏</div>
+                        </div>
+                    </li> -->
                 </ul>
             </div>
         </div>
+        <div class="mask">
+            <div class="box">
+                <div class="title">
+                    <i class="iconfont close">&#xe605;</i>
+                </div>
+
+                <div class="item item_1">
+                    <span>收藏夹封面:</span>
+                    <input type="file" accept='image/*' id="fileImg">
+                    <label for="fileImg">
+                        <img src="../../static/img/icon-picture.png" class="favoriteCover" />
+                    </label>
+                </div>
+
+                <div class="item item_2">
+                    <span>收藏夹封名称:</span>
+                    <input class="favoriteName" type="text" placeholder="请输入名称">
+                </div>
+                <div class="item item_3">
+                    <span>收藏夹简介:</span>
+                    <textarea class="favoriteInfo" placeholder="介绍一下你的收藏夹吧！"></textarea>
+                </div>
+                <button class="submit">提交</button>
+            </div>
+        </div>
+
     </div>
 
-    <script src="../../static/layui/layui.js" charset="utf-8"></script>
-    <script>
-        layui.use('layer', function(){ //独立版的layer无需执行这一句
-            var $ = layui.jquery, layer = layui.layer; //独立版的layer无需执行这一句
-            //触发事件
-            var active = {
-                notice: function(){
-                    //示范一个公告层
-                    layer.open({
-                        type: 1
-                        ,title: false //不显示标题栏
-                        ,closeBtn: false
-                        ,area: '300px;'
-                        ,shade: 0.8
-                        ,id: 'LAY_layuipro' //设定一个id，防止重复弹出
-                        ,btn: ['火速围观', '残忍拒绝']
-                        ,btnAlign: 'c'
-                        ,moveType: 1 //拖拽模式，0或者1
-                        ,content: '<div style="padding: 50px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;">你知道吗？亲！<br>layer ≠ layui<br><br>layer只是作为Layui的一个弹层模块，由于其用户基数较大，所以常常会有人以为layui是layerui<br><br>layer虽然已被 Layui 收编为内置的弹层模块，但仍然会作为一个独立组件全力维护、升级。<br><br>我们此后的征途是星辰大海 ^_^</div>'
-                        ,success: function(layero){
-                            var btn = layero.find('.layui-layer-btn');
-                            btn.find('.layui-layer-btn0').attr({
-                                href: 'http://www.layui.com/'
-                                ,target: '_blank'
-                            });
-                        }
-                    });
-                }
-            };
+    <script src="../../static/layui/layui.js"></script>
+    <script type="text/javascript" src="../../static/js/jquery-1.11.0.min.js"></script>
+    <script src="../../static/js/header.js"></script>
 
-            $('.add').on('click', function(){
-                var othis = $(this), method = othis.data('method');
-                active[method] ? active[method].call(this, othis) : '';
+    <script>
+        $(document).ready(function () {
+
+            var userInfo = JSON.parse(localStorage.getItem('userInfo'));
+            if(userInfo==null){
+                userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
+            }
+
+            const Ip = localStorage.getItem('Ip');
+
+            var creMovieList = [];
+            var colMovieList = [];
+            var filmList=[];
+
+            getCreMovieList(userInfo.id, 1);
+            getColMovieList(userInfo.id);
+
+            $('#bodyBar').load('userInfo_header.html', function () {                
+                $('#bodyBar ul li').eq(2).css('border-bottom', '#00a1d6 solid 3px');
+            })
+
+            $("#fileImg").change(function () {
+                $(".favoriteCover").attr("src", URL.createObjectURL($(this)[0].files[0]));
             });
 
-        });
+            /* layui.use('upload', function(){
+            var $ = layui.jquery
+            ,upload = layui.upload;
+            
+            //普通图片上传
+            var uploadInst = upload.render({
+                elem: '#fileImg'
+                ,url: 'http://106.53.127.8:8080/uploadImg/?file=文件&userId=1' //改成您自己的上传接口
+                ,before: function(obj){
+                //预读本地文件示例，不支持ie8
+                obj.preview(function(index, file, result){
+                    $('.favoriteCover').attr('src', result); //图片链接（base64）
+                });
+                }
+                ,done: function(res){
+                //如果上传失败
+                if(res.code > 0){
+                    return layer.msg('上传失败');
+                }
+                //上传成功
+                }
+                ,error: function(){
+                //演示失败状态，并实现重传‘
+                    console.log('上传失败！')
+                }
+            }); */
+
+            $(".favoritesList").click(function () {
+                var tag = $(this).children('.tag');
+                var ul = $(this).next();
+                /* if(tag.hasClass('down')){
+
+                    $(this).toggleClass("down");
+
+                    tag.removeClass('down')
+                    tag.addClass('up')
+                }else{
+                    tag.removeClass('up')
+                    tag.addClass('down')
+                } */
+                tag.toggleClass("down");
+                tag.toggleClass("up");
+                ul.slideToggle();
+            })
+
+            $('.creFavList').on('click', 'li', function () {
+                //console.log($.myconfirm(options))
+                $('.favList li').removeClass('select');
+                $(this).addClass('select');
+                var index = $(this).index();
+                $(".favInfo").empty();
+                $(".movie").empty()
+                movieListInfo(index, creMovieList, true)
+                getMovieListInfo(creMovieList[index].id);
+            });
+
+            $('.colFavList').on('click', 'li', function () {
+                //console.log($.myconfirm(options))
+                $('.favList li').removeClass('select');
+                $(this).addClass('select');
+                var index = $(this).index();
+                $(".favInfo").empty();
+                $(".movie").empty()
+                movieListInfo(index, colMovieList, false)
+                getMovieListInfo(colMovieList[index].id);
+            });
+
+            $('.colBtn').click(function () {
+                $(this).addClass('colOn');
+            })
+
+            $('.addMovieList').click(function (event) {
+                $('.mask').fadeToggle();
+                event.stopPropagation();
+            })
+
+            $('.close').click(function () {
+                $('.mask').fadeToggle();
+            })
+
+            $('.submit').click(function () {
+
+                var tittle = $('.favoriteName').val();
+                var introduce = $('.favoriteInfo').val();
+                var fileImg = $('#fileImg')[0].files[0];
+                var d = new Date();
+                var time = d.getFullYear() + '-'; //获取当前年份 
+                time += d.getMonth() + 1 + '-'; //获取当前月份（0——11） 
+                time += d.getDate();
+
+                if (tittle == '' || introduce == '' || fileImg == undefined) {
+                    alert('不能为空！')
+                    console.log("不能为空！")
+                    return false;
+                }
+
+                var filmName = new Date().getTime() + fileImg.name;
+                var newFile = new File([fileImg], filmName, { type: fileImg.type });
+
+                var d = new Date();
+                var time = d.getFullYear() + '-'; //获取当前年份 
+                time += d.getMonth() + 1 + '-'; //获取当前月份（0——11） 
+                time += d.getDate();
+
+                var movieList = {
+                    userId: userInfo.id,
+                    coverImg: filmName,
+                    tittle: tittle,
+                    introduce: introduce,
+                    time: time,
+                    praise: '0'
+                }
+                uploadImg(newFile,movieList);
+            })
+
+            $(document).on("click", ".delBtn", function () {
+                var moviesId = this.getAttribute('data-id');
+                if (confirm("确定要删除吗？") == true) {
+                    delMovieList(moviesId)
+                }
+            })
+
+            $(document).on('click', '.colBtn', function () {
+                var moviesId = this.getAttribute('id-favId');
+                if (moviesId != userInfo.id) {
+                    if (confirm("确定要取消收藏吗？") == true) {
+                        like(moviesId)
+                    }
+                }
+            })
+
+            $('.movie').on('click', 'li', function () {
+                var jsonStr = JSON.stringify(filmList[$(this).index()]);
+                sessionStorage.setItem("movie_details", jsonStr);
+                window.location.href = "movie_details.html";
+            })
+
+            function getCreMovieList(userId, index) {
+                $.ajax({
+                    type: "get",
+                    url: Ip+'/movie/queryMovieListByUser/' + index,
+                    dataType: 'json',
+                    timeout: 0,
+                    data: {
+                        userId: userId
+                    },
+                    success: function (res) {
+
+                        (res.data).forEach(value => {
+                            creMovieList.push(value);
+                            $(".creFavList").append(
+                                '<li class="iconfont">' + value.tittle + '</li>'
+                            )
+                        });
+
+                        if (res.data.length != 0 && res.data != []) {
+                            getCreMovieList(userId, ++index);
+                        } else {
+                            $('.creFavList li').first().addClass('select');
+                            movieListInfo(0, creMovieList, true)
+                            getMovieListInfo(creMovieList[0].id);
+                        }
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                });
+            }
+
+            function getColMovieList(userId) {
+                $.ajax({
+                    type: "get",
+                    url: Ip+'/movie/queryMovieListByPraise/' + userId + '/1',
+                    dataType: 'json',
+                    timeout: 0,
+                    success: function (res) {
+                        colMovieList = res.data;
+                        (res.data).forEach(value => {
+                            $(".colFavList").append(
+                                '<li class="iconfont">' + value.tittle + '</li>'
+                            )
+                        });
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                });
+            }
+
+            function getMovieListInfo(moviesId) {
+                $.ajax({
+                    type: "get",
+                    url: Ip+'/movie/queryMovie/?moviesId=' + moviesId,
+                    dataType: 'json',
+                    timeout: 0,
+                    success: function (res) {
+                        if ((res.data).length == 0) {
+                            $(".movie").append('<li class="center">还没有收藏影片呢</li>');
+                            return;
+                        }
+                        filmList=[];
+                        (res.data).forEach(value => {
+                            filmList.push(value);
+                            var reg = new RegExp("/w.h/", 'g')
+                            var img = (value.img).replace(reg, "/");
+                            $(".movie").append(
+                                '<li>' +
+                                '<div style="background-image: url(' + img + ')">' +
+                                '<div class="score">' + value.sc + '</div>' +
+                                '</div>' +
+                                '<div class="filmInfo">' +
+                                '<span>' + value.nm + '</span>' +
+                                '<span>' + value.act + '</span>' +
+                                '<span>' + value.cat + '</span>' +
+                                '<span>' + value.pubDesc + '</span>' +
+                                '<div><i class="iconfont collection">&#xe60c;</i>已收藏</div>' +
+                                '</div>' +
+                                '</li>'
+                            )
+                        });
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                });
+            }
+
+            function movieListInfo(index, list, flag) {
+                var edit = '<span><i class="iconfont">&#xe761;</i>编辑</span><span><i class="iconfont delBtn" data-id=' + list[index].id + '>&#xe614;</i>删除</span>'
+                $('.favInfo').append(
+                    '<div class="favInfo">' +
+                    '<div class="favInfo_cover" style="background-image: url('+Ip+'/file/images/' + list[index].userId + '/' + list[index].coverImg + ')">' +
+                    (flag ? '<div class="modifyCover hide">修改封面</div>' : '') +
+                    '</div>' +
+                    '<div class="favInfo_details">' +
+                    '<span>' + list[index].tittle + '</span>' +
+                    '<div>' +
+                    '<img src="'+Ip+'/file/images/' + list[index].userId + '/' + list[index].headImg + '">' +
+                    '<span>' + list[index].nickName + '</span>' +
+                    '<span>创建于：' + list[index].time + '</span>' +
+                    '</div>' +
+                    '<span>' + list[index].introduce + '</span>' +
+                    '<div>' +
+                    '<span><i class="iconfont ' + (flag ? '' : 'colBtn') + '" id-favId="' + list[index].id + '">&#xe8f8;</i>' + list[index].praise + '收藏</span>' +
+                    (flag ? edit : '') +
+                    '</div>' +
+                    '</div>' +
+                    '</div>'
+                )
+            }
+
+            function delMovieList(moviesId) {
+                $.ajax({
+                    type: "post",
+                    url: Ip+'/movie/delMovieList?moviesId=' + moviesId,
+                    dataType: 'json',
+                    timeout: 0,
+                    success: function (res) {
+                        console.log('删除成功!')
+                        window.location.reload();
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                });
+            }
+
+            function uploadImg(film,movieList) {
+                var form = new FormData();
+                form.append("file", film);
+                form.append("userId", userInfo.id);
+                $.ajax({
+                    url: Ip+"/uploadImg/",
+                    type: 'post',
+                    data: form,
+                    processData: false,
+                    mimeType: 'multipart/form-data',
+                    cache: false,  //必加
+                    contentType: false,  //必加
+                    success: function (res) {
+                        console.log(res)
+                        uploadMovieList(movieList);
+                    },
+                    error: function (err) {
+                    }
+                });
+            }
+
+            function uploadMovieList(movieList) {
+                var jsonStr = JSON.stringify(movieList);
+                console.log(movieList);
+                $.ajax({
+                    type: "post",
+                    url: Ip+'/movie/insertMovies/?movieList=' + jsonStr,
+                    dataType: 'json',
+                    timeout: 0,
+                    success: function (res) {
+                        console.log(res);
+                        window.location.reload();
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                });
+            }
+
+            function like(moviesId) {
+                $.ajax({
+                    type: "post",
+                    url: Ip+'/review/praise',
+                    dataType: 'json',
+                    timeout: 0,
+                    async: false,
+                    data: {
+                        filmId: moviesId,
+                        userId: userInfo.id,
+                        sort: 2
+                    },
+                    success: function (res) {
+                        console.log(res);
+                        window.location.reload();
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                });
+            }
+
+        })
     </script>
-
-
 </body>
+
 </html>

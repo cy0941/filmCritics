@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="../../static/css/admin/edit_filmReviews.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../static/css/iconfont.css">
+</head>
+
+<script>
+    /*点击弹出按钮*/
+    function popBox() {
+        var popbox = document.getElementById("popbox");
+        var poplayer = document.getElementById("poplayer");
+        popbox.style.display = "block";
+        poplayer.style.display = "block";
+    };
+
+    /*点击关闭按钮*/
+    function closeBox() {
+        var popbox = document.getElementById("popbox");
+        var poplayer = document.getElementById("poplayer");
+        popbox.style.display = "none";
+        poplayer.style.display = "none";
+    }
+</script>
+
+<body>
+    <header>
+        编辑信息
+    </header>
+
+    <div class="content">
+        <div class="search1">
+            <div class="name">
+                id:<input type="text" size="20" />&nbsp;&nbsp;
+                <input type="radio" value="全字匹配" checked="checked" />全字匹配&nbsp;&nbsp;
+                <input type="radio" value="全字匹配" />单字匹配
+            </div>
+            <div class="idcard">
+                用户名:<input type="text" size="20" maxlength="18" />
+            </div>
+            <div class="age">
+                电子邮箱:<input type="text" size="10" />
+            </div>
+            <div class="btn1">
+                <input name="" type="submit" value="查询" class="btn_1 btn_1_2" />
+            </div>
+        </div>
+
+        <div class="tableinfo">
+            <table id='tableContent' width="1216" align="center" cellpadding="0" cellspacing="0">
+                <tr align="center" height="60" style="background-color:#3a9de0; color:#fff;">
+                    <td width="150">id</td>
+                    <td width="80">用户id</td>
+                    <td width="80">影片名</td>
+                    <td width="80">封面</td>
+                    <td width="250">标题</td>
+                    <td width="250">时间</td>
+                    <td width="130">内容</td>
+                    <td width="162">点赞</td>
+                    <td width="162">操作</td>
+                </tr>
+                <!-- <tr align="center" height="60" style="background-color:#EAF6F6;">
+                    <td>李泽言</td>
+                    <td>男</td>
+                    <td>21</td>
+                    <td>疑似</td>
+                    <td>430423200110282524</td>
+                    <td>湖南省-衡阳市-衡山县</td>
+                    <td>2020-02-13</td>
+                    <td>2020-02-13</td>
+                    <td>
+                        <input type="button" value="修改" onclick="popBox()" style="background-color:#21c4a8;">
+                        <input type="button" value="删除" style="background-color:#f36a6f;">
+                    </td>
+                </tr> -->
+            </table>
+        </div>
+
+    </div>
+
+    <div id="poplayer"></div>
+    <div id="popbox">
+        <div class="close">
+            <div style="height:20px; width:auto; line-height:20px; float:left;">修改数据</div>
+            <div style="height:20px; width:auto; line-height:20px; float:right" onclick="closeBox()">
+                <img src="images/close.png" height="20" width="20">
+            </div>
+        </div>
+        <div class="main">
+            <form name="form1">
+                <table width="722" height="400" border="0">
+                    <tr>
+                        <td height="50" align="right">姓名：</td>
+                        <td width="461">
+                            <input type="text" id="name_cy" required="required" onblur="checkName()" autofocus="autofocus">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td height="45" align="right">性别：</td>
+                        <td>
+                            <input name="gender" type="radio" value="男" checked="checked" />&nbsp;男
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <input name="gender" type="radio" value="女" />&nbsp;女
+                        </td>
+                    </tr>
+                    <tr>
+                        <td height="45" align="right">年龄：</td>
+                        <td>
+                            <input type="text" required="required" id="age_cy" onblur="checkAge()">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td height="45" align="right">状态：</td>
+                        <td>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="251" height="45" align="right">身份证号码：</td>
+                        <td>
+                            <input type="text" id="id_cy" maxlength="18" required="required" onblur="checkId()">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="251" height="45" align="right">原地址：</td>
+                        <td>
+                            <input type="text" id="id_cy" value="heny" readonly />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="251" height="45" align="right">地址：</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" align="center">
+                            <input type="submit" class="btn met1" onClick="showAddr()" id="button-show" value="保   存" />
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+
+    <script src="../../static/js/jquery-1.11.0.min.js"></script>
+
+    <script>
+        
+        $(document).ready(function () {
+
+            const Ip = localStorage.getItem('Ip');
+            var page=1;
+
+            getAll_FilmReviews(page);
+            getAll_FilmReviews(++page);
+
+            function getAll_FilmReviews(page){
+                $.ajax({
+                    type: "get",
+                    url: Ip+'/review/queryReview/'+page,
+                    dataType: 'json',
+                    timeout: 0,
+                    success: function (res) {
+                        console.log(res)
+                        
+                        res.data.forEach(function (value) {
+                            $('#tableContent').append(
+                                '<tr align="center" height="60">'+
+                                    '<td>'+value.id+'</td>'+
+                                    '<td>'+value.userId+'</td>'+
+                                    '<td>'+value.title+'</td>'+
+                                    '<td>'+value.filmName+'</td>'+
+                                    '<td>'+value.time+'</td>'+
+                                    '<td>'+value.coverImg+'</td>'+
+                                    '<td>'+value.nickName+'</td>'+
+                                    '<td>'+value.headImg+'</td>'+
+                                    '<td>'+
+                                        '<input type="button" class="editBtn" value="修改" onclick="popBox()">'+
+                                        '<input type="button" class="delBtn" value="删除">'+
+                                    '</td>'+
+                                '</tr>'
+                            )
+                        })
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                });
+            }
+
+        })
+
+
+    </script>
+
+</body>
+
+</html>

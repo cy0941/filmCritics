@@ -1,98 +1,426 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>查看影评</title>
     <link rel="stylesheet" href="../../static/css/iconfont.css">
-    <link rel="stylesheet" href="../../static/css/view_filmReviews.css">
+    <link rel="stylesheet" href="../../static/css/user/view_filmReviews.css">
+    <link rel="stylesheet" href="../../static/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../static/css/user/header.css">
 </head>
+
 <body>
+    <header></header>
     <div class="body" id="app">
-        <img class="cover" src="http://p1.meituan.net/moviemachine/ca9d0c0268a940d73d62c004d57b957a5241814.jpg">
-        <h1>头条文章「仅粉丝阅读全文」功能调整</h1>
+        <img class="cover" src="../../static/img/load_2.gif">
+        <h1 class="title">头条文章「仅粉丝阅读全文」功能调整</h1>
         <div class="info">
-            <img class="headImg" src="../../static/img/zhl.png">
-            <span>不捏泥人</span>
+            <img class="headImg" src="../../static/img/logo.png">
+            <span class="userName">不捏泥人</span>
             <i class="iconfont">&#xe664;</i>
-            <span>2020-10-28 10:24</span>
-            <button>+ 关注</button>
+            <span class="time">2020-10-28 10:24</span>
+            <i class="iconfont">&#xe8f9;</i>
+            <span class="filmName">人生一串</span>
+            <button class="fans">+ 关注</button>
         </div>
         <div class="content">
-            《人生一串》完结了。<br>
-            感谢导演，感谢主创团队，为B站创作出这么好的纪录片。<br>
-            短短六集，陪我们度过了半个夏天。2800多万播放量，超出了所有人的预期。有朋友劝过我，B站计算播放量的方式太实诚了，某些平台同样的观看量，可能已经喊出上亿的数字，这太吃亏。<br>
-            但是在B站，这数字背后都是活生生的人，大家一起边看，边发着弹幕，就像夏夜和朋友相聚在路边的烧烤摊，一瓶啤酒，两盘烤串，几句闲聊。这是我们的生活，真实而坦诚。<br>
-            生活，又是五味杂陈的，对于我来说，工作就是我的生活。在生活里我们不停遇到大大小小的挫折，遇到不开心。但每个周三，在观看《人生一串》的时候，那些形形色色、质朴的烧烤店老板们和食客们，那些片尾随着音乐排列出现的弹幕“多谢款待”，都能让我得到满足和感动，一个人就开心起来 :-)<br>
-            就像那位烟台的店主。在食客们尽情享受着他作品的同时，他在厨房门口满足的欣赏着客人们的表情，不由自主也撸了两串。<br>
-            这是一部和中国普通人的心灵世界息息相通的作品，是真正的中国故事。我们应该给B站的用户制作更多这样的作品。<br>
-            话说回来，我是成都人，虽然烧烤不是成都最大的特色，但片子里没有成都，作为投资人我是有点小情绪的。很多儿时的朋友看了片子，发微信向我抱怨，然后一起回忆当年好吃的烧烤。聊着聊着，就聊到了深夜。<br>
-            我想，这就是“人生一串”吧。
-            感谢导演，感谢主创团队，为B站创作出这么好的纪录片。<br>
-            短短六集，陪我们度过了半个夏天。2800多万播放量，超出了所有人的预期。有朋友劝过我，B站计算播放量的方式太实诚了，某些平台同样的观看量，可能已经喊出上亿的数字，这太吃亏。<br>
-            但是在B站，这数字背后都是活生生的人，大家一起边看，边发着弹幕，就像夏夜和朋友相聚在路边的烧烤摊，一瓶啤酒，两盘烤串，几句闲聊。这是我们的生活，真实而坦诚。<br>
-            生活，又是五味杂陈的，对于我来说，工作就是我的生活。在生活里我们不停遇到大大小小的挫折，遇到不开心。但每个周三，在观看《人生一串》的时候，那些形形色色、质朴的烧烤店老板们和食客们，那些片尾随着音乐排列出现的弹幕“多谢款待”，都能让我得到满足和感动，一个人就开心起来 :-)<br>
-            就像那位烟台的店主。在食客们尽情享受着他作品的同时，他在厨房门口满足的欣赏着客人们的表情，不由自主也撸了两串。<br>
-            这是一部和中国普通人的心灵世界息息相通的作品，是真正的中国故事。我们应该给B站的用户制作更多这样的作品。<br>
-            话说回来，我是成都人，虽然烧烤不是成都最大的特色，但片子里没有成都，作为投资人我是有点小情绪的。很多儿时的朋友看了片子，发微信向我抱怨，然后一起回忆当年好吃的烧烤。聊着聊着，就聊到了深夜。<br>
-            我想，这就是“人生一串”吧。
         </div>
         <div class="commentInput">
-            <img class="headImg" src="../../static/img/yyqx.jpg">
-            <textarea type="text" placeholder="发条友善的评论" ></textarea>
-            <button>发布</button>
+            <img class="headImg_user" src="../../static/img/logo.png">
+            <textarea id="commentText" type="text" placeholder="说一句你的观点吧！"></textarea>
+            <button id="commentBtn">发布</button>
         </div>
-        <div class="commentList">
-            <div class="listItem">
+        <ul class="commentList">
+            <!-- <li class="listItem">
                 <img class="headImg" src="../../static/img/zhl.png">
                 <div class="user">
                     <span>匿名用户</span>
                     <p>
                         读一本好书，终身受益；<br>
                         抱睿总大腿，终身会员。<br>
-                        ↓    排队抱大腿人数
+                        ↓ 排队抱大腿人数
                     </p>
                     <div class="date">
                         <span>2020-10-28 12:45</span>
                         <i class="iconfont liked">&#xe608;</i>
                         <span>645</span>
+                        <span class="delComment ">
+                            <i class="iconfont">&#xe614;</i>
+                        </span>
                     </div>
                 </div>
-            </div>
-            <div class="listItem">
-                <img class="headImg" src="../../static/img/hml.jpg">
-                <div class="user">
-                    <span>匿名用户</span>
-                    <p>
-                        读书无用论都是扯淡
-                    </p>
-                    <div class="date">
-                        <span>2020-10-28 12:45</span>
-                        <i class="iconfont">&#xe608;</i>
-                        <span>645</span>
-                    </div>
-                </div>
-            </div>
-        </div>
+            </li> -->
+        </ul>
     </div>
 
     <div class="side like liked">
         <i class="iconfont">&#xe60b;</i>
-        <span>684</span>
+        <span id="likeNumber">684</span>
+    </div>
+    <div class="side skim">
+        <i class="iconfont">&#xe629;</i>
+        <span id="skimNumber">1255</span>
     </div>
     <div class="side comment">
         <i class="iconfont">&#xe6d9;</i>
-        <span>1255</span>
     </div>
+    <img class="top" src="../../static/img/rocket_up.png">
 
-    <script src="../../static/js/vue.js"></script>
+    <script src="../../static/js/jquery-1.11.0.min.js"></script>
+    <script src="../../static/layui/layui.js" charset="utf-8"></script>
+    <script src="../../static/js/header.js"></script>
+
     <script>
-        var vm=new Vue({
-            el:'#app',
-            data:{
-                text:'',
-            },
-            methods:{}
-        });
+        $(document).ready(function () {
+
+            var userInfo = JSON.parse(localStorage.getItem('userInfo'));
+            if(userInfo==null){
+                userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
+                if(userInfo==null){
+                    userInfo={
+                        id:0
+                    }
+                }
+            }
+
+            const Ip = localStorage.getItem('Ip');
+            
+            var filmReviewsInfo = JSON.parse(sessionStorage.getItem('filmReviewsInfo'));
+            sessionStorage.removeItem('filmReviewsInfo');
+
+            $('.cover').attr('src', ''+Ip+'/file/images/' + filmReviewsInfo.userId + '/' + filmReviewsInfo.coverImg);
+            $('.title').text(filmReviewsInfo.title);
+            $('.headImg').attr('src', ''+Ip+'/file/images/' + filmReviewsInfo.userId + '/' + filmReviewsInfo.headImg);
+            $('.userName').text(filmReviewsInfo.nickName);
+            $('.time').text(filmReviewsInfo.time);
+            $('.filmName').text(filmReviewsInfo.filmName);
+
+            if(userInfo.id!=0){
+                $('.headImg_user').attr('src', ''+Ip+'/file/images/' + userInfo.id + '/' + userInfo.headImg);
+            }
+
+            if (userInfo.id == filmReviewsInfo.userId) {
+                $('.fans').css('display', 'none')
+            } else {
+                isFans();
+            }
+
+            request_filmReview();
+
+            $('.fans').click(function () {
+                if(userInfo.id==0){
+                    alert("请先登录！");
+                    window.location.href = "login.html";
+                    return false;
+                }else{
+                    if ($('.fans').hasClass('fansOn')) {
+                        $('.fans').removeClass('fansOn')
+                        $('.fans').text('+ 关注')
+                    } else {
+                        $('.fans').addClass('fansOn')
+                        $('.fans').text('已关注')
+                    }
+                    fans();
+                }
+            })
+
+            $('.like').click(function () {
+                if(userInfo.id==0){
+                    alert("请先登录！");
+                    window.location.href = "login.html";
+                    return false;
+                }else{
+                    var likeNumber = $('#likeNumber').text();
+                    console.log(likeNumber)
+                    if ($('.like').hasClass('liked')) {
+                        $('.like').removeClass('liked');
+                        $('#likeNumber').text(parseInt(likeNumber) - parseInt(1));
+                    } else {
+                        $('.like').addClass('liked')
+                        $('#likeNumber').text(parseInt(likeNumber) + parseInt(1));
+                    }
+                    like();
+                }
+            })
+
+            $('.comment').click(function () {
+                var contentH = $('.content').height();
+                $('html,body').animate({ scrollTop: contentH + 380 }, 700);
+            })
+
+            $('#commentBtn').click(function () {
+
+                if(userInfo.id==0){
+                    alert("请先登录！");
+                    window.location.href = "login.html";
+                    return false;
+                }
+
+                var commentText = $('#commentText').val();
+                var time;
+                var myDate = new Date();
+                var year = myDate.getFullYear();        //获取当前年
+                var month = myDate.getMonth() + 1;   //获取当前月
+                var date = myDate.getDate();            //获取当前日
+                //var h=myDate.getHours();              //获取当前小时数(0-23)
+                //var m=myDate.getMinutes();          //获取当前分钟数(0-59)
+                time = year + '-' + month + '-' + date
+                console.log(time);
+                $.ajax({
+                    type: "post",
+                    url: Ip+'/comment/insertComment',
+                    dataType: 'json',
+                    timeout: 0,
+                    data: {
+                        filmId: filmReviewsInfo.id,
+                        userId: userInfo.id,
+                        time: time,
+                        sort: '0',
+                        content: commentText
+                    },
+                    success: function (res) {
+                        $('.commentList').prepend('<li class="listItem">' +
+                            '<img class="headImg" src="'+Ip+'/file/images/' + userInfo.id + '/' + userInfo.headImg + '">' +
+                            '<div class="user">' +
+                            '<span>' + userInfo.nickName + '</span>' +
+                            '<p>' + commentText + '</p>' +
+                            '<div class="date">' +
+                            '<span>' + time + '</span>' +
+                            '<span data-id=' + res.data.id + ' class="delComment ">' +
+                            '<i class="iconfont">&#xe614;</i>' +
+                            '</span>' +
+                            '</div>' +
+                            '</div>' +
+                            '</li>');
+                        $('#commentText').val('')
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                });
+            })
+
+            $(".commentList").on("click", ".delComment", function () {
+                /* var arr = $(this).attr('id');
+                var id = arr.split("-"); */
+                var id = $(this).data('id');
+                //$(this).closest('li').remove();
+                var _this = this;
+                $.ajax({
+                    type: "post",
+                    url: Ip+'/comment/deleteComment',
+                    dataType: 'json',
+                    timeout: 0,
+                    data: {
+                        id: id,
+                        userId: userInfo.id
+                    },
+                    success: function (res) {
+                        console.log(res)
+                        $(_this).closest('li').remove();
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                });
+            });
+
+            $(document).on("click", ".headImg", function () {
+                if(userInfo.id==0){
+                    alert("请先登录！");
+                    window.location.href = "login.html";
+                    return false;
+                }else{
+                    var id = filmReviewsInfo.userId;
+                    if (id != userInfo.id) {
+                        window.location.href = "other_userInfo_dynamic.html?id=" + id;
+                    } else {
+                        window.location.href = "userInfo_dynamic.html";
+                    }
+                }
+            })
+
+            function request_filmReview() {
+                $.ajax({
+                    type: "post",
+                    url: Ip+'/review/queryContent/1',
+                    dataType: 'json',
+                    timeout: 0,
+                    data: {
+                        filmId: filmReviewsInfo.id,
+                        authorId: filmReviewsInfo.userId,
+                        sort: '0'
+                    },
+                    success: function (res) {
+                        var reg = new RegExp("file/images/", 'g')
+                        var content = res.data.content;
+                        content = content.replace(reg, ""+Ip+"/file/images/");
+                        $('.content').append(content);
+                        $('#likeNumber').text(res.data.praise)
+                        $('#skimNumber').text(res.data.skim)
+                        ifLike(res.data.id, 1)
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                });
+            }
+
+            layui.use('flow', function () {
+                var $ = layui.jquery; //不用额外加载jQuery，flow模块本身是有依赖jQuery的，直接用即可。
+                var flow = layui.flow;
+                flow.load({
+                    elem: '.commentList' //指定列表容器
+                    , done: function (page, next) { //到达临界点（默认滚动触发），触发下一页
+
+                        var del = '<span class="delComment"><i class="iconfont">&#xe614;</i></span>';
+                        var lis = [];
+                        //以jQuery的Ajax请求为例，请求下一页数据（注意：page是从2开始返回）
+                        $.get(Ip+'/comment/queryComment/' + page + '?filmId=' + filmReviewsInfo.id + '&sort=0', function (res) {
+                            //假设你的列表返回在data集合中
+                            layui.each(res.data, function (index, value) {
+                                lis.unshift('<li class="listItem">' +
+                                    '<img class="headImg" data-id='+value.userId+' src="'+Ip+'/file/images/' + value.userId + '/' + value.headImg + '">' +
+                                    '<div class="user">' +
+                                    '<span>' + value.nickName + '</span>' +
+                                    '<p>' + value.content + '</p>' +
+                                    '<div class="date">' +
+                                    '<span>' + value.time + '</span>' +
+                                    (value.userId == userInfo.id ? '<span id=comment-' + value.id + ' class="delComment"><i class="iconfont">&#xe614;</i></span>' : '') +
+                                    '</div>' +
+                                    '</div>' +
+                                    '</li>');
+                            });
+                            //执行下一页渲染，第二参数为：满足“加载更多”的条件，即后面仍有分页
+                            //pages为Ajax返回的总页数，只有当前页小于总页数的情况下，才会继续出现加载更多
+                            next(lis.join(''), res.data != [] && res.data.length > 0);
+                        });
+                    }
+                });
+            });
+
+            function ifLike() {
+                $.ajax({
+                    type: "post",
+                    url: Ip+'/review/isPraise',
+                    dataType: 'json',
+                    timeout: 0,
+                    data: {
+                        filmId: filmReviewsInfo.id,
+                        userId: userInfo.id,
+                        sort: '0'
+                    },
+                    success: function (res) {
+                        if (res.data == true) {
+                            $('.like').addClass('liked')
+                        } else {
+                            $('.like').removeClass('liked')
+                        }
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                });
+            }
+
+            function like() {
+                $.ajax({
+                    type: "post",
+                    url: Ip+'/review/praise',
+                    dataType: 'json',
+                    timeout: 0,
+                    data: {
+                        filmId: filmReviewsInfo.id,
+                        userId: userInfo.id,
+                        sort: 0
+                    },
+                    success: function (res) {
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                });
+            }
+
+            function isFans() {
+                $.ajax({
+                    type: "post",
+                    url: Ip+'/review/isFans',
+                    dataType: 'json',
+                    timeout: 0,
+                    data: {
+                        fansId: userInfo.id,
+                        userId: filmReviewsInfo.userId,
+                    },
+                    success: function (res) {
+                        if (res.data == true) {
+                            $('.fans').text('已关注')
+                            $('.fans').addClass('fansOn')
+                        } else {
+                            $('.fans').text('+ 关注')
+                        }
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                });
+            }
+
+            function fans() {
+                $.ajax({
+                    type: "post",
+                    url: Ip+'/review/fans',
+                    dataType: 'json',
+                    timeout: 0,
+                    data: {
+                        fansId: userInfo.id,
+                        userId: filmReviewsInfo.userId,
+                    },
+                    success: function (res) {
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                });
+            }
+
+        })
     </script>
+
+    <!-- <script>
+
+        window.onscroll = function(){
+            var scroH = $(document).scrollTop();
+            var contentH=$('.content').height();
+            var skim=parseInt($('#skimNumber').text());
+            console.log(skim);
+            console.log(scroH);
+            if(scroH>=contentH+380){
+                console.log("-0-0-0-0-0")
+                $('#skimNumber').text(++skim)
+            }
+        }
+
+        function () {
+            $('html,body').animate({ scrollTop: 0 }, 700);
+        });
+
+    </script> -->
+
+    <script>
+        $(".top").click(function () {
+            $(this).attr("src", "../../static/img/rocket.gif")
+            $(this).animate({ top: -200 }, 1000);
+            $('html,body').animate({ scrollTop: 0 }, 1000);
+            setTimeout(function () {
+                $("top").animate({ top: -200 }, 3000);
+                $(".top").attr("src", "../../static/img/rocket_up.png");
+                $(".top").css("top", "66.5%!important");
+            }, 3000);
+        })
+    </script>
+
 </body>
+
 </html>

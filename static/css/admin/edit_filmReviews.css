@@ -1,0 +1,245 @@
+/* CSS Document */
+
+body{
+	margin:0px;
+	padding:25px;
+	background-color:#f0f0f0;
+}
+
+header{
+	height:20px;
+	width:100%;
+	color:#6c6c6c;
+	padding-left:8px;
+	border-left:8px solid #0575ba;
+	margin-bottom:25px;
+}
+
+.content{
+	height:500px;
+	width:1216px;
+	background-color:#FFF;
+	float:left;
+	padding:20px;
+}
+
+.search1{
+	height:35px;
+	width:1216px;
+	padding-top:10px;
+	padding-bottom:10px;
+}
+
+.name{
+	height:35px;
+	width:43%;
+	float:left;
+	line-height:35px;
+}
+
+.idcard{
+	height:35px;
+	width:27%;
+	float:left;
+	line-height:35px;
+}
+
+.age{
+	height:35px;
+	width:17.5%;
+	float:left;
+	line-height:35px;
+}
+
+.age input[type="text"]{
+	height:25px;
+	border:1px solid #cccccc; 
+	border-radius:5px;
+	padding-left:8px;
+}
+
+.search1 input[type="text"]{
+	height:25px;
+	border:1px solid #cccccc; 
+	border-radius:5px;
+	padding-left:8px;
+}
+
+.btn1{
+	height:35px;
+	width:12.5%;
+	float:left;
+}
+
+.btn_1{
+	height:35px;
+	width:100px;
+	float:right;
+	border-radius:5px;
+	border:0px;
+	color:#FFF;
+}
+
+.btn_1_1{
+	background-color:#95d304;
+}
+
+.btn_1_2{
+	background-color:#3a9de0;
+}
+
+.search2{
+	height:35px;
+	width:1216px;
+	padding-top:10px;
+	padding-bottom:10px;
+}
+
+.state{
+	height:35px;
+	width:43%;
+	float:left;
+	line-height:35px;
+}
+
+.gender{
+	height:35px;
+	width:20%;
+	float:left;
+	line-height:35px;
+}
+
+.date{
+	height:35px;
+	width:24.5%;
+	float:left;
+	line-height:35px;
+}
+
+.tableinfo{
+	height:auto;
+	width:1216px;
+}
+
+.tableinfo table tr{
+	border:1px solid #cccccc;
+	border-collapse: collapse;
+}
+
+.tableinfo table tr:nth-child(odd){
+	background: #f1f8ff;
+}
+
+/*.tableinfo table tr:nth-child(even){
+	background: #ffffff;
+}*/
+
+.tableinfo input[type="button"]{
+	color:#FFF; 
+	height:30px; 
+	width:60px; 
+	border:0px;
+	border-radius:5px;
+}
+
+#popbox{
+	display:none;
+    background-color:#FFFFFF;
+    z-index: 11;
+    width:740px;
+    height:400px;
+    position:fixed;
+    top:30px;
+    right:0;
+    left:300px;
+    bottom:0;
+}
+
+#poplayer{
+	display:none;
+    background-color: #cccccc;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 10;
+    -moz-opacity: 0.8;
+    opacity:.80;
+    filter: alpha(opacity=20);
+}
+
+#popbox .close{
+	height:20px;
+	width:720px;
+    background-color: #21c4a8;
+	padding:5px 10px 5px 10px;
+	color:#FFF;
+	font-size:14px;
+}
+
+.main{
+	height:auto;
+	width:720px;
+	background-color:#FFF;
+	padding:10px
+}
+
+fieldset {
+    width: 500px;
+    padding: 20px;
+    margin: 30px;
+    border: 1px solid #ccc;
+}
+ 
+legend{
+    font-size: 18px;
+    font-weight: bold;
+}
+ 
+#addr-show, #addr-show02,#addr-show03{
+    width: 200px;
+    height: 25px;
+    margin-bottom: 10px;
+}
+ 
+.btn {
+    width: 180px;
+    height: 40px;
+    border-radius: 4px;
+    border: 0px;
+    outline: none;
+	color:#FFF;
+    background-color:#0575ba;
+	border-radius:5px;
+}
+ 
+.btn:disabled{
+    background-color:#ccc;
+}
+
+.main input[type="text"]{
+	height:25px;
+	border:1px solid #cccccc; 
+	border-radius:5px;
+	padding-left:8px;
+}
+
+.main select{
+	width:120px;
+	height:25px;
+	border:1px solid #cccccc; 
+	border-radius:5px;
+}
+
+#tableContent tr{
+    background-color:#EAF6F6;
+}
+
+.editBtn{
+    background-color:#21c4a8;
+}
+
+.delBtn{
+    background-color:#f36a6f;
+}

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../../static/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../static/css/admin/edit_filmCritics.css">
+
+</head>
+
+<body>
+
+    <header>
+        影单影片
+    </header>
+
+    <table class="layui-hide" id="dataFilm" lay-filter="dataFilmComment"></table>
+
+    <!-- <script type="text/html" id="barDemo">
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    </script> -->
+
+    <script src="../../static/layui/layui.js" charset="utf-8"></script>
+    <script src="../../static/js/jquery-1.11.0.min.js"></script>
+
+    <script>
+
+        $(document).ready(function () {
+
+            const Ip = localStorage.getItem('Ip');
+            var filmList = [];
+
+            var filmId = window.location.href;
+            var data = filmId.split("="); //截取 url中的“=”,获得“=”后面的参数  
+            var filmId = decodeURI(data[1]); //decodeURI解码
+
+            getFilmList();
+
+            function getFilmList() {
+                $.ajax({
+                    type: "get",
+                    url: Ip + '/movie/queryMovie/?moviesId='+filmId,
+                    dataType: 'json',
+                    timeout: 0,
+                    success: function (res) {
+                        res.data.forEach(function (value) {
+                            filmList.push(value)
+                        })
+                        bl();
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                });
+            }
+
+            function delFilmComment(id,userId) {
+                $.ajax({
+                    type: "post",
+                    url: Ip + "/comment/deleteComment",
+                    dataType: 'json',
+                    timeout: 0,
+                    data:{
+                        id:id,
+                        userId:userId
+                    },
+                    success: function (res) {
+                        console.log(res);
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                });
+            }
+
+            function bl() {
+                layui.use('table', function () {
+                    var table = layui.table;
+                    //展示已知数据
+                    table.render({
+                        elem: '#dataFilm'
+                        , cols: [[ //标题栏
+                            { field: 'id', title: 'ID', width: 80, sort: true }
+                            , { field: 'moviesId', title: '影片ID', width: 100, sort: true }
+                            , { field: 'nm', title: '名称', width: 150 }
+                            , { field: 'cat', title: '标签', minWidth: 150 }
+                            , { field: 'ver', title: '类型', minWidth: 80 }
+                            , { field: 'act', title: '导演|演员', width: 150 }
+                            , { field: 'pubDesc', title: '上映时间', width: 150 }
+                            , { field: 'dur', title: '时长', width: 150 }
+                            , { field: 'sc', title: '评分', width: 150 }
+                            , { field: 'img', title: '封面', width: 150 }
+                        ]]
+                        , data: filmList
+                        //, skin: 'line' //表格风格
+                        , even: true
+                        , page: true //是否显示分页
+                        , limits: [5, 10, 12]
+                        , limit: 12 //每页默认显示的数量
+                    });
+
+                    table.on('tool(dataFilm)', function (obj) {
+                        var data = obj.data;
+                        console.log(data)
+                        if (obj.event === 'del') {
+                            layer.confirm('真的删除行么', function (index) {
+                                obj.del();
+                                layer.close(index);
+                                var list = filmCommentList.find((value, index, arr) => {
+                                    return value.id == data.id
+                                });
+                                var num = filmCommentList.indexOf(list)
+                                filmCommentList.splice(num, 1);
+                                delFilmComment(data.id,data.userId);
+                            });
+                        } 
+                    });
+                });
+            }
+        })
+    </script>
+
+</body>
+
+</html>

@@ -1,48 +1,48 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    <th:block th:replace="user/userInfo_dynamic::userInfo_head" />
-    <th:block th:replace="user/index::index_head" />
-    <link href="../../static/css/userInfo.css" type="text/css" rel="stylesheet">
+    <title>个人中心</title>
+    <link rel="stylesheet" href="../../static/layui/css/layui.css" media="all">
+    <link href="../../static/css/user/userInfo.css" type="text/css" rel="stylesheet">
     <link rel="stylesheet" href="../../static/css/iconfont.css" type="text/css">
+    <link rel="stylesheet" type="text/css" href="../../static/css/user/header.css">
 </head>
 
 <body>
 
-    <div th:replace="~{user/index::index_topBar}"></div>
-
     <div class="body">
-
         <div class="top">
             <div class="top_1">
-                <div class="headImg" style="background-image: url(../../static/img/img1.jpg)">
-                </div>
+                <div class="headImg" style="background-image: url(../../static/img/logo.png)"></div>
                 <div class="info_text">
-                    <span>
-                        匿名用户
-                    </span>
-                    <span>
-                        <i class="iconfont">&#xe699;</i>&nbsp;bili_456845
-                    </span>
+                    <span class="userName">匿名用户</span>
+                    <span class="userIntroduce"></span>
                 </div>
             </div>
         </div>
 
         <div class="navigation">
-
             <div class="options" style="border-bottom: #00a1d6 solid 3px;">
-                <i class="iconfont" style="color: #00c091">&#xe628;</i>动态
+                <i class="iconfont" style="color: #00c091">&#xe628;</i>
+                <a href="userInfo_dynamic.html">动态</a>
             </div>
             <div class="options">
-                <i class="iconfont" style="color: #fb7299">&#xe632;</i>影评
+                <i class="iconfont" style="color: #fb7299">&#xe632;</i>
+                <a href="userInfo_filmCritics.html">影评</a>
             </div>
             <div class="options">
-                <i class="iconfont" style="color: #ff5d47">&#xe673;</i>影单
+                <i class="iconfont" style="color: #ff5d47">&#xe673;</i>
+                <a href="userInfo_favorite.html"></a>影单
             </div>
             <div class="options">
-                <i class="iconfont" style="color: #23c9ed">&#xe7d4;</i>设置
+                <i class="iconfont" style="color: #ff5d47">&#xe673;</i>
+                <a href="userInfo_favorite.html"></a>订阅
+            </div>
+            <div class="options">
+                <i class="iconfont" style="color: #23c9ed">&#xe7d4;</i>
+                <a href="userInfo_setUp.html">设置</a>
             </div>
             <div class="options options_right">
                 <span>粉丝数</span>
@@ -52,88 +52,28 @@
                 <span>关注数</span>
                 <span>123</span>
             </div>
-
         </div>
-
-        <div th:replace="~{user/userInfo_dynamic::userInfo_content}"></div>
-
     </div>
-
 </body>
 
+<script src="../../static/js/jquery-1.11.0.min.js" type="text/javascript"></script>
 <script src="../../static/layui/layui.js" charset="utf-8"></script>
 
-<th:block th:replace="user/userInfo_dynamic::userInfo_js" />
-
-<th:block th:replace="user/index::index_js" />
-
-<script>
-    layui.use('rate', function(){
-        var rate = layui.rate;
-        //渲染
-        var ins1 = rate.render({
-            elem: '.userScore', //绑定元素
-            value: 4.5,
-            half: true,
-            readonly: true,
-            text: true,
-            setText: function(value){ //自定义文本的回调
-                var arrs = {
-                    '1': '惨不忍睹',
-                    '1.5': '惨不忍睹',
-                    '2': '差强人意',
-                    '2.5': '差强人意',
-                    '3': '可以一试',
-                    '3.5': '可以一试',
-                    '4': '佳片推荐',
-                    '4.5': '佳片推荐',
-                    '5': '必看影片',
-                    '5.5': '必看影片'
-                };
-                this.span.text(value+'星 '+' " '+arrs[value]+' " ');
-            }
-        });
-    });
-</script>
-
 <script>
 
-    layui.use('layer', function(){ //独立版的layer无需执行这一句
-        var $ = layui.jquery, layer = layui.layer; //独立版的layer无需执行这一句
+    $(document).ready(function () {
 
-        //触发事件
-        var active = {
-            notice: function(){
-                //示范一个公告层
-                layer.open({
-                    type: 1
-                    ,title: false //不显示标题栏
-                    ,closeBtn: false
-                    ,area: '300px;'
-                    ,shade: [0.6,'#7a7a7b']
-                    ,anim: 2
-                    ,id: 'LAY_layuipro' //设定一个id，防止重复弹出
-                    ,btn: ['删除', '点错了']
-                    ,btnAlign: 'c'
-                    ,moveType: 1 //拖拽模式，0或者1
-                    ,content: '<div style="padding: 50px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;">确定要删除此条动态吗？</div>'
-                    ,success: function(layero){
-                        var btn = layero.find('.layui-layer-btn');
-                        btn.find('.layui-layer-btn0').attr({
-                            href: 'http://www.layui.com/'
-                            ,target: '_blank'
-                        });
-                    }
-                });
-            }
-        };
+        var userInfo = JSON.parse(localStorage.getItem('userInfo'));
+        if (userInfo == null) {
+            userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
+        }
+        const Ip = localStorage.getItem('Ip');
 
-        $('.sc').on('click', function(){
-            var othis = $(this), method = othis.data('method');
-            active[method] ? active[method].call(this, othis) : '';
-        });
+        $('.headImg').css("background-image", "url("+Ip+"/file/images/" + userInfo.id + "/" + userInfo.headImg + ")");
+        $('.userName').text(userInfo.nickName);
+        $('.userIntroduce').text(userInfo.introduce);
 
-    });
+    })
 
 </script>
 

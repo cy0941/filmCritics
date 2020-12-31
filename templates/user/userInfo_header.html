@@ -1,0 +1,75 @@
+<div class="bodyBar">
+    <div class="top">
+        <div class="top_1">
+            <div class="headImg" style="background-image: url(../../static/img/logo.png)"></div>
+            <div class="info_text">
+                <span class="userName">匿名用户</span>
+                <span class="userIntroduce"></span>
+            </div>
+        </div>
+    </div>
+
+    <ul class="navigation">
+        <li class="options_1">
+            <i class="iconfont" style="color: #00c091">&#xe628;</i>
+            <a href="userInfo_dynamic.html">动态</a>
+        </li>
+        <li>
+            <i class="iconfont" style="color: #fb7299">&#xe632;</i>
+            <a href="userInfo_filmCritics.html">影评</a>
+        </li>
+        <li>
+            <i class="iconfont" style="color: #ff5d47">&#xe673;</i>
+            <a href="userInfo_favorite.html">影单</a>
+        </li>
+        <li>
+            <i class="iconfont" style="color: #ffa429">&#xe8fc;</i>
+            <a href="userInfo_films.html">影片</a>
+        </li>
+        <li>
+            <i class="iconfont" style="color: #23c9ed">&#xe7d4;</i>
+            <a href="userInfo_setUp.html">设置</a>
+        </li>
+        <li class="options_right">
+            <span><a href="userInfo_follow.html?type=true">粉丝数</a></span>
+            <span class='fansNub'>845</span>
+        </li>
+        <li class="options_right">
+            <span><a href="userInfo_follow.html?type=false">关注数</a></span>
+            <span class='followNub'>123</span>
+        </li>
+    </ul>
+</div>
+
+<script>
+
+    var userInfo = JSON.parse(localStorage.getItem('userInfo'));
+    if (userInfo == null) {
+        userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
+    }
+
+    const Ip = localStorage.getItem('Ip');
+
+    getUserInfo();
+
+    function getUserInfo() {
+        $.ajax({
+            type: "post",
+            url: Ip + '/user/queryUserInfo?userId=' + userInfo.id,
+            dataType: 'json',
+            timeout: 0,
+            success: function (res) {
+                userInfo = res.data;
+                $('#bodyBar .headImg').css("background-image", "url(" + Ip + "/file/images/" + userInfo.id + "/" + userInfo.headImg + ")");
+                $('#bodyBar .userName').text(userInfo.nickName);
+                $('#bodyBar .userIntroduce').text(userInfo.introduce);
+                $('#bodyBar .fansNub').text(userInfo.fans);
+                $('#bodyBar .followNub').text(userInfo.focus);
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+    }
+
+</script>

@@ -1,0 +1,200 @@
+body{
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff;
+}
+
+.body{
+    /* width: 1156px; */
+    width: 100%;
+    /* margin: 10px auto;
+    padding: 20px; */
+    /* background-color: #ffffff; */
+}
+
+.topBody{
+    width: 100%;
+    height: 300px;
+    padding: 10px 0;
+    
+    /* background-color: #1fc8db;
+    background-image: linear-gradient(141deg,#9fb8ad 0%,#1fc8db 51%,#2cb5e8 75%);
+    color: white; */
+    /* background-image: url(../../img/filmFovBgimg.png); */
+    background-image: url(../../img/bgImg_3.png);
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+}
+
+.favoriteInfo{
+    height: 206px;
+    width: 1156px;
+    margin: 0 auto;
+    color: white;
+    display: flex;
+}
+
+.favoriteInfo>img{
+    height: 206px;
+    width: 330px;
+    border-radius: 3px;
+    -o-object-fit: cover;
+    object-fit: cover;
+}
+
+.favInfo_content{
+    height: 100%;
+    padding: 0 2%;
+    width: calc(96% - 330px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.favInfo_content *{
+    height: 20%;
+    display: flex;
+    align-items: center;
+}
+
+.favInfo_content>h3{
+    font-size: 18px;
+    font-weight: 500;
+    margin: 0;
+    padding: 0;
+}
+
+.favInfo_content>div{
+    width: 100%;
+}
+
+.favInfo_content>div>img{
+    height: 32px;
+    width: 32px;
+    border-radius: 50%;
+    margin-right: 5px;
+    -o-object-fit: cover;
+    object-fit: cover;
+}
+
+.favInfo_content>div>span{
+    font-size: 12px;
+    /* color: #666; */
+}
+
+.favInfo_content>div>i{
+    margin-left: 10%;
+    margin-right: 8px;
+}
+
+.favInfo_content>h4{
+    width: 100%;
+    height: 23%;
+    /* color: #212121; */
+    line-height: 25px;
+    font-size: 13px;
+    font-weight: 400;
+    margin: 2% 0;
+    padding: 0;
+}
+
+.favInfo_content button{
+    height: 30px;
+    width: 150px;
+    background-color: #ffa429;
+    color: white;
+    border: 0;
+    border-radius: 5px;
+    font-size: 12px;
+    outline: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.favInfo_content button i{
+    margin-right: 5px;
+}
+
+.favoriteFilm{
+    /* width: 100%; */
+    width: 1156px;
+    margin: auto;
+    padding: 20px;
+}
+
+.favFilm_content{
+    width: 100%;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap:wrap;
+    margin-top: 30px;
+}
+
+.favFilm_content li{
+    height: 161px;
+    width: 385px;
+    margin-bottom: 30px;
+    display: flex;
+}
+
+.favFilm_content li img{
+    height: 100%;
+    width: 115px;
+    border-radius: 3px;
+    -o-object-fit: cover;
+    object-fit: cover;
+}
+
+.favFilm_content li div{
+    height: 100%;
+    width: calc(100% - 115px - 10px);
+    margin: 0 5px;
+    flex-direction: column;
+}
+
+.favFilm_content li div *{
+    display: flex;
+    align-items: center;
+}
+
+.favFilm_content li div span{
+    height: 16%;
+    width: 100%;
+    font-size: 12px;
+    color: #666;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.favFilm_content li div span i{
+    color: tomato;
+    font-size: 14px;
+}
+
+.favFilm_content li div span:nth-child(1){
+    height: 20%;
+    font-size: 14px;
+    font-weight: 600;
+    color: #212121;
+}
+
+.favFilm_content li div span:nth-child(3){
+    line-height: 25px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+}
+
+.likeOn{
+    background-color: #ccc !important;
+}

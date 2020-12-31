@@ -1,0 +1,80 @@
+body{
+	margin: 0px;
+	padding: 0px;
+	background-color: #f6f6f6;
+}
+
+.header{
+	width: 100%;
+	height: auto;
+	position:fixed; /*绝对定位，fixed是相对于浏览器窗口定位。 */
+    z-index:99;
+    top: 0;
+    background-color: #ffffff;
+    box-shadow: 0 1px 3px rgba(18,18,18,.1);
+}
+
+.layui-nav{
+	width: 1196px;
+	margin: auto;
+	background-color: #ffffff;
+	padding: 0px;
+}
+
+.search{
+	height:34px;
+	width: auto;
+	float:right;
+	margin-right:50px;
+	margin-top: 12px;
+	border-radius:20px;
+	border:#CCC solid 1px;
+}
+
+.search input[type=text]{
+	height:calc(100% - 10px);
+	width:200px;
+	padding:5px 10px;
+	font-size:14px;
+	line-height:24px;
+	border: 0;
+	border-radius: 20px 0 0 20px;
+}
+
+.search button{
+	height:100%;
+	width:50px;
+	font-size:14px;
+	line-height:20px;
+	border: 0;
+	border-radius: 0 20px 20px 0;
+}
+
+.searchContent{
+	width: 275px;
+	position: absolute;
+	top: 50px;
+	right: 460px;
+	z-index: 9999;
+	background-color:#ffffff;
+	border: 1px solid #e5e9ef;
+	box-shadow: 0 2px 4px rgba(0,0,0,.16);
+}
+
+.searchList{
+	width: 100%;
+	padding: 10px 0;
+	margin: 0;
+}
+
+.searchItem{
+	width: calc(100% - 20px);
+	height: 20px;
+	padding: 5px 10px;
+	font-size: 14px;
+	line-height: 20px;
+}
+
+.searchItem:hover{
+	background-color: rgb(227, 227, 227);
+}

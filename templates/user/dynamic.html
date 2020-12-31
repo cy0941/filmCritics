@@ -1,22 +1,28 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    <link href="../../static/css/dynamic.css" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="../../static/layui/css/layui.css"  media="all">
-</head>
-<body>
-    <div class="content">
+    <title>动态中心</title>
+    <link href="../../static/css/user/dynamic.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="../../static/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../static/css/iconfont.css" media="all">
+    <link rel="stylesheet" href="../../static/css/user/header.css" media="all">
 
+</head>
+
+<body>
+    <header></header>
+    <div class="content">
         <div class="content_left">
-            <ul class="menu">
+            <!-- <ul class="menu">
                 <li>全部</li>
                 <li>动态</li>
                 <li>影评</li>
-            </ul>
-            <div class="all">
-                <div class="item">
+            </ul> -->
+            <span class="menu">动态</span>
+            <ul class="all">
+                <!-- <li class="item">
                     <div class="headPortrait">
                         <div style="background-image: url(../../static/img/img1.jpg)"></div>
                     </div>
@@ -44,89 +50,175 @@
                         </div>
                     </div>
                     <span><i class="layui-icon">&#xe671;</i></span>
-                </div>
-            </div>
+                </li> -->
+                <!-- <li>
+                    <div class="headPortrait">
+                        <img src="../../static/img/zhl.png">
+                    </div>
+                    <div class="main_content">
+                        <span>
+                            匿名用户
+                        </span>
+                        <span>
+                            2020.10.28
+                        </span>
+                        <div class="infoContent">
+                            <img src="../../static/img/rsyc.jpg">
+                            <div class="textContent">
+                                <h3>没有人愿意相信：这些不畏生死的英雄后续的命运竟会如此凄惨……</h3>
+                                <div>
+                                    <i class="iconfont">&#xe8f9;</i>
+                                    <span>八佰</span>
+                                    <i class="iconfont">&#xe781;</i>
+                                    <span>4.6K</span>
+                                    <i class="iconfont">&#xe664;</i>
+                                    <span>2020-11-02</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <span><i class="layui-icon">&#xe671;</i></span>
+                </li> -->
+            </ul>
         </div>
 
-        <div class="content_right">
+        <!-- <div class="content_right">
 
-        </div>
+        </div> -->
 
     </div>
 
     <script src="../../static/layui/layui.js" charset="utf-8"></script>
+    <script src="../../static/js/jquery-1.11.0.min.js"></script>
+    <script src="../../static/js/header.js" charset="utf-8"></script>
 
-    <th:block th:fragment="userInfo_js">
-        <script>
-            layui.use('rate', function(){
-                var rate = layui.rate;
-                //渲染
-                var ins1 = rate.render({
-                    elem: '.score', //绑定元素
-                    value: 4.5,
-                    half: true,
-                    readonly: true,
-                    text: true,
-                    setText: function(value){ //自定义文本的回调
-                        var arrs = {
-                            '1': '惨不忍睹',
-                            '1.5': '惨不忍睹',
-                            '2': '差强人意',
-                            '2.5': '差强人意',
-                            '3': '可以一试',
-                            '3.5': '可以一试',
-                            '4': '佳片推荐',
-                            '4.5': '佳片推荐',
-                            '5': '必看影片',
-                            '5.5': '必看影片'
-                        };
-                        this.span.text(value+'星 '+' " '+arrs[value]+' " ');
+    <script>
+        $(document).ready(function () {
+            var userInfo = JSON.parse(localStorage.getItem('userInfo'));
+            if(userInfo==null){
+                userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
+                if(userInfo==null){
+                    alert("请先登录！");
+                    window.location.href = "login.html";
+                }
+            }
+
+            const Ip = localStorage.getItem('Ip');
+
+            var filmReview=[];
+
+            $('.all').on('click','.likeBtn',function(event){
+                event.stopPropagation();
+                var num=parseInt($(this).next().text());
+                //console.log($(this).data("id"))
+                if($(this).hasClass('likeOn')){
+                    $(this).removeClass('likeOn');
+                    $(this).next().text(--num);
+                }else{
+                    $(this).addClass('likeOn');
+                    $(this).next().text(++num);
+                }
+                like($(this).data("id"));
+            })
+
+            $('.all').on('click','li',function(){
+                var jsonStr = JSON.stringify(filmReview[$(this).index()]);
+                sessionStorage.setItem("filmReviewsInfo", jsonStr);
+                window.location.href = "view_filmReviews.html";
+            })
+
+            function like(filmId) {
+                $.ajax({
+                    type: "post",
+                    url: Ip+'/review/praise',
+                    dataType: 'json',
+                    timeout: 0,
+                    data: {
+                        filmId: filmId,
+                        userId: userInfo.id,
+                        sort: 0
+                    },
+                    success: function (res) {
+                        console.log(res)
+                    },
+                    error: function (err) {
+                        console.log(err);
                     }
                 });
-            });
-        </script>
+            }
 
-        <script>
+            function ifLike(filmId) {
+                var flag;
+                $.ajax({
+                    type: "post",
+                    url: Ip+'/review/isPraise',
+                    dataType: 'json',
+                    timeout: 0,
+                    async:false,
+                    data: {
+                        filmId: filmId,
+                        userId: userInfo.id,
+                        sort: 0
+                    },
+                    success: function (res) {
+                        flag=res.data;
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                });
+                return flag;
+            }
 
-            layui.use('layer', function(){ //独立版的layer无需执行这一句
-                var $ = layui.jquery, layer = layui.layer; //独立版的layer无需执行这一句
+            layui.use('flow', function () {
+                var $ = layui.jquery; //不用额外加载jQuery，flow模块本身是有依赖jQuery的，直接用即可。
+                var flow = layui.flow;
+                flow.load({
+                    elem: '.all' //指定列表容器
+                    , done: function (page, next) { //到达临界点（默认滚动触发），触发下一页
 
-                //触发事件
-                var active = {
-                    notice: function(){
-                        //示范一个公告层
-                        layer.open({
-                            type: 1
-                            ,title: false //不显示标题栏
-                            ,closeBtn: false
-                            ,area: '300px;'
-                            ,shade: [0.6,'#7a7a7b']
-                            ,anim: 2
-                            ,id: 'LAY_layuipro' //设定一个id，防止重复弹出
-                            ,btn: ['删除', '点错了']
-                            ,btnAlign: 'c'
-                            ,moveType: 1 //拖拽模式，0或者1
-                            ,content: '<div style="padding: 50px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;">确定要删除此条动态吗？</div>'
-                            ,success: function(layero){
-                                var btn = layero.find('.layui-layer-btn');
-                                btn.find('.layui-layer-btn0').attr({
-                                    href: 'http://www.layui.com/'
-                                    ,target: '_blank'
-                                });
-                            }
+                        var lis = [];
+                        //以jQuery的Ajax请求为例，请求下一页数据（注意：page是从2开始返回）
+                        $.get(Ip+'/review/queryReviewByAttention/'+page+'?userId='+userInfo.id,function (res) {
+                            //假设你的列表返回在data集合中
+                            layui.each(res.data, function (index, value) {
+                                var flag=ifLike(value.id,value);
+                                filmReview.push(value);
+                                lis.push('<li>'+
+                                        '<div class="headPortrait">'+
+                                            '<img src="'+Ip+'/file/images/'+value.userId+"/"+value.headImg+'">'+
+                                        '</div>'+
+                                        '<div class="main_content">'+
+                                            '<span>'+value.nickName+'</span>'+
+                                            '<span>'+value.time+'</span>'+
+                                            '<div class="infoContent">'+
+                                                '<img src="'+Ip+'/file/images/'+value.userId+"/"+value.coverImg+'">'+
+                                                '<div class="textContent">'+
+                                                    '<h3>'+value.title+'</h3>'+
+                                                    '<div>'+
+                                                        '<i class="iconfont likeBtn '+(flag?'likeOn':'')+'" data-id="'+value.id+'">&#xe608;</i>'+
+                                                        '<span class="praise">'+value.praise+'</span>'+
+                                                        '<i class="iconfont">&#xe8f9;</i>'+
+                                                        '<span>'+value.filmName+'</span>'+
+                                                    '</div>'+
+                                                '</div>'+
+                                            '</div>'+
+                                        '</div>'+
+                                        '<span><i class="layui-icon">&#xe671;</i></span>'+
+                                    '</li>');
+                            });
+
+                            //执行下一页渲染，第二参数为：满足“加载更多”的条件，即后面仍有分页
+                            //pages为Ajax返回的总页数，只有当前页小于总页数的情况下，才会继续出现加载更多
+                            next(lis.join(''), res.data != [] && res.data.length > 0);
                         });
                     }
-                };
-
-                $('.sc').on('click', function(){
-                    var othis = $(this), method = othis.data('method');
-                    active[method] ? active[method].call(this, othis) : '';
                 });
-
             });
+        })
 
-        </script>
-    </th:block>
+    </script>
 
 </body>
+
 </html>
